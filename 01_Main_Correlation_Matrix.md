@@ -96,27 +96,9 @@ def splitting_train_test(df):
     return df_train_list, df_test_list
 
 
-def unweighted_random(y_train, y_test):
-    options = y_train.value_counts(normalize=True)
-    y_pred = random.choices(population=list(options.index), k=len(y_test))
-    return y_pred
-
-def weighted_random(y_train, y_test):
-    options = y_train.value_counts()
-    y_pred = random.choices(
-        population=list(options.index), weights=list(options.values), k=len(y_test)
-    )
-    return y_pred
-
-
 wor_dir="/home/mforooshani/Typhoon-Impact-based-forecasting-model-training-5:7/IBF-Typhoon-model/"
 os.chdir(wor_dir)
 cdir = os.getcwd()
-
-# Import functions
-from models.regression.rf_regression_0 import (rf_regression_features,rf_regression_performance,)
-#from models.regression.xgb_regression import (xgb_regression_features,xgb_regression_performance,)
-
 
 combined_input_data=pd.read_csv("Training-data-new/data/model_input/combined_input_data.csv")
 
