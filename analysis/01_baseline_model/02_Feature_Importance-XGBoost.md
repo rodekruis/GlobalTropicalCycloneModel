@@ -6,235 +6,38 @@ The Feature Importance is done according to two different approaches: 1.SHAP val
 feature affects the model and 2.xgboost Built-in Feature Importance(The XGBoost library provides a built-in function to plot features ordered by their importance).
 
 ```python
-#%load_ext autoreload
-#%autoreload 2
+%load_ext jupyter_black
+```
 
+```python
 import matplotlib.pyplot as plt
 import numpy as np
-import random
-from imblearn.over_sampling import SMOTE
-from imblearn.pipeline import Pipeline
-from sklearn.model_selection import StratifiedKFold, GridSearchCV
-from sklearn.metrics import f1_score, precision_score, recall_score
-from xgboost import XGBClassifier
-import os
-from sklearn.feature_selection import RFECV
 import pandas as pd
-from sklearn.model_selection import (
-    GridSearchCV,
-    RandomizedSearchCV,
-    StratifiedKFold,
-    KFold,
-)
-from sklearn.metrics import f1_score, mean_squared_error, mean_absolute_error, max_error
-import numpy as np
-from numpy.lib.function_base import average
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from xgboost.sklearn import XGBRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.metrics import (
-    recall_score,
-    f1_score,
-    precision_score,
-    confusion_matrix,
-    make_scorer,
-)
-from sklearn.model_selection import (
-    GridSearchCV,
-    RandomizedSearchCV,
-    StratifiedKFold,
-    KFold,
-)
-from sklearn.feature_selection import SelectKBest, SequentialFeatureSelector
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from imblearn.over_sampling import SMOTE
-from imblearn.pipeline import Pipeline
-import importlib
-import os
-from sklearn.feature_selection import (
-    SelectKBest,
-    RFE,
-    mutual_info_regression,
-    f_regression,
-    mutual_info_classif,
-)
-from sklearn.preprocessing import RobustScaler
-#import eli5
-#from eli5.sklearn import PermutationImportance
-from sklearn.inspection import permutation_importance
-import xgboost as xgb
-import random
-import pickle
-import openpyxl
-from sklearn.feature_selection import SequentialFeatureSelector
-from sklearn.feature_selection import RFE
-from sklearn.feature_selection import RFECV
-import pickle
-from sklearn import linear_model
-from sklearn.linear_model import LinearRegression
+from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
-#import geopandas as gpd
-import importlib
+import shap
+from xgboost.sklearn import XGBRegressor
 
-
-wor_dir="/home/mforooshani/Typhoon-Impact-based-forecasting-model-training-5:7/IBF-Typhoon-model/"
-os.chdir(wor_dir)
-cdir = os.getcwd()
-
-combined_input_data=pd.read_csv("Training-data-new/data/model_input/combined_input_data.csv")
-
-typhoons_with_impact_data=['bopha2012', 'conson2010', 'durian2006', 'fengshen2008',
-       'fung-wong2014', 'goni2015', 'goni2020', 'hagupit2014',
-       'haima2016', 'haiyan2013', 'jangmi2014', 'kalmaegi2014',
-       'kammuri2019', 'ketsana2009', 'koppu2015', 'krosa2013',
-       'linfa2015', 'lingling2014', 'mangkhut2018', 'mekkhala2015',
-       'melor2015', 'meranti2016', 'molave2020', 'mujigae2015',
-       'nakri2019', 'nari2013', 'nesat2011', 'nock-ten2016', 'noul2015',
-       'phanfone2019', 'rammasun2014', 'sarika2016', 'saudel2020',
-       'tokage2016', 'trami2013', 'usagi2013', 'utor2013', 'vamco2020',
-       'vongfong2020', 'yutu2018']
-
-len(np.unique(combined_input_data.typhoon))
-combined_input_data=combined_input_data[combined_input_data.typhoon.isin(typhoons_with_impact_data)]
-
-
-def set_zeros(x):
-    x_max = 25
-    y_max = 50
-    
-    v_max = x[0]
-    rainfall_max = x[1]
-    damage = x[2]
-    if pd.notnull(damage):
-        value = damage
-    elif v_max > x_max or rainfall_max > y_max:
-        value =damage
-    elif (v_max < np.sqrt((1- (rainfall_max**2/y_max ** 2))*x_max ** 2)):
-        value = 0
-    else:
-        value = np.nan
-
-    return value
-combined_input_data["DAM_perc_dmg"] = combined_input_data[["HAZ_v_max", "HAZ_rainfall_Total", "DAM_perc_dmg"]].apply(set_zeros, axis="columns")
-
-
-np.mean(combined_input_data["DAM_perc_dmg"])
-combined_input_data = combined_input_data[combined_input_data['DAM_perc_dmg'].notnull()]
-np.mean(combined_input_data["DAM_perc_dmg"])
-np.unique(combined_input_data.typhoon)
-
-def cubeic(x):
-    #x=float(x)
-    value=x*x*x
-    return value
-
-combined_input_data['HAZ_v_max_3']=combined_input_data['HAZ_v_max'].apply(lambda x: x*x*x) 
-#display(combined_input_data)
-#combined_input_data.hist(column="DAM_perc_dmg") 
-
-combined_input_data =combined_input_data.filter(['typhoon','HAZ_rainfall_Total', 
-        'HAZ_rainfall_max_6h',
-        'HAZ_rainfall_max_24h',
-        'HAZ_v_max',
-        'HAZ_v_max_3',
-        'HAZ_dis_track_min',
-        'GEN_landslide_per',
-        'GEN_stormsurge_per',
-        'GEN_Bu_p_inSSA', 
-        'GEN_Bu_p_LS', 
-        'GEN_Red_per_LSbldg',
-        'GEN_Or_per_LSblg', 
-        'GEN_Yel_per_LSSAb', 
-        'GEN_RED_per_SSAbldg',
-        'GEN_OR_per_SSAbldg',
-        'GEN_Yellow_per_LSbl',
-        'TOP_mean_slope',
-        'TOP_mean_elevation_m', 
-        'TOP_ruggedness_stdev', 
-        'TOP_mean_ruggedness',
-        'TOP_slope_stdev', 
-        'VUL_poverty_perc',
-        'GEN_with_coast',
-        'GEN_coast_length', 
-        'VUL_Housing_Units',
-        'VUL_StrongRoof_StrongWall', 
-        'VUL_StrongRoof_LightWall',
-        'VUL_StrongRoof_SalvageWall', 
-        'VUL_LightRoof_StrongWall',
-        'VUL_LightRoof_LightWall', 
-        'VUL_LightRoof_SalvageWall',
-        'VUL_SalvagedRoof_StrongWall',
-        'VUL_SalvagedRoof_LightWall',
-        'VUL_SalvagedRoof_SalvageWall', 
-        'VUL_vulnerable_groups',
-        'VUL_pantawid_pamilya_beneficiary', 
-        'DAM_perc_dmg'])
-
-
-features_name = combined_input_data.columns
-#display(features_name)
-
-#Dropping highly correlated features (correlation value > 0.99) from X data.
-features =['HAZ_rainfall_Total', 
-        #'HAZ_rainfall_max_6h',
-        #'HAZ_rainfall_max_24h',
-        'HAZ_v_max',
-        #'HAZ_v_max_3',
-        #'HAZ_dis_track_min',
-        'GEN_landslide_per',
-        'GEN_stormsurge_per',
-        #'GEN_Bu_p_inSSA', 
-        #'GEN_Bu_p_LS', 
-        'GEN_Red_per_LSbldg',
-        'GEN_Or_per_LSblg', 
-        #'GEN_Yel_per_LSSAb', 
-        #'GEN_RED_per_SSAbldg',
-        'GEN_OR_per_SSAbldg',
-        'GEN_Yellow_per_LSbl',
-        'TOP_mean_slope',
-        #'TOP_mean_elevation_m', 
-        #'TOP_ruggedness_stdev', 
-        #'TOP_mean_ruggedness',
-        #'TOP_slope_stdev', 
-        #'VUL_poverty_perc',
-        'GEN_with_coast',
-        'GEN_coast_length', 
-        'VUL_Housing_Units',
-        'VUL_StrongRoof_StrongWall', 
-        #'VUL_StrongRoof_LightWall',
-        'VUL_StrongRoof_SalvageWall', 
-        'VUL_LightRoof_StrongWall',
-        'VUL_LightRoof_LightWall', 
-        'VUL_LightRoof_SalvageWall',
-        'VUL_SalvagedRoof_StrongWall',
-        'VUL_SalvagedRoof_LightWall',
-        'VUL_SalvagedRoof_SalvageWall', 
-        #'VUL_vulnerable_groups',
-        #'VUL_pantawid_pamilya_beneficiary'
-          ]
-
-
-df=combined_input_data.dropna()
-display(df)
-
-
+from utils import get_clean_dataset
 ```
 
 ```python
-#df = df[df.DAM_perc_dmg != 0] 
-#df
+df = get_clean_dataset()
 ```
 
 ```python
-#The Old and New set of bins
-#bins2= [0, 1, 60, 100]
+# df = df[df.DAM_perc_dmg != 0]
+# df
+```
+
+```python
+# The Old and New set of bins
+# bins2= [0, 1, 60, 100]
 bins2 = [0, 0.00009, 1, 10, 50, 100]
-samples_per_bin2, binsP2 = np.histogram(df['DAM_perc_dmg'], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(df["DAM_perc_dmg"], bins=bins2)
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
-plt.plot(binsP2[1:],samples_per_bin2)
+plt.plot(binsP2[1:], samples_per_bin2)
 ```
 
 ```python
@@ -243,16 +46,54 @@ print(binsP2)
 ```
 
 ```python
-bin_index2=np.digitize(df['DAM_perc_dmg'], bins=binsP2)
+bin_index2 = np.digitize(df["DAM_perc_dmg"], bins=binsP2)
 ```
 
 ```python
-y_input_strat=bin_index2
+y_input_strat = bin_index2
 ```
 
 ```python
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
+# Dropping highly correlated features (correlation value > 0.99) from X data.
+# TODO: since this is done in a few places, should be refactored to utils
+features = [
+    "HAZ_rainfall_Total",
+    "HAZ_rainfall_max_6h",
+    "HAZ_rainfall_max_24h",
+    "HAZ_v_max",
+    "HAZ_v_max_3",
+    "HAZ_dis_track_min",
+    "GEN_landslide_per",
+    "GEN_stormsurge_per",
+    #'GEN_Bu_p_inSSA',
+    #'GEN_Bu_p_LS',
+    "GEN_Red_per_LSbldg",
+    "GEN_Or_per_LSblg",
+    "GEN_Yel_per_LSSAb",
+    #'GEN_RED_per_SSAbldg',
+    "GEN_OR_per_SSAbldg",
+    "GEN_Yellow_per_LSbl",
+    "TOP_mean_slope",
+    "TOP_mean_elevation_m",
+    "TOP_ruggedness_stdev",
+    #'TOP_mean_ruggedness',
+    #'TOP_slope_stdev',
+    "VUL_poverty_perc",
+    "GEN_with_coast",
+    "GEN_coast_length",
+    "VUL_Housing_Units",
+    "VUL_StrongRoof_StrongWall",
+    "VUL_StrongRoof_LightWall",
+    "VUL_StrongRoof_SalvageWall",
+    "VUL_LightRoof_StrongWall",
+    "VUL_LightRoof_LightWall",
+    "VUL_LightRoof_SalvageWall",
+    "VUL_SalvagedRoof_StrongWall",
+    "VUL_SalvagedRoof_LightWall",
+    "VUL_SalvagedRoof_SalvageWall",
+    "VUL_vulnerable_groups",
+    "VUL_pantawid_pamilya_beneficiary",
+]
 
 X = df[features]
 display(X.columns)
@@ -262,27 +103,36 @@ scaler = preprocessing.StandardScaler().fit(X)
 X_scaled = scaler.transform(X)
 
 # Split dataset into training set and test set
-X_train, X_test, y_train, y_test = train_test_split(X_scaled,df['DAM_perc_dmg'], stratify=y_input_strat, test_size=0.2, 
-                                                    #random_state=42
-                                                   ) 
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled,
+    df["DAM_perc_dmg"],
+    stratify=y_input_strat,
+    test_size=0.2,
+    # random_state=42
+)
 
 
-#print(X_train.shape, y_train.shape)
-#print(X_test.shape, y_test.shape)
-
+# print(X_train.shape, y_train.shape)
+# print(X_test.shape, y_test.shape)
 ```
 
 ```python
 # create an xgboost regression model
 
-xgb = XGBRegressor(n_estimators=100, max_depth=4, learning_rate=0.1, gamma=1, reg_lambda=0.1, colsample_bytree=0.8 
-                   #,random_state=42
-                  )
-xgb_model=xgb.fit(X_train, y_train)
+xgb = XGBRegressor(
+    n_estimators=100,
+    max_depth=4,
+    learning_rate=0.1,
+    gamma=1,
+    reg_lambda=0.1,
+    colsample_bytree=0.8
+    # ,random_state=42
+)
+xgb_model = xgb.fit(X_train, y_train)
 
 
-#With ReducedOverfitting
-#xgb = XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=0.8,
+# With ReducedOverfitting
+# xgb = XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=0.8,
 #                   colsample_bynode=0.8, colsample_bytree=0.8, gamma=3, eta=0.01,
 #                   importance_type='gain', learning_rate=0.1, max_delta_step=0,
 #                   max_depth=4, min_child_weight=1, missing=1, n_estimators=100, early_stopping_rounds=10,
@@ -290,56 +140,52 @@ xgb_model=xgb.fit(X_train, y_train)
 #                   reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
 #                   silent=None, subsample=0.8, verbosity=1, eval_metric=["rmse", "logloss"])
 
-    
-#eval_set = [(X_test, y_test)]
-#xgb_model=xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 
+# eval_set = [(X_test, y_test)]
+# xgb_model=xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 ```
 
 ```python
-X_train4shapely=pd.DataFrame(data=X_train,columns=features)
+X_train4shapely = pd.DataFrame(data=X_train, columns=features)
 ```
 
 ```python
-import shap
 explainer_xgb = shap.Explainer(xgb_model, X_train4shapely)
 shap_values_xgb = explainer_xgb(X_train4shapely)
-
 ```
 
 ```python
-#Showing Barplot
+# Showing Barplot
 
-#shap.plots.beeswarm(shap_values_xgb.abs, color="shap_red", max_display=20)
-#shap.plots.bar(shap_values_xgb.abs.mean(0), max_display=20)
+# shap.plots.beeswarm(shap_values_xgb.abs, color="shap_red", max_display=20)
+# shap.plots.bar(shap_values_xgb.abs.mean(0), max_display=20)
 
 shap.plots.bar(shap_values_xgb, max_display=20)
 ```
 
 ```python
-#Showing Beeswarm Plot
-shap.plots.beeswarm(shap_values_xgb, max_display=20, #order=shap_values_xgb.abs.max(0)#, color="shap_red"
-                   )
+# Showing Beeswarm Plot
+shap.plots.beeswarm(
+    shap_values_xgb,
+    max_display=20,  # order=shap_values_xgb.abs.max(0)#, color="shap_red"
+)
 ```
 
 ```python
-#Showing Heatmap 
+# Showing Heatmap
 shap.plots.heatmap(shap_values_xgb[:1000])
 ```
 
 ```python
-#Xgboost Built-in Feature Importance
+# Xgboost Built-in Feature Importance
 
-plt.rcParams.update({'figure.figsize': (12.0, 8.0)})
-plt.rcParams.update({'font.size': 10})
+plt.rcParams.update({"figure.figsize": (12.0, 8.0)})
+plt.rcParams.update({"font.size": 10})
 
 sorted_idx = xgb.feature_importances_.argsort()
 plt.barh(X.columns[sorted_idx], xgb.feature_importances_[sorted_idx])
 plt.xlabel("Xgboost Feature Importance")
 ```
-
-import shap explainer = shap.TreeExplainer(xgb) shap_values = explainer.shap_values(X_test)
-shap.summary_plot(shap_values, X_test, plot_type="bar")
 
 ```python
 """
@@ -347,8 +193,4 @@ Showing X data illustrates that 5 highly correlated features with the value high
 before applying feature importance methods on input data.
 """
 X
-```
-
-```python
-
 ```
