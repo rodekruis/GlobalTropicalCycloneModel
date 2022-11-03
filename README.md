@@ -17,10 +17,16 @@ to the `data` directory.
 To execute the notebooks, an installation of Python >=3.7 is required, and
 Python 3.8 is recommended as that's what we've been using for development.
 
-Install the requirements into your environment:
+If using `venv`, create your environment and install the requirements with `pip`:
 
 ```shell
 pip install -r requirements.txt
+```
+
+If using `conda`, create your environment with the `requirements-conda.txt` file:
+
+```shell
+conda create --name global-storm-model --file requirements-conda.txt --channel conda-forg
 ```
 
 ## Development
@@ -42,3 +48,7 @@ pre-commit run --all-files
 It is also recommended to use `jupytext`
 to convert all Jupyter notebooks (`.ipynb`) to Markdown files (`.md`),
 and committing both to version control.
+
+If any additional packages are required, please add them alphabetically
+to both `requirements.txt`
+(with the version number pinned) and `requirements-conda.txt` (with no version number).
