@@ -1,0 +1,12 @@
+jupyter
+jupyter-black
+jupytext
+matplotlib
+numpy
+pandas
+pre-commit
+seaborn
+shap
+scikit-learn
+statsmodels
+xgboost
