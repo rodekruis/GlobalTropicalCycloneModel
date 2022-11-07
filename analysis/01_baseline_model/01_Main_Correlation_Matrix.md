@@ -1,13 +1,13 @@
-<!-- #region -->
+# Main correlation matrix
 
-
-During the feature selection part of the model, we figured out that very different sets of features were chosen 
-in different runs. Hence, a decision was made to search for highly correlated features among all the features 
+During the feature selection part of the model,
+we figured out that very different sets of features were chosen
+in different runs. Hence, a decision was made to search
+or highly correlated features among all the features
 in the dataset.
 
-The following code looks for highly correlated features in the model's input data.
-
-<!-- #endregion -->
+The following code looks for highly correlated features in the
+model's input data.
 
 ```python
 %load_ext jupyter_black
@@ -32,7 +32,9 @@ save_fig = True
 ```
 
 ```python
-output_dir = Path(os.getenv("STORM_DATA_DIR")) / "output/01_baseline_model"
+output_dir = (
+    Path(os.getenv("STORM_DATA_DIR")) / "analysis/01_baseline_model/output"
+)
 ```
 
 ```python
@@ -43,7 +45,8 @@ df = get_clean_dataset()
 
 ```python
 # TODO: This should be run separately
-# The correlation Matrix is also done for the input data where the damage value is greater than 10.
+# The correlation Matrix is also done for the input data where
+# the damage value is greater than 10.
 # df = df[df['DAM_perc_dmg'] > 10]
 # df
 ```
@@ -69,7 +72,8 @@ plt.show()
 ```
 
 ```python
-# get the correlation matrix (creating a square matrix with dimensions equal to the number of features)
+# get the correlation matrix (creating a square matrix
+# with dimensions equal to the number of features)
 # get the absolute value of correlation
 
 fig, ax = plt.subplots()
@@ -80,9 +84,14 @@ plt.rcParams["figure.figsize"] = (48, 48)
 
 sn.set(font_scale=2.5)
 heatmap = sn.heatmap(
-    corrMatrix_abs, annot=True, cbar_kws={"shrink": 0.5}, annot_kws={"size": 16}
+    corrMatrix_abs,
+    annot=True,
+    cbar_kws={"shrink": 0.5},
+    annot_kws={"size": 16},
 )
-heatmap.set_title("Correlation Heatmap (abs)", fontdict={"fontsize": 42}, pad=18)
+heatmap.set_title(
+    "Correlation Heatmap (abs)", fontdict={"fontsize": 42}, pad=18
+)
 
 if save_fig:
     fig.savefig(output_dir / "corr_matrix_abs.png", format="png")
@@ -92,7 +101,9 @@ plt.show()
 
 ```python
 pair = (
-    corrMatrix_abs.where(np.triu(np.ones(corrMatrix_abs.shape), k=1).astype(np.bool))
+    corrMatrix_abs.where(
+        np.triu(np.ones(corrMatrix_abs.shape), k=1).astype(np.bool)
+    )
     .stack()
     .sort_values(ascending=True)
 )
@@ -113,7 +124,9 @@ upper_tri = corrMatrix_abs.where(
 ```python
 drop_value = 0.80
 to_drop = [
-    column for column in upper_tri.columns if any(upper_tri[column] > drop_value)
+    column
+    for column in upper_tri.columns
+    if any(upper_tri[column] > drop_value)
 ]
 print(to_drop)
 ```
@@ -161,10 +174,14 @@ display(df[names])
 
 ```python
 """
-VIF is another method for finding highly correlated features if there is still in existence.
-VIF method, picks each feature and regresses it against all of the other features so VIF value for a feature 
-demonstrates the correlation of that feature in total with all the other ones, and not only with one specific feature.
-Normally if the estimated VIF value for a feature is greater than 7 so it can be considered a highly correlated feature.
+VIF is another method for finding highly correlated features
+if there is still in existence.
+VIF method, picks each feature and regresses it against all of
+the other features so VIF value for a feature
+demonstrates the correlation of that feature in total with all
+the other ones, and not only with one specific feature.
+Normally if the estimated VIF value for a feature is greater
+than 7 so it can be considered a highly correlated feature.
 """
 
 # Implementing VIF
