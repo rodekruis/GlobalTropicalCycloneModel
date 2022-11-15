@@ -14,19 +14,19 @@ Move the directory to a location that suits you,
 and create an environment variable called `$STORM_DATA_DIR` that points
 to the `data` directory.
 
-To execute the notebooks, an installation of Python >=3.7 is required, and
-Python 3.8 is recommended as that's what we've been using for development.
+To execute the notebooks, an installation of Python >=3.8 is required.
 
-If using `venv`, create your environment and install the requirements with `pip`:
+If using `venv`, activate your environment and
+install the requirements with `pip`:
 
 ```shell
 pip install -r requirements.txt
 ```
 
-If using `conda`, create your environment with the `requirements-conda.txt` file:
+If using `conda`, create your environment with the `environment.yml` file:
 
 ```shell
-conda create --name global-storm-model --file requirements-conda.txt --channel conda-forg
+conda env create --file environment.yml
 ```
 
 ## Development
