@@ -1,3 +1,4 @@
+climada==3.2.0
 jupyter==1.0.0
 jupyter-black==0.3.1
 jupytext==1.14.1
