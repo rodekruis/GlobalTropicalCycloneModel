@@ -96,19 +96,19 @@ df_windfield
 index = ["typhoon_name", "typhoon_year", "grid_point_id"]
 object_list = [df_damage, df_windfield]
 
-df_all = pd.concat(
-    objs=[df.set_index(index) for df in object_list], axis=1, join="outer"
+# df_all = pd.concat(
+#    objs=[df.set_index(index) for df in object_list], axis=1, join="outer"
+# )
+
+# For now do a left join to the windfield, since it has the exact points we want
+df_all = df_windfield.set_index(index).merge(
+    df_damage.set_index(index), left_index=True, right_index=True, how="left"
 )
+
 df_all
 ```
 
 ## Clean the dataset
-
-TODO:
-
-- drop rows where wind speed is 0
-- drop rows where total buildings are 0
-- ensure that each unique typhoon has the same grid points
 
 ```python
 df_all.columns
