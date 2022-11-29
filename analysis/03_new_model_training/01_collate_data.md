@@ -108,7 +108,30 @@ df_all = df_windfield.set_index(index).merge(
 df_all
 ```
 
+```python
+# TODO: remove this once the building dataset is fixed
+# Get the number of buildings associated with a gridpoint,
+# and fill in the missing values
+building_number_dict = (
+    df_damage.loc[
+        :,
+        ["grid_point_id", "total_buildings"],
+    ]
+    .set_index("grid_point_id")["total_buildings"]
+    .to_dict()
+)
+
+df_all["total_buildings"] = (
+    df_all.reset_index()["grid_point_id"].map(building_number_dict).values
+)
+df_all
+```
+
 ## Clean the dataset
+
+```python
+df = df_all.fillna(0)
+```
 
 ```python
 df_all.columns
@@ -117,6 +140,8 @@ df_all.columns
 ```python
 # Assume that NAs are all 0s
 df_all = df_all.fillna(0)
+# Drop rows with 0 buildings
+df_all = df_all[df_all["total_buildings"] != 0]
 ```
 
 ```python
@@ -140,10 +165,9 @@ df_all.loc[too_few_buildings, "total_buildings"] = df_all.loc[
 
 ```python
 # Calculate percentage
-# Set NAs to 0, this happens when both values are 0
 df_all["percent_buildings_damaged"] = (
     df_all["total_buildings_damaged"] / df_all["total_buildings"] * 100
-).fillna(0)
+)
 ```
 
 ```python
