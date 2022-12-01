@@ -35,7 +35,7 @@ from sklearn.metrics import mean_squared_error
 ```python
 # Read csv file and import to df
 
-df = pd.read_csv("new_model_training_dataset-2.csv")
+df = pd.read_csv("new_model_training_dataset.csv")
 df
 ```
 
@@ -110,7 +110,11 @@ train_RMSE_list_bin5 = []
 ```
 
 ```python
-features = ["wind_speed", "total_buildings", "total_buildings_damaged"]
+features = [
+    "wind_speed",
+    "total_buildings",
+    # "total_buildings_damaged"
+]
 
 # Split X and y from dataframe features
 X = df[features]
@@ -269,7 +273,7 @@ plt.figure(figsize=(4, 3))
 plt.axvline(m_test_rmse, color="red", linestyle="dashed")
 plt.hist(
     test_RMSE_list,
-    bins=np.arange(3.0, 5.0, 0.12),
+    bins=np.arange(14.0, 16.0, 0.12),
     edgecolor="k",
     histtype="bar",
     density=True,
@@ -281,7 +285,7 @@ m_train_rmse = statistics.mean(train_RMSE_list)
 plt.axvline(m_train_rmse, color="b", linestyle="dashed")
 plt.hist(
     train_RMSE_list,
-    bins=np.arange(3.0, 5.0, 0.12),
+    bins=np.arange(14.0, 16.0, 0.12),
     color="orange",
     edgecolor="k",
     histtype="bar",
@@ -316,7 +320,7 @@ plt.figure(figsize=(4, 3))
 plt.axvline(m_test_rmse, color="red", linestyle="dashed")
 plt.hist(
     test_RMSE_list_bin1,
-    bins=np.arange(1.0, 1.7, 0.04),
+    bins=np.arange(4.5, 6.2, 0.09),
     edgecolor="k",
     histtype="bar",
     density=True,
@@ -328,7 +332,7 @@ m_train_rmse = statistics.mean(train_RMSE_list_bin1)
 plt.axvline(m_train_rmse, color="b", linestyle="dashed")
 plt.hist(
     train_RMSE_list_bin1,
-    bins=np.arange(1.0, 1.7, 0.04),
+    bins=np.arange(4.5, 6.2, 0.09),
     color="orange",
     edgecolor="k",
     histtype="bar",
@@ -361,7 +365,7 @@ plt.figure(figsize=(4, 3))
 plt.axvline(m_test_rmse, color="red", linestyle="dashed")
 plt.hist(
     test_RMSE_list_bin2,
-    bins=np.arange(1.8, 2.5, 0.04),
+    bins=np.arange(7.5, 8.5, 0.06),
     edgecolor="k",
     histtype="bar",
     density=True,
@@ -373,7 +377,7 @@ m_train_rmse = statistics.mean(train_RMSE_list_bin2)
 plt.axvline(m_train_rmse, color="b", linestyle="dashed")
 plt.hist(
     train_RMSE_list_bin2,
-    bins=np.arange(1.8, 2.5, 0.04),
+    bins=np.arange(7.5, 8.5, 0.06),
     color="orange",
     edgecolor="k",
     histtype="bar",
@@ -406,7 +410,7 @@ plt.figure(figsize=(4, 3))
 plt.axvline(m_test_rmse, color="red", linestyle="dashed")
 plt.hist(
     test_RMSE_list_bin3,
-    bins=np.arange(4.0, 5.0, 0.05),
+    bins=np.arange(10.0, 11.7, 0.1),
     edgecolor="k",
     histtype="bar",
     density=True,
@@ -418,7 +422,7 @@ m_train_rmse = statistics.mean(train_RMSE_list_bin3)
 plt.axvline(m_train_rmse, color="b", linestyle="dashed")
 plt.hist(
     train_RMSE_list_bin3,
-    bins=np.arange(4.0, 5.0, 0.05),
+    bins=np.arange(10.0, 11.7, 0.1),
     color="orange",
     edgecolor="k",
     histtype="bar",
@@ -451,7 +455,7 @@ plt.figure(figsize=(4, 3))
 plt.axvline(m_test_rmse, color="red", linestyle="dashed")
 plt.hist(
     test_RMSE_list_bin4,
-    bins=np.arange(7.0, 9.1, 0.1),
+    bins=np.arange(16.0, 17.5, 0.1),
     edgecolor="k",
     histtype="bar",
     density=True,
@@ -463,7 +467,7 @@ m_train_rmse = statistics.mean(train_RMSE_list_bin4)
 plt.axvline(m_train_rmse, color="b", linestyle="dashed")
 plt.hist(
     train_RMSE_list_bin4,
-    bins=np.arange(7.0, 9.1, 0.1),
+    bins=np.arange(16.0, 17.5, 0.1),
     color="orange",
     edgecolor="k",
     histtype="bar",
@@ -496,7 +500,7 @@ plt.figure(figsize=(4, 3))
 plt.axvline(m_test_rmse, color="red", linestyle="dashed")
 plt.hist(
     test_RMSE_list_bin5,
-    bins=np.arange(12.0, 16.0, 0.2),
+    bins=np.arange(65.0, 71.5, 0.4),
     edgecolor="k",
     histtype="bar",
     density=True,
@@ -508,7 +512,7 @@ m_train_rmse = statistics.mean(train_RMSE_list_bin5)
 plt.axvline(m_train_rmse, color="b", linestyle="dashed")
 plt.hist(
     train_RMSE_list_bin5,
-    bins=np.arange(12.0, 16.0, 0.2),
+    bins=np.arange(65.0, 71.5, 0.4),
     color="orange",
     edgecolor="k",
     histtype="bar",
