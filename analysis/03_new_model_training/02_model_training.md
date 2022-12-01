@@ -178,6 +178,21 @@ for i in range(20):
     est2 = est.fit()
     print(est2.summary())
 
+    X2_test = sm.add_constant(X_test)
+
+    y_pred_train_LREG = est2.predict(X2)
+    mse_train_idx_LREG = mean_squared_error(y_train, y_pred_train_LREG)
+    rmse_train_LREG = np.sqrt(mse_train_idx_LREG)
+
+    ypred_LREG = est2.predict(X2_test)
+    mse_idx_LREG = mean_squared_error(y_test, ypred_LREG)
+    rmse_LREG = np.sqrt(mse_idx_LREG)
+
+    print("----- Training ------")
+    print(f"LREG Root mean squared error: {rmse_train_LREG:.2f}")
+    print("----- Test ------")
+    print(f"LREG Root mean squared error: {rmse_LREG:.2f}")
+
     # Calculate RMSE in total
 
     y_pred_train = xgb.predict(X_train)
