@@ -17,7 +17,6 @@ import pandas as pd
 ```
 
 ```python
-input_dir = Path(os.getenv("STORM_DATA_DIR")) / "analysis/02_new_model_input"
 output_dir = (
     Path(os.getenv("STORM_DATA_DIR")) / "analysis/03_new_model_training"
 )
