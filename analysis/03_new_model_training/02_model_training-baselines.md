@@ -88,11 +88,11 @@ y_input_strat = bin_index2
 ```
 
 ```python
-features = ["wind_speed", "total_buildings", "total_buildings_damaged"]
-
 # Split X and y from dataframe features
-X = df[features]
-display(X.columns)
+
+# features = ["wind_speed", "total_buildings", "total_buildings_damaged"]
+# X = df[features]
+# display(X.columns)
 y = df["percent_buildings_damaged"]
 
 scaler = preprocessing.StandardScaler().fit(X)
@@ -101,11 +101,12 @@ X_scaled = scaler.transform(X)
 
 ```python
 # Define train_test_split
-
 X_train, X_test, y_train, y_test = train_test_split(
     X_scaled, df["percent_buildings_damaged"], stratify=y_input_strat, test_size=0.2
 )
+```
 
+```python
 # create a dummy regressor
 dummy_reg = DummyRegressor(strategy="mean")
 
@@ -117,6 +118,34 @@ bin_index_train = np.digitize(y_train, bins=binsP2)
 
 # make predictions on the test set
 y_pred = dummy_reg.predict(X_test)
+y_pred_train = dummy_reg.predict(X_train)
+
+# Estimation of RMSE for train data per each bin
+mse_train_idx1 = mean_squared_error(
+    y_train[bin_index_train == 1], y_pred_train[bin_index_train == 1]
+)
+rmse_train_1 = np.sqrt(mse_train_idx1)
+
+mse_train_idx2 = mean_squared_error(
+    y_train[bin_index_train == 2], y_pred_train[bin_index_train == 2]
+)
+rmse_train_2 = np.sqrt(mse_train_idx2)
+
+mse_train_idx3 = mean_squared_error(
+    y_train[bin_index_train == 3], y_pred_train[bin_index_train == 3]
+)
+rmse_train_3 = np.sqrt(mse_train_idx3)
+
+mse_train_idx4 = mean_squared_error(
+    y_train[bin_index_train == 4], y_pred_train[bin_index_train == 4]
+)
+rmse_train_4 = np.sqrt(mse_train_idx4)
+
+mse_train_idx5 = mean_squared_error(
+    y_train[bin_index_train == 5], y_pred_train[bin_index_train == 5]
+)
+rmse_train_5 = np.sqrt(mse_train_idx5)
+
 
 # Estimation of RMSE for test data per each bin
 mse_idx1 = mean_squared_error(y_test[bin_index_test == 1], y_pred[bin_index_test == 1])
@@ -134,11 +163,25 @@ rmse_4 = np.sqrt(mse_idx4)
 mse_idx5 = mean_squared_error(y_test[bin_index_test == 5], y_pred[bin_index_test == 5])
 rmse_5 = np.sqrt(mse_idx5)
 
-print("Dummy RMSE per bin_1:", rmse_1)
-print("Dummy RMSE per bin_2:", rmse_2)
-print("Dummy RMSE per bin_3:", rmse_3)
-print("Dummy RMSE per bin_4:", rmse_4)
-print("Dummy RMSE per bin_5:", rmse_5)
+print("bin_1")
+print(f"Dummy_RMSE_test per bin_1: {rmse_1:.2f}")
+print(f"Dummy_RMSE_train per bin_1: {rmse_train_1:.2f}", "\n")
+
+print("bin_2")
+print(f"Dummy_RMSE_test per bin_2: {rmse_2:.2f}")
+print(f"Dummy_RMSE_train per bin_2: {rmse_train_2:.2f}", "\n")
+
+print("bin_3")
+print(f"Dummy_RMSE_test per bin_3: {rmse_3:.2f}")
+print(f"Dummy_RMSE_train per bin_3: {rmse_train_3:.2f}", "\n")
+
+print("bin_4")
+print(f"Dummy_RMSE_test per bin_4: {rmse_4:.2f}")
+print(f"Dummy_RMSE_train per bin_4: {rmse_train_4:.2f}", "\n")
+
+print("bin_5")
+print(f"Dummy_RMSE_test per bin_5: {rmse_5:.2f}")
+print(f"Dummy_RMSE_train per bin_5: {rmse_train_5:.2f}")
 ```
 
 ```python
@@ -150,12 +193,16 @@ dummy_reg.fit(X_train, y_train)
 
 # make predictions on the test set
 y_pred = dummy_reg.predict(X_test)
+y_pred_train = dummy_reg.predict(X_train)
 
 # calculate root mean squared error
 mse = mean_squared_error(y_test, y_pred)
-
 rmse = np.sqrt(mse)
-print("Dummy RMSE:", rmse)
+print(f"Dummy_RMSE_test: {rmse:.2f}")
+
+mse_train = mean_squared_error(y_train, y_pred_train)
+rmse_train = np.sqrt(mse_train)
+print(f"Dummy_RMSE_train: {rmse_train:.2f}")
 ```
 
 ```python
