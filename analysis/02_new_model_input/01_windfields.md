@@ -95,9 +95,15 @@ cent.plot();
 ```
 
 ```python
-# Construct tropical cyclones,
-# takes a minute to run
-tc = TropCyclone.from_tracks(tc_tracks, centroids=cent, store_windfields=True)
+help(TropCyclone.from_tracks)
+```
+
+```python
+# Consider wind speeds lower than 17.5, which is the
+# division between a TD and a TS.
+tc = TropCyclone.from_tracks(
+    tc_tracks, centroids=cent, store_windfields=True, intensity_thres=0
+)
 ```
 
 ```python
