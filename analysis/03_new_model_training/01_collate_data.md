@@ -73,6 +73,7 @@ columns_to_keep = [
     "typhoon_year",
     "grid_point_id",
     "wind_speed",
+    "track_distance",
 ]
 df_windfield = df_windfield.loc[:, columns_to_keep]
 df_windfield
