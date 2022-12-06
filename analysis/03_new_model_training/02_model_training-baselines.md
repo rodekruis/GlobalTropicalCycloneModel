@@ -90,8 +90,8 @@ y_input_strat = bin_index2
 ```python
 # Split X and y from dataframe features
 
-# features = ["wind_speed", "total_buildings", "total_buildings_damaged"]
-# X = df[features]
+features = ["wind_speed", "total_buildings", "total_buildings_damaged"]
+X = df[features]
 # display(X.columns)
 y = df["percent_buildings_damaged"]
 
