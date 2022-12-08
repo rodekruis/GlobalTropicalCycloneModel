@@ -2,7 +2,6 @@
 
 It is used to observe how the two variables are related to each other.
 
-
 ```python
 %load_ext jupyter_black
 ```
@@ -11,24 +10,18 @@ It is used to observe how the two variables are related to each other.
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+
+from utils import get_training_dataset
 ```
 
 ```python
 # Read csv file and import to df
-
-df = pd.read_csv("new_model_training_dataset.csv")
-df.head()
+df = get_training_dataset()
 ```
 
 ```python
 # Remove zeros from wind_speed
 df = df[(df[["wind_speed"]] != 0).any(axis=1)]
-# df.head()
-```
-
-```python
-# df.plot.scatter(x="wind_speed", y="total_buildings", c="DarkBlue")
-# df["wind_speed"].rolling(window=500).mean().plot()
 ```
 
 ```python
@@ -66,7 +59,9 @@ rolling_wind = (
 )
 
 wind = df.sort_values("wind_speed").reset_index(drop=True)["wind_speed"]
-track_dis = df.sort_values("wind_speed").reset_index(drop=True)["track_distance"]
+track_dis = df.sort_values("wind_speed").reset_index(drop=True)[
+    "track_distance"
+]
 
 plt.xlabel("wind_speed")
 plt.ylabel("track_distance")
@@ -90,7 +85,9 @@ rolling_tot_buildings = (
 tot_buildings = df.sort_values("total_buildings").reset_index(drop=True)[
     "total_buildings"
 ]
-track_dis = df.sort_values("total_buildings").reset_index(drop=True)["track_distance"]
+track_dis = df.sort_values("total_buildings").reset_index(drop=True)[
+    "track_distance"
+]
 
 plt.xlabel("total_buildings")
 plt.ylabel("track_distance")
@@ -101,7 +98,7 @@ plt.title("total_buildings and track_distance")
 plt.xscale("log")
 ```
 
-# How each varriable is relared to target
+## How each varriable is relared to target
 
 ```python
 # wind_speed and percent_buildings_damaged
@@ -171,7 +168,9 @@ rolling_track_distance = (
     .mean()
 )
 
-track_dis = df.sort_values("track_distance").reset_index(drop=True)["track_distance"]
+track_dis = df.sort_values("track_distance").reset_index(drop=True)[
+    "track_distance"
+]
 dam_buildings = df.sort_values("track_distance").reset_index(drop=True)[
     "percent_buildings_damaged"
 ]

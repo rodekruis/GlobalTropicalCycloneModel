@@ -1,8 +1,10 @@
 # Model training
 
 The input data is prepared by joining the calculated windfield with damaged values.
-Subsampling is done by dropping those rows where the windspeed is 0, the the data stratification is done on damaged values.
-The XGBoost Reduced Over fitting model, was trained on this prepared input data with gridcells.
+Subsampling is done by dropping those rows where the windspeed is 0,
+the the data stratification is done on damaged values.
+The XGBoost Reduced Over fitting model, was trained on this
+prepared input data with gridcells.
 The RMSE calculated in total and per each bin.
 
 ```python
@@ -10,33 +12,24 @@ The RMSE calculated in total and per each bin.
 ```
 
 ```python
-from utils import get_training_dataset
-```
-
-```python
-# df = get_training_dataset()
-# df
-```
-
-```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import statistics
 
 from sklearn import preprocessing
 from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import train_test_split
-import statsmodels.api as sm
-from xgboost.sklearn import XGBRegressor
 from sklearn.metrics import mean_squared_error
+from xgboost.sklearn import XGBRegressor
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+from utils import get_training_dataset
 ```
 
 ```python
 # Read csv file and import to df
-
-df = pd.read_csv("new_model_training_dataset.csv")
-df
+df = get_training_dataset()
 ```
 
 ```python
@@ -47,7 +40,9 @@ df.hist(column="percent_buildings_damaged", figsize=(4, 3))
 ```python
 # Hist plot after data stratification
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(
+    df["percent_buildings_damaged"], bins=bins2
+)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -70,7 +65,9 @@ df
 ```python
 # Hist plot after removing rows where windspeed is 0
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(
+    df["percent_buildings_damaged"], bins=bins2
+)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -135,7 +132,10 @@ X_scaled = scaler.transform(X)
 
 for i in range(20):
     X_train, X_test, y_train, y_test = train_test_split(
-        X_scaled, df["percent_buildings_damaged"], stratify=y_input_strat, test_size=0.2
+        X_scaled,
+        df["percent_buildings_damaged"],
+        stratify=y_input_strat,
+        test_size=0.2,
     )
 
     # XGBoost Reduced Overfitting
@@ -283,7 +283,7 @@ for i in range(20):
     test_RMSE_list_bin5.append(rmse_5)
 ```
 
-# Plot RMSE in total
+## Plot RMSE in total
 
 ```python
 # RMSE in total
@@ -330,7 +330,7 @@ plt.title("histogram of the RMSE distribution")
 plt.show()
 ```
 
-# Plot RMSE per bins
+## Plot RMSE per bins
 
 ```python
 # RMSE of bins_1
@@ -558,8 +558,4 @@ plt.xlabel("The RMSE error")
 plt.ylabel("Frequency")
 plt.title("histogram of the RMSE distribution (bin5)")
 plt.show()
-```
-
-```python
-
 ```

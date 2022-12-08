@@ -27,10 +27,7 @@ output_dir = (
 
 ```python
 # Read in the building damage data
-filename = (
-    input_dir
-    / "02_housing_damage/output/percentage_building_damage_bygrid.csv"
-)
+filename = input_dir / "02_housing_damage/output/building_damage_bygrid.csv"
 
 df_damage = pd.read_csv(filename)
 df_damage.columns
@@ -41,7 +38,7 @@ df_damage.columns
 # drop any rows that don't have a typhoon name
 columns_to_keep = {
     "id": "grid_point_id",
-    "NUMPOINTS": "total_buildings",
+    "numbuildings_bygrid": "total_buildings",
     "typhoon": "typhoon_name",
     "Year": "typhoon_year",
     "Totally_Damaged_bygrid": "total_buildings_damaged",
@@ -55,15 +52,6 @@ df_damage = (
 df_damage["typhoon_name"] = df_damage["typhoon_name"].str.upper()
 df_damage["typhoon_year"] = df_damage["typhoon_year"].astype(int)
 
-df_damage
-```
-
-```python
-# TODO: remove this step once damage data has been cleaned
-index = ["typhoon_name", "typhoon_year", "grid_point_id"]
-df_damage = df_damage.set_index(index)
-df_damage = df_damage.loc[~df_damage.index.duplicated(keep="first")]
-df_damage = df_damage.reset_index()
 df_damage
 ```
 
@@ -85,6 +73,7 @@ columns_to_keep = [
     "typhoon_year",
     "grid_point_id",
     "wind_speed",
+    "track_distance",
 ]
 df_windfield = df_windfield.loc[:, columns_to_keep]
 df_windfield
@@ -96,19 +85,42 @@ df_windfield
 index = ["typhoon_name", "typhoon_year", "grid_point_id"]
 object_list = [df_damage, df_windfield]
 
-df_all = pd.concat(
-    objs=[df.set_index(index) for df in object_list], axis=1, join="outer"
+# df_all = pd.concat(
+#    objs=[df.set_index(index) for df in object_list], axis=1, join="outer"
+# )
+
+# For now do a left join to the windfield, since it has the exact points we want
+df_all = df_windfield.set_index(index).merge(
+    df_damage.set_index(index), left_index=True, right_index=True, how="left"
+)
+
+df_all
+```
+
+```python
+# TODO: remove this once the building dataset is fixed
+# Get the number of buildings associated with a gridpoint,
+# and fill in the missing values
+building_number_dict = (
+    df_damage.loc[
+        :,
+        ["grid_point_id", "total_buildings"],
+    ]
+    .set_index("grid_point_id")["total_buildings"]
+    .to_dict()
+)
+
+df_all["total_buildings"] = (
+    df_all.reset_index()["grid_point_id"].map(building_number_dict).values
 )
 df_all
 ```
 
 ## Clean the dataset
 
-TODO:
-
-- drop rows where wind speed is 0
-- drop rows where total buildings are 0
-- ensure that each unique typhoon has the same grid points
+```python
+df = df_all.fillna(0)
+```
 
 ```python
 df_all.columns
@@ -117,6 +129,8 @@ df_all.columns
 ```python
 # Assume that NAs are all 0s
 df_all = df_all.fillna(0)
+# Drop rows with 0 buildings
+df_all = df_all[df_all["total_buildings"] != 0]
 ```
 
 ```python
@@ -140,10 +154,10 @@ df_all.loc[too_few_buildings, "total_buildings"] = df_all.loc[
 
 ```python
 # Calculate percentage
-# Set NAs to 0, this happens when both values are 0
 df_all["percent_buildings_damaged"] = (
     df_all["total_buildings_damaged"] / df_all["total_buildings"] * 100
-).fillna(0)
+)
+df_all = df_all.drop(columns="total_buildings_damaged")
 ```
 
 ```python
