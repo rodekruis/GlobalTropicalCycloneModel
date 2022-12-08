@@ -12,6 +12,7 @@ from pathlib import Path
 import os
 
 from climada.hazard import Centroids, TCTracks, TropCyclone
+from shapely.geometry import LineString
 import geopandas as gpd
 import numpy as np
 import pandas as pd
@@ -19,6 +20,7 @@ import xarray as xr
 ```
 
 ```python
+DEG_TO_KM = 111.1  # Convert 1 degree to km
 input_dir = Path(os.getenv("STORM_DATA_DIR")) / "analysis/02_new_model_input"
 ```
 
@@ -95,10 +97,6 @@ cent.plot();
 ```
 
 ```python
-help(TropCyclone.from_tracks)
-```
-
-```python
 # Consider wind speeds lower than 17.5, which is the
 # division between a TD and a TS.
 tc = TropCyclone.from_tracks(
@@ -124,21 +122,35 @@ save it in a dataframe along with the grid points
 df_windfield = pd.DataFrame()
 
 for intensity_sparse, event_id in zip(tc.intensity, tc.event_name):
+    # Get the windfield
     windfield = intensity_sparse.toarray().flatten()
     npoints = len(windfield)
     typhoon_info = typhoons_df[typhoons_df["typhoon_id"] == event_id]
+    # Get the track distance
+    tc_track = tc_tracks.get_track(track_name=event_id)
+    tc_track_line = LineString(gpd.points_from_xy(tc_track.lon, tc_track.lat))
+    # TODO: Not sure that curvature is taken into account in this
+    # calculation, i.e. might be missing cos(lat) term. Since we're
+    # close to the equator in this case it doesn't matter.
+    tc_track_distance = gdf["geometry"].apply(
+        lambda point: point.distance(tc_track_line) * DEG_TO_KM
+    )
+    # Add to DF
     df_to_add = pd.DataFrame(
         dict(
             typhoon_id=[event_id] * npoints,
             typhoon_name=[typhoon_info["typhoon_name"].values[0]] * npoints,
             typhoon_year=[typhoon_info["typhoon_year"].values[0]] * npoints,
-            wind_speed=windfield,
             grid_point_id=gdf["id"],
+            wind_speed=windfield,
+            track_distance=tc_track_distance,
         )
     )
     df_windfield = pd.concat([df_windfield, df_to_add], ignore_index=True)
 df_windfield
 ```
+
+## Sanity checks
 
 ```python
 # Check that that the grid points match for the example typhoon.
@@ -147,6 +159,13 @@ df_example = df_windfield[df_windfield["typhoon_id"] == example_typhoon_id]
 gdf_example = gdf.merge(df_example, left_on="id", right_on="grid_point_id")
 gdf_example.plot(c=gdf_example["wind_speed"])
 ```
+
+```python
+# Plot wind speed against track distance
+df_windfield.plot.scatter("track_distance", "wind_speed")
+```
+
+## Save everything
 
 ```python
 # Save df as a csv file
