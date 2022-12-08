@@ -11,8 +11,11 @@ To use this repository, download or sync the `data` directory from
 [this URL](https://drive.google.com/drive/folders/15e5BPkhECGeKTObdJIuixICMqhPhVyPK?usp=sharing)
 
 Move the directory to a location that suits you,
-and create an environment variable called `$STORM_DATA_DIR` that points
-to the `data` directory.
+and create an environment variable called `STORM_DATA_DIR` that points
+to the `data` directory. If for some reason using an environment
+variable doesn't work for you, then you'll need to replace each instance
+of `os.getenv("STORM_DATA_DIR")` with a string denoting the full path to the
+`data` directory.
 
 To execute the notebooks, an installation of Python >=3.8 is required.
 
