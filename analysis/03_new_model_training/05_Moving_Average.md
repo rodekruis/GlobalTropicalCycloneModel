@@ -52,7 +52,7 @@ features = [
 ]
 ```
 
-## Call the function wtr those features you are interested in their correlation's plot
+## Call the function wrt those features you are interested in their running average's plot
 
 ```python
 ave(features[2], features[0])
