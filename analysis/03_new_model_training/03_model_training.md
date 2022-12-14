@@ -1,10 +1,8 @@
 # Model training
 
 The input data is prepared by joining the calculated windfield with damaged values.
-Subsampling is done by dropping those rows where the windspeed is 0,
-the the data stratification is done on damaged values.
-The XGBoost Reduced Over fitting model, was trained on this
-prepared input data with gridcells.
+Subsampling is done by dropping those rows where the windspeed is 0, the the data stratification is done on damaged values.
+The XGBoost Reduced Over fitting model, was trained on this prepared input data with gridcells.
 The RMSE calculated in total and per each bin.
 
 ```python
@@ -19,10 +17,13 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from xgboost.sklearn import XGBRegressor
+from sklearn.dummy import DummyRegressor
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import colorama
+from colorama import Fore
 
 from utils import get_training_dataset
 ```
@@ -40,9 +41,7 @@ df.hist(column="percent_buildings_damaged", figsize=(4, 3))
 ```python
 # Hist plot after data stratification
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(
-    df["percent_buildings_damaged"], bins=bins2
-)
+samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -57,17 +56,14 @@ df["percent_buildings_damaged"].value_counts(bins=binsP2)
 ```python
 # Remove zeros from wind_speed
 df = df[(df[["wind_speed"]] != 0).any(axis=1)]
-
 df = df.drop(columns=["grid_point_id", "typhoon_year"])
-df
+df.head()
 ```
 
 ```python
 # Hist plot after removing rows where windspeed is 0
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(
-    df["percent_buildings_damaged"], bins=bins2
-)
+samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -132,10 +128,7 @@ X_scaled = scaler.transform(X)
 
 for i in range(20):
     X_train, X_test, y_train, y_test = train_test_split(
-        X_scaled,
-        df["percent_buildings_damaged"],
-        stratify=y_input_strat,
-        test_size=0.2,
+        X_scaled, df["percent_buildings_damaged"], stratify=y_input_strat, test_size=0.2
     )
 
     # XGBoost Reduced Overfitting
@@ -283,279 +276,74 @@ for i in range(20):
     test_RMSE_list_bin5.append(rmse_5)
 ```
 
+```python
+# Define a function to plot RMSEs
+def rmse_bin_plot(te_rmse, tr_rmse, min_rg, max_rg, step):
+
+    m_test_rmse = statistics.mean(te_rmse)
+    plt.figure(figsize=(4, 3))
+    plt.axvline(m_test_rmse, color="red", linestyle="dashed")
+    plt.hist(
+        te_rmse,
+        bins=np.arange(min_rg, max_rg, step),
+        edgecolor="k",
+        histtype="bar",
+        density=True,
+    )
+    sd_test_rmse = statistics.stdev(te_rmse)
+
+    m_train_rmse = statistics.mean(tr_rmse)
+    plt.axvline(m_train_rmse, color="b", linestyle="dashed")
+    plt.hist(
+        tr_rmse,
+        bins=np.arange(min_rg, max_rg, step),
+        color="orange",
+        edgecolor="k",
+        histtype="bar",
+        density=True,
+        alpha=0.7,
+    )
+    sd_train_rmse = statistics.stdev(tr_rmse)
+
+    print(Fore.RED)
+    print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
+    print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
+
+    print(f"mean_RMSE_test: {m_test_rmse:.2f}")
+    print(f"mean_RMSE_train: {m_train_rmse:.2f}")
+
+    # create legend
+    labels = ["Mean_test", "Mean_train", "test", "train"]
+    plt.legend(labels)
+
+    plt.xlabel("The RMSE error")
+    plt.ylabel("Frequency")
+    plt.title("histogram of the RMSE distribution")
+    plt.show()
+```
+
 ## Plot RMSE in total
 
 ```python
-# RMSE in total
-
-m_test_rmse = statistics.mean(test_RMSE_list)
-plt.figure(figsize=(4, 3))
-plt.axvline(m_test_rmse, color="red", linestyle="dashed")
-plt.hist(
-    test_RMSE_list,
-    bins=np.arange(12.0, 14.0, 0.12),
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-)
-sd_test_rmse = statistics.stdev(test_RMSE_list)
-
-
-m_train_rmse = statistics.mean(train_RMSE_list)
-plt.axvline(m_train_rmse, color="b", linestyle="dashed")
-plt.hist(
-    train_RMSE_list,
-    bins=np.arange(12.0, 14.0, 0.12),
-    color="orange",
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-    alpha=0.7,
-)
-sd_train_rmse = statistics.stdev(train_RMSE_list)
-
-print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
-print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
-
-print(f"mean_RMSE_test: {m_test_rmse:.2f}")
-print(f"mean_RMSE_train: {m_train_rmse:.2f}")
-
-# create legend
-labels = ["Mean_test", "Mean_train", "test", "train"]
-plt.legend(labels)
-
-plt.xlabel("The RMSE error")
-plt.ylabel("Frequency")
-plt.title("histogram of the RMSE distribution")
-plt.show()
+print("RMSE in total", "\n")
+rmse_bin_plot(test_RMSE_list, train_RMSE_list, 12.0, 14.0, 0.12)
 ```
 
-## Plot RMSE per bins
+## Plot RMSE per bin
 
 ```python
-# RMSE of bins_1
-
-m_test_rmse = statistics.mean(test_RMSE_list_bin1)
-plt.figure(figsize=(4, 3))
-# plt.ylim(0.00, 0.55)
-plt.axvline(m_test_rmse, color="red", linestyle="dashed")
-plt.hist(
-    test_RMSE_list_bin1,
-    bins=np.arange(3.5, 4.5, 0.07),
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-)
-sd_test_rmse = statistics.stdev(test_RMSE_list_bin1)
-
-
-m_train_rmse = statistics.mean(train_RMSE_list_bin1)
-plt.axvline(m_train_rmse, color="b", linestyle="dashed")
-plt.hist(
-    train_RMSE_list_bin1,
-    bins=np.arange(3.5, 4.5, 0.07),
-    color="orange",
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-    alpha=0.7,
-)
-sd_train_rmse = statistics.stdev(train_RMSE_list_bin1)
-
-print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
-print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
-
-print(f"mean_RMSE_test: {m_test_rmse:.2f}")
-print(f"mean_RMSE_train: {m_train_rmse:.2f}")
-
-# create legend
-labels = ["Mean_test", "Mean_train", "test", "train"]
-plt.legend(labels)
-
-plt.xlabel("The RMSE error")
-plt.ylabel("Frequency")
-plt.title("histogram of the RMSE distribution (bin1)")
-plt.show()
+print("RMSE per bin 1", "\n")
+rmse_bin_plot(test_RMSE_list_bin1, train_RMSE_list_bin1, 3.5, 4.5, 0.07)
+print("RMSE per bin 2", "\n")
+rmse_bin_plot(test_RMSE_list_bin2, train_RMSE_list_bin2, 8.0, 9.5, 0.09)
+print("RMSE per bin 3", "\n")
+rmse_bin_plot(test_RMSE_list_bin3, train_RMSE_list_bin3, 12.5, 14.5, 0.12)
+print("RMSE per bin 4", "\n")
+rmse_bin_plot(test_RMSE_list_bin4, train_RMSE_list_bin4, 18.5, 21.0, 0.17)
+print("RMSE per bin 5", "\n")
+rmse_bin_plot(test_RMSE_list_bin5, train_RMSE_list_bin5, 61.0, 66.0, 0.3)
 ```
 
 ```python
-# RMSE of bins_2
 
-m_test_rmse = statistics.mean(test_RMSE_list_bin2)
-plt.figure(figsize=(4, 3))
-# plt.ylim(0.00, 0.55)
-plt.axvline(m_test_rmse, color="red", linestyle="dashed")
-plt.hist(
-    test_RMSE_list_bin2,
-    bins=np.arange(8.0, 9.5, 0.09),
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-)
-sd_test_rmse = statistics.stdev(test_RMSE_list_bin2)
-
-
-m_train_rmse = statistics.mean(train_RMSE_list_bin2)
-plt.axvline(m_train_rmse, color="b", linestyle="dashed")
-plt.hist(
-    train_RMSE_list_bin2,
-    bins=np.arange(8.0, 9.5, 0.09),
-    color="orange",
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-    alpha=0.7,
-)
-sd_train_rmse = statistics.stdev(train_RMSE_list_bin2)
-
-print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
-print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
-
-print(f"mean_RMSE_test: {m_test_rmse:.2f}")
-print(f"mean_RMSE_train: {m_train_rmse:.2f}")
-
-# create legend
-labels = ["Mean_test", "Mean_train", "test", "train"]
-plt.legend(labels)
-
-plt.xlabel("The RMSE error")
-plt.ylabel("Frequency")
-plt.title("histogram of the RMSE distribution (bin2)")
-plt.show()
-```
-
-```python
-# RMSE of bins_3
-
-m_test_rmse = statistics.mean(test_RMSE_list_bin3)
-plt.figure(figsize=(4, 3))
-# plt.ylim(0.00, 0.55)
-plt.axvline(m_test_rmse, color="red", linestyle="dashed")
-plt.hist(
-    test_RMSE_list_bin3,
-    bins=np.arange(12.5, 14.5, 0.12),
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-)
-sd_test_rmse = statistics.stdev(test_RMSE_list_bin3)
-
-
-m_train_rmse = statistics.mean(train_RMSE_list_bin3)
-plt.axvline(m_train_rmse, color="b", linestyle="dashed")
-plt.hist(
-    train_RMSE_list_bin3,
-    bins=np.arange(12.5, 14.5, 0.12),
-    color="orange",
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-    alpha=0.7,
-)
-sd_train_rmse = statistics.stdev(train_RMSE_list_bin3)
-
-print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
-print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
-
-print(f"mean_RMSE_test: {m_test_rmse:.2f}")
-print(f"mean_RMSE_train: {m_train_rmse:.2f}")
-
-# create legend
-labels = ["Mean_test", "Mean_train", "test", "train"]
-plt.legend(labels)
-
-plt.xlabel("The RMSE error")
-plt.ylabel("Frequency")
-plt.title("histogram of the RMSE distribution (bin3)")
-plt.show()
-```
-
-```python
-# RMSE of bins_4
-
-m_test_rmse = statistics.mean(test_RMSE_list_bin4)
-plt.figure(figsize=(4, 3))
-plt.axvline(m_test_rmse, color="red", linestyle="dashed")
-plt.hist(
-    test_RMSE_list_bin4,
-    bins=np.arange(18.5, 21.0, 0.17),
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-)
-sd_test_rmse = statistics.stdev(test_RMSE_list_bin4)
-
-
-m_train_rmse = statistics.mean(train_RMSE_list_bin4)
-plt.axvline(m_train_rmse, color="b", linestyle="dashed")
-plt.hist(
-    train_RMSE_list_bin4,
-    bins=np.arange(18.5, 21.0, 0.17),
-    color="orange",
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-    alpha=0.7,
-)
-sd_train_rmse = statistics.stdev(train_RMSE_list_bin4)
-
-print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
-print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
-
-print(f"mean_RMSE_test: {m_test_rmse:.2f}")
-print(f"mean_RMSE_train: {m_train_rmse:.2f}")
-
-# create legend
-labels = ["Mean_test", "Mean_train", "test", "train"]
-plt.legend(labels)
-
-plt.xlabel("The RMSE error")
-plt.ylabel("Frequency")
-plt.title("histogram of the RMSE distribution (bin4)")
-plt.show()
-```
-
-```python
-# RMSE of bins_5
-
-m_test_rmse = statistics.mean(test_RMSE_list_bin5)
-plt.figure(figsize=(4, 3))
-plt.axvline(m_test_rmse, color="red", linestyle="dashed")
-plt.hist(
-    test_RMSE_list_bin5,
-    bins=np.arange(61.0, 66.0, 0.3),
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-)
-sd_test_rmse = statistics.stdev(test_RMSE_list_bin5)
-
-
-m_train_rmse = statistics.mean(train_RMSE_list_bin5)
-plt.axvline(m_train_rmse, color="b", linestyle="dashed")
-plt.hist(
-    train_RMSE_list_bin5,
-    bins=np.arange(61.0, 66.0, 0.3),
-    color="orange",
-    edgecolor="k",
-    histtype="bar",
-    density=True,
-    alpha=0.7,
-)
-sd_train_rmse = statistics.stdev(train_RMSE_list_bin5)
-
-print(f"stdev_RMSE_test: {sd_test_rmse:.2f}")
-print(f"stdev_RMSE_train: {sd_train_rmse:.2f}")
-
-print(f"mean_RMSE_test: {m_test_rmse:.2f}")
-print(f"mean_RMSE_train: {m_train_rmse:.2f}")
-
-# create legend
-labels = ["Mean_test", "Mean_train", "test", "train"]
-plt.legend(labels)
-
-plt.xlabel("The RMSE error")
-plt.ylabel("Frequency")
-plt.title("histogram of the RMSE distribution (bin5)")
-plt.show()
 ```
