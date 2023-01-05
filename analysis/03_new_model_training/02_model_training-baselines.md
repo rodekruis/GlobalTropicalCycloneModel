@@ -1,7 +1,8 @@
 # Model training
 
-Baseline is the simplest algorithm that provides predictions without complex computations.
-For regression tasks, the Baseline returns the average of the target from training data.
+Baseline is the simplest algorithm that provides predictions
+without complex computations. For regression tasks, the Baseline
+returns the average of the target from training data.
 
 ```python
 %load_ext jupyter_black
@@ -21,7 +22,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-from utils import get_training_dataset
+from utils import get_training_dataset, RS_BASE
 ```
 
 ```python
@@ -37,7 +38,9 @@ df.hist(column="percent_buildings_damaged", figsize=(4, 3))
 ```python
 # Hist plot after data stratification
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(
+    df["percent_buildings_damaged"], bins=bins2
+)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -55,7 +58,9 @@ df
 ```python
 # Hist plot after removing rows where windspeed is 0
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(
+    df["percent_buildings_damaged"], bins=bins2
+)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -95,7 +100,11 @@ X_scaled = scaler.transform(X)
 ```python
 # Define train_test_split
 X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, df["percent_buildings_damaged"], stratify=y_input_strat, test_size=0.2
+    X_scaled,
+    df["percent_buildings_damaged"],
+    stratify=y_input_strat,
+    test_size=0.2,
+    random_state=RS_BASE,
 )
 ```
 
@@ -116,7 +125,8 @@ def create_dummy(X_train, X_test, y_train, y_test, num_bin):
 
     # Estimation of RMSE for train data per each bin
     mse_train = mean_squared_error(
-        y_train[bin_index_train == num_bin], y_pred_train[bin_index_train == num_bin]
+        y_train[bin_index_train == num_bin],
+        y_pred_train[bin_index_train == num_bin],
     )
     rmse_train = np.sqrt(mse_train)
 

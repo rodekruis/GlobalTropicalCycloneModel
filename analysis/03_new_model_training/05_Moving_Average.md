@@ -2,7 +2,6 @@
 
 It is used to observe how the two variables are related to each other.
 
-
 ```python
 %load_ext jupyter_black
 ```
@@ -30,7 +29,10 @@ df.head()
 # Define a Function to plot the relation between each features
 def ave(ftr_1, ftr_2):
     roll = (
-        df.sort_values(ftr_1).reset_index(drop=True)[ftr_2].rolling(window=500).mean()
+        df.sort_values(ftr_1)
+        .reset_index(drop=True)[ftr_2]
+        .rolling(window=500)
+        .mean()
     )
 
     re_ftr_1 = df.sort_values(ftr_1).reset_index(drop=True)[ftr_1]
@@ -52,9 +54,9 @@ features = [
 ]
 ```
 
-## Call the function wrt those features you are interested in their running average's plot
-
 ```python
+# Call the function wrt those features you are interested
+# in their running average's plot
 ave(features[2], features[0])
 
 # Use the log scale in x or y axis to have a zoom in scatter plot
