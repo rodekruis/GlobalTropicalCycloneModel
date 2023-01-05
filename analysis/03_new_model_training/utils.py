@@ -3,6 +3,8 @@ from pathlib import Path
 
 import pandas as pd
 
+RS_BASE = 12345
+
 
 def get_training_dataset():
     # TODO: make this method regenerate the combined dataset
