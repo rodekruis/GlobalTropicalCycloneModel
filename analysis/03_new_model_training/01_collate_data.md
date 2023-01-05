@@ -50,7 +50,8 @@ df_damage = (
     .rename(columns=columns_to_keep)
 )
 df_damage["typhoon_name"] = df_damage["typhoon_name"].str.upper()
-df_damage["typhoon_year"] = df_damage["typhoon_year"].astype(int)
+for column_name in ["typhoon_year", "grid_point_id"]:
+    df_damage[column_name] = df_damage[column_name].astype(int)
 
 df_damage
 ```
@@ -79,26 +80,51 @@ df_windfield = df_windfield.loc[:, columns_to_keep]
 df_windfield
 ```
 
+## Read in rainfall
+
+```python
+filename = input_dir / "03_rainfall/output/rainfall_data_mean.csv"
+df_rainfall = pd.read_csv(filename)
+df_rainfall[["typhoon_name", "typhoon_year"]] = df_rainfall[
+    "typhoon"
+].str.split("(\d+)", expand=True)[[0, 1]]
+df_rainfall["typhoon_name"] = df_rainfall["typhoon_name"].str.upper()
+df_rainfall = df_rainfall.rename(columns={"id": "grid_point_id"}).loc[
+    :,
+    [
+        "typhoon_name",
+        "typhoon_year",
+        "grid_point_id",
+        "rainfall_max_6h",
+        "rainfall_max_24h",
+    ],
+]
+df_rainfall
+```
+
 ## Merge the datasets
 
 ```python
 index = ["typhoon_name", "typhoon_year", "grid_point_id"]
-object_list = [df_damage, df_windfield]
+object_list = [df_damage, df_rainfall]
 
-# df_all = pd.concat(
-#    objs=[df.set_index(index) for df in object_list], axis=1, join="outer"
-# )
-
-# For now do a left join to the windfield, since it has the exact points we want
-df_all = df_windfield.set_index(index).merge(
-    df_damage.set_index(index), left_index=True, right_index=True, how="left"
+# First merge all that are not the windfield, since
+# windfield has all the gridpoints that we want
+df_all = pd.concat(
+    objs=[df.set_index(index) for df in object_list], axis=1, join="outer"
 )
 
+# For now do a left join to the windfield, since it has the exact points we want
+# df_all = df_windfield.set_index(index).merge(
+#    df_all, left_index=True, right_index=True, how="left"
+# )
+
 df_all
+sum((df_all["total_buildings"] > 0) & (df_all["rainfall_max_6h"] > 0))
 ```
 
 ```python
-# TODO: remove this once the building dataset is fixed
+# TODO: remove this if the building dataset is fixed
 # Get the number of buildings associated with a gridpoint,
 # and fill in the missing values
 building_number_dict = (
