@@ -89,6 +89,7 @@ df_rainfall[["typhoon_name", "typhoon_year"]] = df_rainfall[
     "typhoon"
 ].str.split("(\d+)", expand=True)[[0, 1]]
 df_rainfall["typhoon_name"] = df_rainfall["typhoon_name"].str.upper()
+df_rainfall["typhoon_year"] = df_rainfall["typhoon_year"].astype(int)
 df_rainfall = df_rainfall.rename(columns={"id": "grid_point_id"}).loc[
     :,
     [
@@ -115,12 +116,11 @@ df_all = pd.concat(
 )
 
 # For now do a left join to the windfield, since it has the exact points we want
-# df_all = df_windfield.set_index(index).merge(
-#    df_all, left_index=True, right_index=True, how="left"
-# )
+df_all = df_windfield.set_index(index).merge(
+    df_all, left_index=True, right_index=True, how="left"
+)
 
 df_all
-sum((df_all["total_buildings"] > 0) & (df_all["rainfall_max_6h"] > 0))
 ```
 
 ```python
