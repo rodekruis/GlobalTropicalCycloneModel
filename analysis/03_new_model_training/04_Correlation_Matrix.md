@@ -2,14 +2,11 @@
 
 It is used to calculate the correlation between different features.
 
-```python
-%load_ext jupyter_black
-```
 
 ```python
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sn
 
 from utils import get_training_dataset
@@ -18,11 +15,12 @@ from utils import get_training_dataset
 ```python
 # Read csv file and import to df
 df = get_training_dataset()
+df.head()
 ```
 
 ```python
 df = df.drop(columns=["grid_point_id", "typhoon_year"])
-# df.head()
+#df.head()
 ```
 
 ```python
@@ -62,7 +60,7 @@ heatmap = sn.heatmap(
     corrMatrix_abs,
     annot=True,
     cbar_kws={"shrink": 0.5},
-    annot_kws={"size": 12},
+    annot_kws={"size": 10},
 )
 heatmap.set_title(
     "Correlation Heatmap (abs)", fontdict={"fontsize": 12}, pad=22
