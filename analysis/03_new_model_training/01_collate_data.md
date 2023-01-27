@@ -103,6 +103,20 @@ df_rainfall = df_rainfall.rename(columns={"id": "grid_point_id"}).loc[
 df_rainfall
 ```
 
+## Read in the vulnerability
+
+```python
+# Read in the building damage data
+filename = input_dir / "05_vulnerablility/output/phl_rwi_bygrid.csv"
+
+df_rwi = (
+    pd.read_csv(filename)
+    .rename(columns={"id": "grid_point_id"})
+    .drop(columns=["Centroid"])
+)
+df_rwi.columns
+```
+
 ## Merge the datasets
 
 ```python
@@ -120,6 +134,15 @@ df_all = df_windfield.set_index(index).merge(
     df_all, left_index=True, right_index=True, how="left"
 )
 
+# Finally, add the datasets that only have grid points, no associated typhoon
+object_list = [df_rwi]
+df_no_typhoon = pd.concat(
+    objs=[df.set_index("grid_point_id") for df in object_list],
+    axis=1,
+    join="outer",
+)
+
+df_all = df_all.join(df_no_typhoon)
 df_all
 ```
 
@@ -145,16 +168,16 @@ df_all
 ## Clean the dataset
 
 ```python
-df = df_all.fillna(0)
-```
-
-```python
-df_all.columns
-```
-
-```python
 # Assume that NAs are all 0s
-df_all = df_all.fillna(0)
+columns_to_fillna = [
+    "wind_speed",
+    "track_distance",
+    "total_buildings",
+    "total_buildings_damaged",
+    "rainfall_max_6h",
+    "rainfall_max_24h",
+]
+df_all[columns_to_fillna] = df_all[columns_to_fillna].fillna(0)
 # Drop rows with 0 buildings
 df_all = df_all[df_all["total_buildings"] != 0]
 ```
@@ -162,7 +185,7 @@ df_all = df_all[df_all["total_buildings"] != 0]
 ```python
 # TODO: Remove this if it's fixed in the data
 # Create percentage damage column
-# Check if total damaged buildings is greater than total buildings
+# Check if total damaged buildings is greater than total buildings.
 too_few_buildings = (
     df_all["total_buildings"] < df_all["total_buildings_damaged"]
 )
@@ -170,16 +193,8 @@ sum(too_few_buildings)
 ```
 
 ```python
-# TODO: Remove this if it's fixed in the data
-# At the moment some cells have more damaged buildings than buildings,
-# so adjust the maximum
-df_all.loc[too_few_buildings, "total_buildings"] = df_all.loc[
-    too_few_buildings, "total_buildings_damaged"
-]
-```
-
-```python
-# Calculate percentage
+# Calculate percentage. Per the above, some percentages will be above 100
+# but we wil leave it for now since it's all "relative".
 df_all["percent_buildings_damaged"] = (
     df_all["total_buildings_damaged"] / df_all["total_buildings"] * 100
 )
