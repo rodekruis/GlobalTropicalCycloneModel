@@ -23,6 +23,31 @@ output_dir = (
 )
 ```
 
+## Read in number of houses
+
+```python
+# Read in the building damage data
+filename = (
+    input_dir / "02_housing_damage/output/transformed_housingunits_bygrid.csv"
+)
+
+df_houses = pd.read_csv(filename)
+df_houses.columns
+```
+
+```python
+# Select and rename columns,
+columns_to_keep = {
+    "id": "grid_point_id",
+    "hu_bygrid": "total_houses",
+}
+
+df_houses = df_houses.loc[:, list(columns_to_keep.keys())].rename(
+    columns=columns_to_keep
+)
+df_houses
+```
+
 ## Read in buliding damage
 
 ```python
@@ -40,7 +65,6 @@ df_damage.columns
 # drop any rows that don't have a typhoon name
 columns_to_keep = {
     "id": "grid_point_id",
-    "numbuildings": "total_houses",
     "typhoon": "typhoon_name",
     "Year": "typhoon_year",
     "damaged_bygrid": "total_houses_damaged",
@@ -137,7 +161,7 @@ df_all = df_windfield.set_index(index).merge(
 )
 
 # Finally, add the datasets that only have grid points, no associated typhoon
-object_list = [df_rwi]
+object_list = [df_houses, df_rwi]
 df_no_typhoon = pd.concat(
     objs=[df.set_index("grid_point_id") for df in object_list],
     axis=1,
@@ -153,7 +177,7 @@ df_all
 # Get the number of buildings associated with a gridpoint,
 # and fill in the missing values
 building_number_dict = (
-    df_damage.loc[
+    df_houses.loc[
         :,
         ["grid_point_id", "total_houses"],
     ]
