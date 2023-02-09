@@ -23,11 +23,38 @@ output_dir = (
 )
 ```
 
+## Read in number of houses
+
+```python
+# Read in the building damage data
+filename = (
+    input_dir / "02_housing_damage/output/transformed_housingunits_bygrid.csv"
+)
+
+df_houses = pd.read_csv(filename)
+df_houses.columns
+```
+
+```python
+# Select and rename columns,
+columns_to_keep = {
+    "id": "grid_point_id",
+    "hu_bygrid": "total_houses",
+}
+
+df_houses = df_houses.loc[:, list(columns_to_keep.keys())].rename(
+    columns=columns_to_keep
+)
+df_houses
+```
+
 ## Read in buliding damage
 
 ```python
 # Read in the building damage data
-filename = input_dir / "02_housing_damage/output/building_damage_bygrid.csv"
+filename = (
+    input_dir / "02_housing_damage/output/building_damage_bygrid_gglfpdata.csv"
+)
 
 df_damage = pd.read_csv(filename)
 df_damage.columns
@@ -38,10 +65,9 @@ df_damage.columns
 # drop any rows that don't have a typhoon name
 columns_to_keep = {
     "id": "grid_point_id",
-    "numbuildings_bygrid": "total_buildings",
     "typhoon": "typhoon_name",
     "Year": "typhoon_year",
-    "Totally_Damaged_bygrid": "total_buildings_damaged",
+    "damaged_bygrid": "total_houses_damaged",
 }
 
 df_damage = (
@@ -135,7 +161,7 @@ df_all = df_windfield.set_index(index).merge(
 )
 
 # Finally, add the datasets that only have grid points, no associated typhoon
-object_list = [df_rwi]
+object_list = [df_houses, df_rwi]
 df_no_typhoon = pd.concat(
     objs=[df.set_index("grid_point_id") for df in object_list],
     axis=1,
@@ -151,15 +177,15 @@ df_all
 # Get the number of buildings associated with a gridpoint,
 # and fill in the missing values
 building_number_dict = (
-    df_damage.loc[
+    df_houses.loc[
         :,
-        ["grid_point_id", "total_buildings"],
+        ["grid_point_id", "total_houses"],
     ]
-    .set_index("grid_point_id")["total_buildings"]
+    .set_index("grid_point_id")["total_houses"]
     .to_dict()
 )
 
-df_all["total_buildings"] = (
+df_all["total_houses"] = (
     df_all.reset_index()["grid_point_id"].map(building_number_dict).values
 )
 df_all
@@ -172,33 +198,31 @@ df_all
 columns_to_fillna = [
     "wind_speed",
     "track_distance",
-    "total_buildings",
-    "total_buildings_damaged",
+    "total_houses",
+    "total_houses_damaged",
     "rainfall_max_6h",
     "rainfall_max_24h",
 ]
 df_all[columns_to_fillna] = df_all[columns_to_fillna].fillna(0)
 # Drop rows with 0 buildings
-df_all = df_all[df_all["total_buildings"] != 0]
+df_all = df_all[df_all["total_houses"] != 0]
 ```
 
 ```python
 # TODO: Remove this if it's fixed in the data
 # Create percentage damage column
 # Check if total damaged buildings is greater than total buildings.
-too_few_buildings = (
-    df_all["total_buildings"] < df_all["total_buildings_damaged"]
-)
+too_few_buildings = df_all["total_houses"] < df_all["total_houses_damaged"]
 sum(too_few_buildings)
 ```
 
 ```python
 # Calculate percentage. Per the above, some percentages will be above 100
 # but we wil leave it for now since it's all "relative".
-df_all["percent_buildings_damaged"] = (
-    df_all["total_buildings_damaged"] / df_all["total_buildings"] * 100
+df_all["percent_houses_damaged"] = (
+    df_all["total_houses_damaged"] / df_all["total_houses"] * 100
 )
-df_all = df_all.drop(columns="total_buildings_damaged")
+df_all = df_all.drop(columns="total_houses_damaged")
 ```
 
 ```python
