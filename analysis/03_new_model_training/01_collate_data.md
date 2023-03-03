@@ -143,6 +143,21 @@ df_rwi = (
 df_rwi.columns
 ```
 
+## Read in topography
+
+```python
+# Read in the building damage data
+filename = input_dir / "04_topography/output/topography_variables_bygrid.csv"
+
+df_top = (
+    pd.read_csv(filename)
+    .rename(columns={"id": "grid_point_id"})
+    .drop(columns=["Centroid"])
+)
+df_top.columns
+df_top
+```
+
 ## Merge the datasets
 
 ```python
@@ -161,7 +176,7 @@ df_all = df_windfield.set_index(index).merge(
 )
 
 # Finally, add the datasets that only have grid points, no associated typhoon
-object_list = [df_houses, df_rwi]
+object_list = [df_houses, df_rwi, df_top]
 df_no_typhoon = pd.concat(
     objs=[df.set_index("grid_point_id") for df in object_list],
     axis=1,
@@ -194,15 +209,12 @@ df_all
 ## Clean the dataset
 
 ```python
+df_all.columns.drop("rwi")
+```
+
+```python
 # Assume that NAs are all 0s
-columns_to_fillna = [
-    "wind_speed",
-    "track_distance",
-    "total_houses",
-    "total_houses_damaged",
-    "rainfall_max_6h",
-    "rainfall_max_24h",
-]
+columns_to_fillna = df_all.columns.drop("rwi")
 df_all[columns_to_fillna] = df_all[columns_to_fillna].fillna(0)
 # Drop rows with 0 buildings
 df_all = df_all[df_all["total_houses"] != 0]
