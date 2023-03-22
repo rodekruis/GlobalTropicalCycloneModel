@@ -1,9 +1,8 @@
 # Create a historical variable
 
-#### In the Historical Risk Model, a new variable named “percent_buildings_damaged_5years” was created to add to the dataset. 
-#### For each location/data point, we create a variable that is the average of damages in the past 5 years of typhoons in our data.
+In Historical Risk Model, the dataset is being updated with the addition of a new variable called "percent_buildings_damaged_5years". 
 
-
+This variable will be incorporated into the existing dataset. For every data point or location, an average of damages caused by typhoons over the past 5 years will be calculated and recorded as the value for this new variable.
 
 
 ```python
@@ -34,14 +33,14 @@ import statistics
 import numpy as np
 import pandas as pd
 
-from utils import get_training_dataset
+from utils import get_training_dataset_primary
 ```
 
 
 ```python
 # Read csv file and import to df
-df = get_training_dataset()
-df
+df = get_training_dataset_primary()
+df.head()
 ```
 
 
@@ -74,6 +73,17 @@ df
       <th>rainfall_max_24h</th>
       <th>total_houses</th>
       <th>rwi</th>
+      <th>mean_slope</th>
+      <th>...</th>
+      <th>mean_tri</th>
+      <th>std_tri</th>
+      <th>mean_elev</th>
+      <th>coast_length</th>
+      <th>with_coast</th>
+      <th>urban</th>
+      <th>rural</th>
+      <th>water</th>
+      <th>total_pop</th>
       <th>percent_houses_damaged</th>
     </tr>
   </thead>
@@ -89,6 +99,17 @@ df
       <td>0.085417</td>
       <td>31.000000</td>
       <td>NaN</td>
+      <td>1.018526</td>
+      <td>...</td>
+      <td>6.438706</td>
+      <td>2.699781</td>
+      <td>5.762712</td>
+      <td>3445.709753</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.000000</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -102,6 +123,17 @@ df
       <td>0.027083</td>
       <td>3.301020</td>
       <td>-0.527000</td>
+      <td>1.579400</td>
+      <td>...</td>
+      <td>9.694848</td>
+      <td>4.585088</td>
+      <td>12.799127</td>
+      <td>8602.645832</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.000000</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -115,6 +147,17 @@ df
       <td>0.146354</td>
       <td>12.103741</td>
       <td>-0.283000</td>
+      <td>0.551764</td>
+      <td>...</td>
+      <td>3.985103</td>
+      <td>1.527495</td>
+      <td>8.833333</td>
+      <td>5084.012925</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.99</td>
+      <td>197.339034</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -128,6 +171,17 @@ df
       <td>0.101562</td>
       <td>645.899660</td>
       <td>-0.358889</td>
+      <td>2.107949</td>
+      <td>...</td>
+      <td>11.792592</td>
+      <td>11.677657</td>
+      <td>17.530431</td>
+      <td>55607.865950</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.31</td>
+      <td>0.69</td>
+      <td>4970.477311</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -141,95 +195,29 @@ df
       <td>0.057812</td>
       <td>1071.731293</td>
       <td>-0.462800</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
+      <td>3.538881</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>141253</th>
-      <td>MOLAVE</td>
-      <td>2020</td>
-      <td>20677</td>
+      <td>18.718779</td>
+      <td>17.074011</td>
+      <td>31.931338</td>
+      <td>35529.342507</td>
+      <td>1</td>
       <td>0.0</td>
-      <td>644.575831</td>
-      <td>2.543750</td>
-      <td>0.778646</td>
-      <td>4449.357133</td>
-      <td>0.508167</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>141254</th>
-      <td>MOLAVE</td>
-      <td>2020</td>
-      <td>20678</td>
-      <td>0.0</td>
-      <td>655.685233</td>
-      <td>2.558333</td>
-      <td>0.861458</td>
-      <td>1521.435795</td>
-      <td>-0.174100</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>141255</th>
-      <td>MOLAVE</td>
-      <td>2020</td>
-      <td>20679</td>
-      <td>0.0</td>
-      <td>666.794635</td>
-      <td>2.975000</td>
-      <td>0.949479</td>
-      <td>930.647069</td>
-      <td>-0.244286</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>141256</th>
-      <td>MOLAVE</td>
-      <td>2020</td>
-      <td>20680</td>
-      <td>0.0</td>
-      <td>677.904037</td>
-      <td>2.889583</td>
-      <td>1.083333</td>
-      <td>1800.666044</td>
-      <td>0.038000</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>141257</th>
-      <td>MOLAVE</td>
-      <td>2020</td>
-      <td>20681</td>
-      <td>0.0</td>
-      <td>689.013439</td>
-      <td>2.985417</td>
-      <td>2.218056</td>
-      <td>373.146778</td>
-      <td>-0.175000</td>
+      <td>0.77</td>
+      <td>0.23</td>
+      <td>12408.594656</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>141258 rows × 10 columns</p>
+<p>5 rows × 21 columns</p>
 </div>
 
 
 
 
 ```python
+# Groupby df based on "typhoon_year" and "grid_point_id" and "percent_houses_damaged"
 df_avgDmgCell_and_Year = df.groupby(["typhoon_year", "grid_point_id"], as_index=False)[
     "percent_houses_damaged"
 ].mean()
@@ -338,6 +326,7 @@ df_avgDmgCell_and_Year
 
 
 ```python
+# Calculate the average damaged of past 5 years for each point
 df_res2 = (
     df_avgDmgCell_and_Year.groupby("grid_point_id")
     .rolling(5, min_periods=1)
@@ -455,6 +444,7 @@ df_res2
 
 
 ```python
+# Join this new variable to the main df wrt "typhoon_year" and "grid_point_id"
 df2 = df.merge(df_res2, on=["typhoon_year", "grid_point_id"], how="left")
 df2["percent_houses_damaged_5years"] = df2["percent_houses_damaged_5years"].fillna(0)
 
@@ -491,6 +481,16 @@ df2
       <th>rainfall_max_24h</th>
       <th>total_houses</th>
       <th>rwi</th>
+      <th>mean_slope</th>
+      <th>...</th>
+      <th>std_tri</th>
+      <th>mean_elev</th>
+      <th>coast_length</th>
+      <th>with_coast</th>
+      <th>urban</th>
+      <th>rural</th>
+      <th>water</th>
+      <th>total_pop</th>
       <th>percent_houses_damaged</th>
       <th>percent_houses_damaged_5years</th>
     </tr>
@@ -507,6 +507,16 @@ df2
       <td>0.085417</td>
       <td>31.000000</td>
       <td>NaN</td>
+      <td>1.018526</td>
+      <td>...</td>
+      <td>2.699781</td>
+      <td>5.762712</td>
+      <td>3445.709753</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -521,6 +531,16 @@ df2
       <td>0.027083</td>
       <td>3.301020</td>
       <td>-0.527000</td>
+      <td>1.579400</td>
+      <td>...</td>
+      <td>4.585088</td>
+      <td>12.799127</td>
+      <td>8602.645832</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -535,6 +555,16 @@ df2
       <td>0.146354</td>
       <td>12.103741</td>
       <td>-0.283000</td>
+      <td>0.551764</td>
+      <td>...</td>
+      <td>1.527495</td>
+      <td>8.833333</td>
+      <td>5084.012925</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.010000</td>
+      <td>0.990000</td>
+      <td>197.339034</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -549,6 +579,16 @@ df2
       <td>0.101562</td>
       <td>645.899660</td>
       <td>-0.358889</td>
+      <td>2.107949</td>
+      <td>...</td>
+      <td>11.677657</td>
+      <td>17.530431</td>
+      <td>55607.865950</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.310000</td>
+      <td>0.690000</td>
+      <td>4970.477311</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -563,11 +603,31 @@ df2
       <td>0.057812</td>
       <td>1071.731293</td>
       <td>-0.462800</td>
+      <td>3.538881</td>
+      <td>...</td>
+      <td>17.074011</td>
+      <td>31.931338</td>
+      <td>35529.342507</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.770000</td>
+      <td>0.230000</td>
+      <td>12408.594656</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -591,6 +651,16 @@ df2
       <td>0.778646</td>
       <td>4449.357133</td>
       <td>0.508167</td>
+      <td>3.790141</td>
+      <td>...</td>
+      <td>18.012771</td>
+      <td>36.304688</td>
+      <td>21559.003490</td>
+      <td>1</td>
+      <td>0.08</td>
+      <td>0.080000</td>
+      <td>0.840000</td>
+      <td>17619.701390</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -605,6 +675,16 @@ df2
       <td>0.861458</td>
       <td>1521.435795</td>
       <td>-0.174100</td>
+      <td>3.532580</td>
+      <td>...</td>
+      <td>13.163042</td>
+      <td>65.687266</td>
+      <td>12591.742022</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.420000</td>
+      <td>0.580000</td>
+      <td>5623.069564</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -619,6 +699,16 @@ df2
       <td>0.949479</td>
       <td>930.647069</td>
       <td>-0.244286</td>
+      <td>4.444498</td>
+      <td>...</td>
+      <td>10.901755</td>
+      <td>37.414996</td>
+      <td>19740.596834</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.109091</td>
+      <td>0.890909</td>
+      <td>5912.671746</td>
       <td>0.0</td>
       <td>0.015207</td>
     </tr>
@@ -633,6 +723,16 @@ df2
       <td>1.083333</td>
       <td>1800.666044</td>
       <td>0.038000</td>
+      <td>5.816195</td>
+      <td>...</td>
+      <td>17.917650</td>
+      <td>105.812452</td>
+      <td>26363.303778</td>
+      <td>1</td>
+      <td>0.03</td>
+      <td>0.250000</td>
+      <td>0.720000</td>
+      <td>11254.164413</td>
       <td>0.0</td>
       <td>0.020806</td>
     </tr>
@@ -647,19 +747,28 @@ df2
       <td>2.218056</td>
       <td>373.146778</td>
       <td>-0.175000</td>
+      <td>6.730992</td>
+      <td>...</td>
+      <td>17.010867</td>
+      <td>89.696703</td>
+      <td>9359.492382</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>0.070000</td>
+      <td>0.930000</td>
+      <td>3188.718115</td>
       <td>0.0</td>
       <td>0.001050</td>
     </tr>
   </tbody>
 </table>
-<p>141258 rows × 11 columns</p>
+<p>141258 rows × 22 columns</p>
 </div>
 
 
 
 
 ```python
-# df1 = df.groupby(["typhoon_year", "grid_point_id"])["percent_buildings_damaged"].mean()
-
+# Save this df to a CSV file
 df2.to_csv("df2_housesdamaged5years.csv", index=False)
 ```
