@@ -1603,13 +1603,13 @@ df_train = Xnew
 display(df_train)
 ```
 
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_31581/1046774399.py:29: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32733/1046774399.py:29: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[3]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_31581/1046774399.py:30: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32733/1046774399.py:30: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[2]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_31581/1046774399.py:31: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32733/1046774399.py:31: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[1]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_31581/1046774399.py:32: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32733/1046774399.py:32: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[0]])
 
 
@@ -2307,7 +2307,7 @@ print(est2.summary())
       elif isinstance(data.columns, (pd.Int64Index, pd.RangeIndex)):
 
 
-    [15:00:19] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [18:45:37] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
     Parameters: { "early_stopping_rounds" } might not be used.
     
       This could be a false alarm, with some parameters getting used by language bindings but
@@ -2321,7 +2321,7 @@ print(est2.summary())
     Model:                                OLS   Adj. R-squared:                  0.215
     Method:                     Least Squares   F-statistic:                     704.8
     Date:                    Thu, 23 Mar 2023   Prob (F-statistic):               0.00
-    Time:                            15:00:22   Log-Likelihood:            -1.2620e+05
+    Time:                            18:45:40   Log-Likelihood:            -1.2620e+05
     No. Observations:                   43643   AIC:                         2.524e+05
     Df Residuals:                       43625   BIC:                         2.526e+05
     Df Model:                              17                                         
@@ -5012,10 +5012,27 @@ agg_df_2.head()
 
 
 ```python
-agg_df_2["difference_of_pred_real"] = (
-    agg_df_2["predicted_damg_houses_per_Region"] - agg_df_2["damg_houses_per_Region"]
+# Estimate the percent difference of real and predicted damaged values  (First way)
+agg_df_2["Percent_Difference_total_houses_based"] = (
+    (agg_df_2["damg_houses_per_Region"] - agg_df_2["predicted_damg_houses_per_Region"])
+    / (
+        agg_df_2["sum_of_weight_region"]
+    )  # (agg_df_2["damg_houses_per_Region"] + np.finfo(float).eps)
+) * 100
+```
+
+
+```python
+# Estimate the percent difference of real and predicted damaged values (Second way)
+difference = (
+    agg_df_2["damg_houses_per_Region"] - agg_df_2["predicted_damg_houses_per_Region"]
 )
-agg_df_2.head()
+ave = (
+    agg_df_2["damg_houses_per_Region"] + agg_df_2["predicted_damg_houses_per_Region"]
+) / 2
+
+agg_df_2["Percent_Difference_average_based"] = (abs(difference) / ave) * 100
+agg_df_2
 ```
 
 
@@ -5044,7 +5061,8 @@ agg_df_2.head()
       <th>damg_houses_per_Region</th>
       <th>predicted_damg_houses_per_Region</th>
       <th>sum_of_weight_region</th>
-      <th>difference_of_pred_real</th>
+      <th>Percent_Difference_total_houses_based</th>
+      <th>Percent_Difference_average_based</th>
     </tr>
   </thead>
   <tbody>
@@ -5052,372 +5070,431 @@ agg_df_2.head()
       <th>0</th>
       <td>PH010000000</td>
       <td>BOPHA</td>
-      <td>0.000001</td>
-      <td>0.000242</td>
+      <td>1.094611e-06</td>
+      <td>2.424821e-04</td>
       <td>0.017613</td>
-      <td>0.000241</td>
+      <td>-1.370529</td>
+      <td>198.202436</td>
     </tr>
     <tr>
       <th>1</th>
       <td>PH010000000</td>
       <td>HAIMA</td>
-      <td>0.132145</td>
-      <td>0.067877</td>
+      <td>1.321450e-01</td>
+      <td>6.787738e-02</td>
       <td>0.194996</td>
-      <td>-0.064268</td>
+      <td>32.958484</td>
+      <td>64.260414</td>
     </tr>
     <tr>
       <th>2</th>
       <td>PH010000000</td>
       <td>KETSANA</td>
-      <td>0.000060</td>
-      <td>0.006893</td>
+      <td>5.969492e-05</td>
+      <td>6.892515e-03</td>
       <td>0.111819</td>
-      <td>0.006833</td>
+      <td>-6.110583</td>
+      <td>196.565413</td>
     </tr>
     <tr>
       <th>3</th>
       <td>PH010000000</td>
       <td>MANGKHUT</td>
-      <td>0.127631</td>
-      <td>0.164637</td>
+      <td>1.276309e-01</td>
+      <td>1.646369e-01</td>
       <td>0.301262</td>
-      <td>0.037006</td>
+      <td>-12.283663</td>
+      <td>25.323341</td>
     </tr>
     <tr>
       <th>4</th>
       <td>PH010000000</td>
       <td>SAUDEL</td>
-      <td>0.000000</td>
-      <td>0.005398</td>
-      <td>0.099009</td>
-      <td>0.005398</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-agg_df_2["Percent_Difference"] = (
-    abs(
-        (
-            agg_df_2["damg_houses_per_Region"]
-            - agg_df_2["predicted_damg_houses_per_Region"]
-        )
-        / (agg_df_2["damg_houses_per_Region"] + np.finfo(float).eps)
-    )
-    * 100
-)
-agg_df_2.head()
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ADM1_PCODE</th>
-      <th>typhoon_name</th>
-      <th>damg_houses_per_Region</th>
-      <th>predicted_damg_houses_per_Region</th>
-      <th>sum_of_weight_region</th>
-      <th>difference_of_pred_real</th>
-      <th>Percent_Difference</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>PH010000000</td>
-      <td>BOPHA</td>
-      <td>0.000001</td>
-      <td>0.000242</td>
-      <td>0.017613</td>
-      <td>0.000241</td>
-      <td>2.205234e+04</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>PH010000000</td>
-      <td>HAIMA</td>
-      <td>0.132145</td>
-      <td>0.067877</td>
-      <td>0.194996</td>
-      <td>-0.064268</td>
-      <td>4.863416e+01</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>PH010000000</td>
-      <td>KETSANA</td>
-      <td>0.000060</td>
-      <td>0.006893</td>
-      <td>0.111819</td>
-      <td>0.006833</td>
-      <td>1.144623e+04</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>PH010000000</td>
-      <td>MANGKHUT</td>
-      <td>0.127631</td>
-      <td>0.164637</td>
-      <td>0.301262</td>
-      <td>0.037006</td>
-      <td>2.899453e+01</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>PH010000000</td>
-      <td>SAUDEL</td>
-      <td>0.000000</td>
-      <td>0.005398</td>
-      <td>0.099009</td>
-      <td>0.005398</td>
-      <td>2.431029e+15</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-agg_df_3 = agg_df_2.groupby(["typhoon_name", "ADM1_PCODE"]).agg(
-    {
-        "Percent_Difference": "mean",
-    }
-)
-agg_df_3
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
-      <th>Percent_Difference</th>
-    </tr>
-    <tr>
-      <th>typhoon_name</th>
-      <th>ADM1_PCODE</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="15" valign="top">BOPHA</th>
-      <th>PH010000000</th>
-      <td>2.205234e+04</td>
-    </tr>
-    <tr>
-      <th>PH020000000</th>
-      <td>7.320601e+13</td>
-    </tr>
-    <tr>
-      <th>PH030000000</th>
-      <td>6.088129e+10</td>
-    </tr>
-    <tr>
-      <th>PH050000000</th>
       <td>0.000000e+00</td>
+      <td>5.397968e-03</td>
+      <td>0.099009</td>
+      <td>-5.452019</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH060000000</th>
-      <td>2.141892e+15</td>
+      <th>5</th>
+      <td>PH020000000</td>
+      <td>BOPHA</td>
+      <td>0.000000e+00</td>
+      <td>1.625500e-04</td>
+      <td>0.017272</td>
+      <td>-0.941131</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH070000000</th>
-      <td>3.178027e+02</td>
+      <th>6</th>
+      <td>PH020000000</td>
+      <td>HAIMA</td>
+      <td>6.779745e-01</td>
+      <td>3.108077e-01</td>
+      <td>0.180373</td>
+      <td>203.559265</td>
+      <td>74.266467</td>
     </tr>
     <tr>
-      <th>PH080000000</th>
-      <td>2.696300e+14</td>
+      <th>7</th>
+      <td>PH020000000</td>
+      <td>KETSANA</td>
+      <td>0.000000e+00</td>
+      <td>5.698073e-03</td>
+      <td>0.107808</td>
+      <td>-5.285384</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH090000000</th>
-      <td>3.745666e+05</td>
+      <th>8</th>
+      <td>PH020000000</td>
+      <td>MANGKHUT</td>
+      <td>4.488461e-01</td>
+      <td>6.855844e-01</td>
+      <td>0.208631</td>
+      <td>-113.472285</td>
+      <td>41.736938</td>
     </tr>
     <tr>
-      <th>PH100000000</th>
-      <td>9.684936e+02</td>
+      <th>9</th>
+      <td>PH020000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>1.325783e-02</td>
+      <td>0.102609</td>
+      <td>-12.920680</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH110000000</th>
-      <td>6.312396e+01</td>
+      <th>10</th>
+      <td>PH030000000</td>
+      <td>BOPHA</td>
+      <td>0.000000e+00</td>
+      <td>1.351836e-07</td>
+      <td>0.000952</td>
+      <td>-0.014199</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH120000000</th>
-      <td>2.720162e+03</td>
+      <th>11</th>
+      <td>PH030000000</td>
+      <td>HAIMA</td>
+      <td>5.615845e-04</td>
+      <td>1.618386e-03</td>
+      <td>0.058629</td>
+      <td>-1.802512</td>
+      <td>96.955580</td>
     </tr>
     <tr>
-      <th>PH140000000</th>
-      <td>1.526634e+12</td>
+      <th>12</th>
+      <td>PH030000000</td>
+      <td>KETSANA</td>
+      <td>4.561876e-02</td>
+      <td>3.885428e-02</td>
+      <td>0.283215</td>
+      <td>2.388462</td>
+      <td>16.015704</td>
     </tr>
     <tr>
-      <th>PH150000000</th>
-      <td>1.825716e+02</td>
+      <th>13</th>
+      <td>PH030000000</td>
+      <td>MANGKHUT</td>
+      <td>1.763859e-03</td>
+      <td>2.749839e-03</td>
+      <td>0.098552</td>
+      <td>-1.000464</td>
+      <td>43.688339</td>
     </tr>
     <tr>
-      <th>PH160000000</th>
-      <td>8.164676e+01</td>
+      <th>14</th>
+      <td>PH030000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>2.615451e-02</td>
+      <td>0.183101</td>
+      <td>-14.284173</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH170000000</th>
-      <td>1.420233e+02</td>
+      <th>15</th>
+      <td>PH040000000</td>
+      <td>HAIMA</td>
+      <td>8.540490e-07</td>
+      <td>4.042321e-05</td>
+      <td>0.003866</td>
+      <td>-1.023477</td>
+      <td>191.723781</td>
     </tr>
     <tr>
-      <th rowspan="6" valign="top">HAIMA</th>
-      <th>PH010000000</th>
-      <td>4.863416e+01</td>
+      <th>16</th>
+      <td>PH040000000</td>
+      <td>KETSANA</td>
+      <td>5.657947e-01</td>
+      <td>4.293850e-01</td>
+      <td>0.649474</td>
+      <td>21.003093</td>
+      <td>27.414090</td>
     </tr>
     <tr>
-      <th>PH020000000</th>
-      <td>5.415643e+01</td>
+      <th>17</th>
+      <td>PH040000000</td>
+      <td>SAUDEL</td>
+      <td>6.619053e-05</td>
+      <td>7.854769e-03</td>
+      <td>0.124175</td>
+      <td>-6.272242</td>
+      <td>196.657449</td>
     </tr>
     <tr>
-      <th>PH030000000</th>
-      <td>1.881821e+02</td>
+      <th>18</th>
+      <td>PH050000000</td>
+      <td>BOPHA</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000104</td>
+      <td>0.000000</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>PH040000000</th>
-      <td>4.633125e+03</td>
+      <th>19</th>
+      <td>PH050000000</td>
+      <td>HAIMA</td>
+      <td>9.707499e-06</td>
+      <td>2.387181e-04</td>
+      <td>0.006650</td>
+      <td>-3.443930</td>
+      <td>184.369567</td>
     </tr>
     <tr>
-      <th>PH050000000</th>
-      <td>2.359110e+03</td>
+      <th>20</th>
+      <td>PH050000000</td>
+      <td>KETSANA</td>
+      <td>0.000000e+00</td>
+      <td>2.726016e-02</td>
+      <td>0.120149</td>
+      <td>-22.688620</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH140000000</th>
-      <td>2.025742e+01</td>
+      <th>21</th>
+      <td>PH050000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>8.920129e-03</td>
+      <td>0.084294</td>
+      <td>-10.582172</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th rowspan="9" valign="top">KETSANA</th>
-      <th>PH010000000</th>
-      <td>1.144623e+04</td>
+      <th>22</th>
+      <td>PH060000000</td>
+      <td>BOPHA</td>
+      <td>0.000000e+00</td>
+      <td>4.755955e-03</td>
+      <td>0.041024</td>
+      <td>-11.593242</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH020000000</th>
-      <td>2.566184e+15</td>
+      <th>23</th>
+      <td>PH070000000</td>
+      <td>BOPHA</td>
+      <td>9.247815e-03</td>
+      <td>3.863762e-02</td>
+      <td>0.104594</td>
+      <td>-28.098951</td>
+      <td>122.750504</td>
     </tr>
     <tr>
-      <th>PH030000000</th>
-      <td>1.482828e+01</td>
+      <th>24</th>
+      <td>PH080000000</td>
+      <td>BOPHA</td>
+      <td>0.000000e+00</td>
+      <td>5.986989e-04</td>
+      <td>0.053142</td>
+      <td>-1.126596</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH040000000</th>
-      <td>2.410940e+01</td>
+      <th>25</th>
+      <td>PH080000000</td>
+      <td>KETSANA</td>
+      <td>0.000000e+00</td>
+      <td>3.275871e-05</td>
+      <td>0.008034</td>
+      <td>-0.407757</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH050000000</th>
-      <td>1.227688e+16</td>
+      <th>26</th>
+      <td>PH080000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>4.594349e-04</td>
+      <td>0.023955</td>
+      <td>-1.917907</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH080000000</th>
-      <td>1.475321e+13</td>
+      <th>27</th>
+      <td>PH090000000</td>
+      <td>BOPHA</td>
+      <td>3.402632e-06</td>
+      <td>1.274852e-02</td>
+      <td>0.040768</td>
+      <td>-31.262838</td>
+      <td>199.893267</td>
     </tr>
     <tr>
-      <th>PH130000000</th>
-      <td>7.386677e+01</td>
+      <th>28</th>
+      <td>PH100000000</td>
+      <td>BOPHA</td>
+      <td>2.946602e-02</td>
+      <td>3.148425e-01</td>
+      <td>0.106632</td>
+      <td>-267.626501</td>
+      <td>165.767892</td>
     </tr>
     <tr>
-      <th>PH140000000</th>
-      <td>7.069582e+04</td>
+      <th>29</th>
+      <td>PH110000000</td>
+      <td>BOPHA</td>
+      <td>1.282667e+00</td>
+      <td>4.729969e-01</td>
+      <td>0.080476</td>
+      <td>1006.103064</td>
+      <td>92.235226</td>
     </tr>
     <tr>
-      <th>PH170000000</th>
-      <td>4.784284e+15</td>
+      <th>30</th>
+      <td>PH120000000</td>
+      <td>BOPHA</td>
+      <td>1.225662e-05</td>
+      <td>3.456566e-04</td>
+      <td>0.035587</td>
+      <td>-0.936847</td>
+      <td>186.302130</td>
     </tr>
     <tr>
-      <th rowspan="4" valign="top">MANGKHUT</th>
-      <th>PH010000000</th>
-      <td>2.899453e+01</td>
+      <th>31</th>
+      <td>PH130000000</td>
+      <td>KETSANA</td>
+      <td>1.540625e-01</td>
+      <td>4.026151e-02</td>
+      <td>0.138561</td>
+      <td>82.130520</td>
+      <td>117.125003</td>
     </tr>
     <tr>
-      <th>PH020000000</th>
-      <td>5.274375e+01</td>
+      <th>32</th>
+      <td>PH130000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>4.083420e-04</td>
+      <td>0.025589</td>
+      <td>-1.595789</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH030000000</th>
-      <td>5.589901e+01</td>
+      <th>33</th>
+      <td>PH140000000</td>
+      <td>BOPHA</td>
+      <td>0.000000e+00</td>
+      <td>3.389807e-06</td>
+      <td>0.017597</td>
+      <td>-0.019263</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH140000000</th>
-      <td>3.399516e+01</td>
+      <th>34</th>
+      <td>PH140000000</td>
+      <td>HAIMA</td>
+      <td>1.828150e-01</td>
+      <td>1.457814e-01</td>
+      <td>0.166236</td>
+      <td>22.277784</td>
+      <td>22.540475</td>
     </tr>
     <tr>
-      <th rowspan="9" valign="top">SAUDEL</th>
-      <th>PH010000000</th>
-      <td>2.431029e+15</td>
+      <th>35</th>
+      <td>PH140000000</td>
+      <td>KETSANA</td>
+      <td>1.000339e-06</td>
+      <td>7.081980e-04</td>
+      <td>0.064493</td>
+      <td>-1.096554</td>
+      <td>199.435792</td>
     </tr>
     <tr>
-      <th>PH020000000</th>
-      <td>5.970797e+15</td>
+      <th>36</th>
+      <td>PH140000000</td>
+      <td>MANGKHUT</td>
+      <td>1.200781e-01</td>
+      <td>1.608988e-01</td>
+      <td>0.191586</td>
+      <td>-21.306796</td>
+      <td>29.056292</td>
     </tr>
     <tr>
-      <th>PH030000000</th>
-      <td>1.177895e+16</td>
+      <th>37</th>
+      <td>PH140000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>3.397131e-03</td>
+      <td>0.065647</td>
+      <td>-5.174829</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH040000000</th>
-      <td>1.176691e+04</td>
+      <th>38</th>
+      <td>PH150000000</td>
+      <td>BOPHA</td>
+      <td>1.002135e-02</td>
+      <td>2.831747e-02</td>
+      <td>0.089236</td>
+      <td>-20.503124</td>
+      <td>95.444403</td>
     </tr>
     <tr>
-      <th>PH050000000</th>
-      <td>4.017269e+15</td>
+      <th>39</th>
+      <td>PH160000000</td>
+      <td>BOPHA</td>
+      <td>6.576090e-01</td>
+      <td>1.206925e-01</td>
+      <td>0.091569</td>
+      <td>586.353550</td>
+      <td>137.971322</td>
     </tr>
     <tr>
-      <th>PH080000000</th>
-      <td>2.069111e+14</td>
+      <th>40</th>
+      <td>PH170000000</td>
+      <td>BOPHA</td>
+      <td>8.893061e-03</td>
+      <td>2.152328e-02</td>
+      <td>0.019978</td>
+      <td>-63.221954</td>
+      <td>83.048895</td>
     </tr>
     <tr>
-      <th>PH130000000</th>
-      <td>1.839009e+14</td>
+      <th>41</th>
+      <td>PH170000000</td>
+      <td>KETSANA</td>
+      <td>0.000000e+00</td>
+      <td>1.062324e-02</td>
+      <td>0.066912</td>
+      <td>-15.876545</td>
+      <td>200.000000</td>
     </tr>
     <tr>
-      <th>PH140000000</th>
-      <td>1.529932e+15</td>
-    </tr>
-    <tr>
-      <th>PH170000000</th>
-      <td>2.818971e+14</td>
+      <th>42</th>
+      <td>PH170000000</td>
+      <td>SAUDEL</td>
+      <td>0.000000e+00</td>
+      <td>6.259374e-04</td>
+      <td>0.011757</td>
+      <td>-5.324003</td>
+      <td>200.000000</td>
     </tr>
   </tbody>
 </table>
@@ -5427,5 +5504,355 @@ agg_df_3
 
 
 ```python
-
+agg_df_2 = agg_df_2[
+    [
+        "ADM1_PCODE",
+        "typhoon_name",
+        "Percent_Difference_total_houses_based",
+        "Percent_Difference_average_based",
+    ]
+]
 ```
+
+
+```python
+df_sorted = agg_df_2.sort_values(by=["typhoon_name"], ascending=-True).reset_index(
+    drop=True
+)
+df_sorted
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ADM1_PCODE</th>
+      <th>typhoon_name</th>
+      <th>Percent_Difference_total_houses_based</th>
+      <th>Percent_Difference_average_based</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH010000000</td>
+      <td>BOPHA</td>
+      <td>-1.370529</td>
+      <td>198.202436</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH120000000</td>
+      <td>BOPHA</td>
+      <td>-0.936847</td>
+      <td>186.302130</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH110000000</td>
+      <td>BOPHA</td>
+      <td>1006.103064</td>
+      <td>92.235226</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH100000000</td>
+      <td>BOPHA</td>
+      <td>-267.626501</td>
+      <td>165.767892</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH170000000</td>
+      <td>BOPHA</td>
+      <td>-63.221954</td>
+      <td>83.048895</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>PH020000000</td>
+      <td>BOPHA</td>
+      <td>-0.941131</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>PH090000000</td>
+      <td>BOPHA</td>
+      <td>-31.262838</td>
+      <td>199.893267</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>PH080000000</td>
+      <td>BOPHA</td>
+      <td>-1.126596</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>PH070000000</td>
+      <td>BOPHA</td>
+      <td>-28.098951</td>
+      <td>122.750504</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH160000000</td>
+      <td>BOPHA</td>
+      <td>586.353550</td>
+      <td>137.971322</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>PH030000000</td>
+      <td>BOPHA</td>
+      <td>-0.014199</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH060000000</td>
+      <td>BOPHA</td>
+      <td>-11.593242</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>PH050000000</td>
+      <td>BOPHA</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PH150000000</td>
+      <td>BOPHA</td>
+      <td>-20.503124</td>
+      <td>95.444403</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>PH140000000</td>
+      <td>BOPHA</td>
+      <td>-0.019263</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>PH050000000</td>
+      <td>HAIMA</td>
+      <td>-3.443930</td>
+      <td>184.369567</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH140000000</td>
+      <td>HAIMA</td>
+      <td>22.277784</td>
+      <td>22.540475</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>PH040000000</td>
+      <td>HAIMA</td>
+      <td>-1.023477</td>
+      <td>191.723781</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>PH010000000</td>
+      <td>HAIMA</td>
+      <td>32.958484</td>
+      <td>64.260414</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>PH030000000</td>
+      <td>HAIMA</td>
+      <td>-1.802512</td>
+      <td>96.955580</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>PH020000000</td>
+      <td>HAIMA</td>
+      <td>203.559265</td>
+      <td>74.266467</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>PH140000000</td>
+      <td>KETSANA</td>
+      <td>-1.096554</td>
+      <td>199.435792</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>PH130000000</td>
+      <td>KETSANA</td>
+      <td>82.130520</td>
+      <td>117.125003</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>PH010000000</td>
+      <td>KETSANA</td>
+      <td>-6.110583</td>
+      <td>196.565413</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>PH040000000</td>
+      <td>KETSANA</td>
+      <td>21.003093</td>
+      <td>27.414090</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>PH080000000</td>
+      <td>KETSANA</td>
+      <td>-0.407757</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>PH170000000</td>
+      <td>KETSANA</td>
+      <td>-15.876545</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>PH050000000</td>
+      <td>KETSANA</td>
+      <td>-22.688620</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>PH030000000</td>
+      <td>KETSANA</td>
+      <td>2.388462</td>
+      <td>16.015704</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>PH020000000</td>
+      <td>KETSANA</td>
+      <td>-5.285384</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>PH140000000</td>
+      <td>MANGKHUT</td>
+      <td>-21.306796</td>
+      <td>29.056292</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>PH020000000</td>
+      <td>MANGKHUT</td>
+      <td>-113.472285</td>
+      <td>41.736938</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>PH010000000</td>
+      <td>MANGKHUT</td>
+      <td>-12.283663</td>
+      <td>25.323341</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>PH030000000</td>
+      <td>MANGKHUT</td>
+      <td>-1.000464</td>
+      <td>43.688339</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>PH140000000</td>
+      <td>SAUDEL</td>
+      <td>-5.174829</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>PH050000000</td>
+      <td>SAUDEL</td>
+      <td>-10.582172</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>PH080000000</td>
+      <td>SAUDEL</td>
+      <td>-1.917907</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>PH040000000</td>
+      <td>SAUDEL</td>
+      <td>-6.272242</td>
+      <td>196.657449</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>PH030000000</td>
+      <td>SAUDEL</td>
+      <td>-14.284173</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>PH020000000</td>
+      <td>SAUDEL</td>
+      <td>-12.920680</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>PH010000000</td>
+      <td>SAUDEL</td>
+      <td>-5.452019</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>PH130000000</td>
+      <td>SAUDEL</td>
+      <td>-1.595789</td>
+      <td>200.000000</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>PH170000000</td>
+      <td>SAUDEL</td>
+      <td>-5.324003</td>
+      <td>200.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
