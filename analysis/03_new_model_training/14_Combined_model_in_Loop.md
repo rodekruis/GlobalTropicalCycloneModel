@@ -429,8 +429,8 @@ print(f"mean_RMSE_test_M1_model: {m1_test_rmse:.2f}")
 print(f"mean_RMSE_test_Combined_model: {combined_test_rmse:.2f}")
 ```
 
-    mean_RMSE_test_M1_model: 3.27
-    mean_RMSE_test_Combined_model: 3.31
+    mean_RMSE_test_M1_model: 3.22
+    mean_RMSE_test_Combined_model: 3.26
 
 
 
@@ -447,24 +447,24 @@ for bin_num in range(1, 6):
 ```
 
     RMSE per bin 1
-    mean_RMSE_test_Combined_model: 1.44
-    mean_RMSE_test_M1_model: 1.12
+    mean_RMSE_test_Combined_model: 1.43
+    mean_RMSE_test_M1_model: 1.11
     
     RMSE per bin 2
-    mean_RMSE_test_Combined_model: 5.89
-    mean_RMSE_test_M1_model: 4.91
+    mean_RMSE_test_Combined_model: 5.86
+    mean_RMSE_test_M1_model: 4.84
     
     RMSE per bin 3
-    mean_RMSE_test_Combined_model: 9.41
+    mean_RMSE_test_Combined_model: 9.45
     mean_RMSE_test_M1_model: 10.06
     
     RMSE per bin 4
-    mean_RMSE_test_Combined_model: 16.75
-    mean_RMSE_test_M1_model: 18.72
+    mean_RMSE_test_Combined_model: 16.66
+    mean_RMSE_test_M1_model: 18.66
     
     RMSE per bin 5
-    mean_RMSE_test_Combined_model: 36.11
-    mean_RMSE_test_M1_model: 37.73
+    mean_RMSE_test_Combined_model: 34.83
+    mean_RMSE_test_M1_model: 36.53
     
 
 
@@ -500,12 +500,12 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
     )
     combined_sd_test_rmse = statistics.stdev(combined_rmse)
 
-    print(f"stdev_RMSE_M1: {m1_sd_test_rmse:.2f}")
-    print(f"stdev_RMSE_Combined: {combined_sd_test_rmse:.2f}")
+    # print(f"stdev_RMSE_M1: {m1_sd_test_rmse:.2f}")
+    # print(f"stdev_RMSE_Combined: {combined_sd_test_rmse:.2f}")
 
     print(Fore.RED)
-    print(f"mean_RMSE_M1: {m1_test_rmse:.2f}")
-    print(f"mean_RMSE_Combined: {combined_test_rmse:.2f}")
+    print(f"mean_RMSE_M1: {m1_test_rmse:.2f}(±{m1_sd_test_rmse:.2f})")
+    print(f"mean_RMSE_Combined: {combined_test_rmse:.2f}(±{combined_sd_test_rmse:.2f})")
 
     # create legend
     labels = ["Mean_M1", "Mean_combined", "M1", "Combined"]
@@ -519,17 +519,14 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
 
 
 ```python
-print("RMSE and Stdev in total", "\n")
+print("RMSE and Stdev in total")
 rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 2.0, 3.5, 0.09)
 ```
 
-    RMSE and Stdev in total 
-    
-    stdev_RMSE_M1: 0.14
-    stdev_RMSE_Combined: 0.13
+    RMSE and Stdev in total
     [31m
-    mean_RMSE_M1: 3.27
-    mean_RMSE_Combined: 3.31
+    mean_RMSE_M1: 3.22(±0.15)
+    mean_RMSE_Combined: 3.26(±0.14)
 
 
 
@@ -551,19 +548,16 @@ bin_params = {
 
 for bin_num in range(1, 6):
 
-    print(f"RMSE and Stdev per bin {bin_num}\n")
+    print(f"RMSE and Stdev per bin {bin_num}")
     rmse_bin_plot(
         M1_RMSE_lst[bin_num], Combined_RMSE_lst[bin_num], *bin_params[bin_num]
     )
 ```
 
     RMSE and Stdev per bin 1
-    
-    stdev_RMSE_M1: 0.10
-    stdev_RMSE_Combined: 0.11
     [31m
-    mean_RMSE_M1: 1.12
-    mean_RMSE_Combined: 1.44
+    mean_RMSE_M1: 1.11(±0.11)
+    mean_RMSE_Combined: 1.43(±0.12)
 
 
 
@@ -573,12 +567,9 @@ for bin_num in range(1, 6):
 
 
     RMSE and Stdev per bin 2
-    
-    stdev_RMSE_M1: 0.36
-    stdev_RMSE_Combined: 0.37
     [31m
-    mean_RMSE_M1: 4.91
-    mean_RMSE_Combined: 5.89
+    mean_RMSE_M1: 4.84(±0.42)
+    mean_RMSE_Combined: 5.86(±0.40)
 
 
 
@@ -588,12 +579,9 @@ for bin_num in range(1, 6):
 
 
     RMSE and Stdev per bin 3
-    
-    stdev_RMSE_M1: 0.59
-    stdev_RMSE_Combined: 0.68
     [31m
-    mean_RMSE_M1: 10.06
-    mean_RMSE_Combined: 9.41
+    mean_RMSE_M1: 10.06(±0.60)
+    mean_RMSE_Combined: 9.45(±0.75)
 
 
 
@@ -603,12 +591,9 @@ for bin_num in range(1, 6):
 
 
     RMSE and Stdev per bin 4
-    
-    stdev_RMSE_M1: 1.03
-    stdev_RMSE_Combined: 1.11
     [31m
-    mean_RMSE_M1: 18.72
-    mean_RMSE_Combined: 16.75
+    mean_RMSE_M1: 18.66(±0.99)
+    mean_RMSE_Combined: 16.66(±1.04)
 
 
 
@@ -618,12 +603,9 @@ for bin_num in range(1, 6):
 
 
     RMSE and Stdev per bin 5
-    
-    stdev_RMSE_M1: 4.19
-    stdev_RMSE_Combined: 4.09
     [31m
-    mean_RMSE_M1: 37.73
-    mean_RMSE_Combined: 36.11
+    mean_RMSE_M1: 36.53(±4.25)
+    mean_RMSE_Combined: 34.83(±4.14)
 
 
 
