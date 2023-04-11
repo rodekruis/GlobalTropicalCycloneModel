@@ -143,6 +143,22 @@ df_rwi = (
 df_rwi.columns
 ```
 
+## Read in the construction materials data
+
+```python
+# reading in the construction materials data
+filename = (
+    input_dir / "05_vulnerablility/output/construction_materials_bygrid.csv"
+)
+df_cmt = (
+    pd.read_csv(filename)
+    .rename(columns={"id": "grid_point_id"})
+    .drop(columns=["Centroid", "hu_bygrid"])
+)
+df_cmt.columns = df_cmt.columns.str.replace("[/ /s]", "_").str.lower()
+df_cmt.columns
+```
+
 ## Read in topography
 
 ```python
@@ -176,7 +192,7 @@ df_all = df_windfield.set_index(index).merge(
 )
 
 # Finally, add the datasets that only have grid points, no associated typhoon
-object_list = [df_houses, df_rwi, df_top]
+object_list = [df_houses, df_rwi, df_cmt, df_top]
 df_no_typhoon = pd.concat(
     objs=[df.set_index("grid_point_id") for df in object_list],
     axis=1,
