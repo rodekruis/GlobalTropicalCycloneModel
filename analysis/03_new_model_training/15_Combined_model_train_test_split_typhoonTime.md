@@ -430,7 +430,8 @@ for run_ix in range(num_exp):
     y0 = fliterd_test_df0["percent_houses_damaged"]
 
     fliterd_test_df0["predicted_percent_damage"] = y0_pred
-    fliterd_test_df1["predicted_percent_damage"] = y1_pred
+    if len(y1_pred) > 0:
+        fliterd_test_df1["predicted_percent_damage"] = y1_pred
 
     # Join two dataframes together
     join_test_dfs = pd.concat([fliterd_test_df0, fliterd_test_df1])
@@ -477,10 +478,10 @@ for run_ix in range(num_exp):
     bin[2]:13.765338343947667
     bin[4]:9.418041509158368
     RMSE in total and per bin (Combined model)
-    total: 3.01
+    total: 2.54
     bin[1]: 0.2584208213372432
-    bin[2]: 12.676755517750486
-    bin[4]: 5.703384546150215
+    bin[2]: 10.64483898018865
+    bin[4]: 5.04233641386687
     ['NOCK-TEN']
     RMSE in total and per bin (M1 model)
     total: 3.22
@@ -490,12 +491,12 @@ for run_ix in range(num_exp):
     bin[4]:9.457486894559104
     bin[5]:22.382500390707676
     RMSE in total and per bin (Combined model)
-    total: 2.83
-    bin[1]: 1.5674872803897795
-    bin[2]: 7.551371941664953
-    bin[3]: 7.214958548289578
-    bin[4]: 6.710698588550311
-    bin[5]: 16.16566138328957
+    total: 2.89
+    bin[1]: 1.5643997925723179
+    bin[2]: 7.687354554802299
+    bin[3]: 6.86610455742168
+    bin[4]: 7.38311620289488
+    bin[5]: 21.83128412127735
     ['SARIKA']
     RMSE in total and per bin (M1 model)
     total: 0.41
@@ -510,19 +511,19 @@ for run_ix in range(num_exp):
     bin[2]:4.910144576796866
     bin[3]:5.901761350205051
     RMSE in total and per bin (Combined model)
-    total: 2.82
-    bin[1]: 0.9261380526421844
-    bin[2]: 5.208437009160083
-    bin[3]: 4.951898716788552
+    total: 3.05
+    bin[1]: 0.7753308255152856
+    bin[2]: 5.679310633321008
+    bin[3]: 5.690518532689525
     ['YUTU']
     RMSE in total and per bin (M1 model)
     total: 0.57
     bin[1]:0.3830001802394938
     bin[2]:1.6763729335530966
     RMSE in total and per bin (Combined model)
-    total: 0.70
-    bin[1]: 0.5134494902257389
-    bin[2]: 1.9483831982456257
+    total: 0.78
+    bin[1]: 0.4063801587100651
+    bin[2]: 2.6473478523454173
     ['KAMMURI']
     RMSE in total and per bin (M1 model)
     total: 2.80
@@ -532,10 +533,10 @@ for run_ix in range(num_exp):
     bin[4]:22.503810077504244
     RMSE in total and per bin (Combined model)
     total: 2.21
-    bin[1]: 1.5302101213209016
-    bin[2]: 3.4368593330919843
-    bin[3]: 3.22176575303716
-    bin[4]: 12.4823480542959
+    bin[1]: 1.607751912568153
+    bin[2]: 3.407199226965097
+    bin[3]: 3.213680511118755
+    bin[4]: 9.957958395958006
     ['NAKRI']
     RMSE in total and per bin (M1 model)
     total: 0.07
@@ -551,11 +552,11 @@ for run_ix in range(num_exp):
     bin[3]:10.72813475579603
     bin[4]:20.478630422152598
     RMSE in total and per bin (Combined model)
-    total: 1.60
-    bin[1]: 0.7592312754620436
-    bin[2]: 3.183079940564389
-    bin[3]: 3.8671873184574417
-    bin[4]: 9.222273660795235
+    total: 1.64
+    bin[1]: 0.8638730728380568
+    bin[2]: 2.9106785677895877
+    bin[3]: 3.2096013708147426
+    bin[4]: 10.100060194181884
     ['SAUDEL']
     RMSE in total and per bin (M1 model)
     total: 0.27
@@ -570,10 +571,10 @@ for run_ix in range(num_exp):
     bin[2]:2.6239881788500696
     bin[3]:7.881335435497877
     RMSE in total and per bin (Combined model)
-    total: 1.04
-    bin[1]: 0.36005005607108875
-    bin[2]: 2.98983803940602
-    bin[3]: 1.193736734422409
+    total: 0.98
+    bin[1]: 0.3248407961546835
+    bin[2]: 2.794519931760327
+    bin[3]: 1.859616424340119
     ['VONGFONG']
     RMSE in total and per bin (M1 model)
     total: 1.28
@@ -583,20 +584,20 @@ for run_ix in range(num_exp):
     bin[4]:15.249584280272789
     bin[5]:40.6698072539491
     RMSE in total and per bin (Combined model)
-    total: 0.88
-    bin[1]: 0.48179766014723596
-    bin[2]: 2.696839299343334
-    bin[3]: 3.7628482794636797
-    bin[4]: 9.104537382016685
-    bin[5]: 23.669994174115118
+    total: 0.82
+    bin[1]: 0.3736321454841038
+    bin[2]: 2.6956854423966052
+    bin[3]: 2.1184755237660546
+    bin[4]: 7.631022920269896
+    bin[5]: 26.218150912396368
     ['MOLAVE']
     RMSE in total and per bin (M1 model)
     total: 0.51
     bin[1]:0.3589135292063722
     bin[2]:2.003225687379784
     RMSE in total and per bin (Combined model)
-    total: 0.51
-    bin[1]: 0.3589135292063722
+    total: 0.55
+    bin[1]: 0.4198345482403349
     bin[2]: 2.003225687379784
 
 
@@ -611,7 +612,7 @@ print(f"mean_RMSE_test_Combined_model: {combined_test_rmse:.2f}")
 ```
 
     mean_RMSE_test_M1_model: 1.61
-    mean_RMSE_test_Combined_model: 1.36
+    mean_RMSE_test_Combined_model: 1.35
 
 
 
@@ -628,23 +629,23 @@ for bin_num in range(1, 6):
 ```
 
     RMSE per bin 1
-    mean_RMSE_test_Combined_model: 0.63
+    mean_RMSE_test_Combined_model: 0.61
     mean_RMSE_test_M1_model: 0.57
     
     RMSE per bin 2
-    mean_RMSE_test_Combined_model: 4.63
+    mean_RMSE_test_Combined_model: 4.50
     mean_RMSE_test_M1_model: 4.64
     
     RMSE per bin 3
-    mean_RMSE_test_Combined_model: 4.04
+    mean_RMSE_test_Combined_model: 3.83
     mean_RMSE_test_M1_model: 8.54
     
     RMSE per bin 4
-    mean_RMSE_test_Combined_model: 8.64
+    mean_RMSE_test_Combined_model: 8.02
     mean_RMSE_test_M1_model: 15.42
     
     RMSE per bin 5
-    mean_RMSE_test_Combined_model: 19.92
+    mean_RMSE_test_Combined_model: 24.02
     mean_RMSE_test_M1_model: 31.53
     
 
@@ -656,7 +657,7 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
 
     m1_test_rmse = statistics.mean(M1_rmse)
     plt.figure(figsize=(4, 3))
-    plt.axvline(m1_test_rmse, color="red", linestyle="dashed")
+    plt.axvline(m1_test_rmse, color="b", linestyle="dashed")
     plt.hist(
         M1_rmse,
         bins=np.arange(min_rg, max_rg, step),
@@ -667,7 +668,7 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
     m1_sd_test_rmse = statistics.stdev(M1_rmse)
 
     combined_test_rmse = statistics.mean(combined_rmse)
-    plt.axvline(combined_test_rmse, color="b", linestyle="dashed")
+    plt.axvline(combined_test_rmse, color="red", linestyle="dashed")
     plt.hist(
         combined_rmse,
         bins=np.arange(min_rg, max_rg, step),
@@ -695,12 +696,12 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
 
 ```python
 print("RMSE and Stdev in total")
-rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 1.0, 2.0, 0.07)
+rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 0.0, 3.5, 0.2)
 ```
 
     RMSE and Stdev in total
     mean_RMSE_M1: 1.61(±1.31)
-    mean_RMSE_Combined: 1.36(±1.09)
+    mean_RMSE_Combined: 1.35(±1.07)
 
 
 
@@ -712,11 +713,11 @@ rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 1.0, 2.0, 0.07)
 
 ```python
 bin_params = {
-    1: (0.5, 2.0, 0.09),
-    2: (2.5, 5.5, 0.18),
-    3: (4.0, 9.0, 0.27),
-    4: (7.5, 17.5, 0.9),
-    5: (19.5, 34.5, 1.2),
+    1: (0.0, 2.0, 0.13),
+    2: (1.0, 10.0, 0.6),
+    3: (2.0, 12.0, 0.7),
+    4: (6.0, 25.0, 1.5),
+    5: (12.0, 45.5, 2.5),
 }
 
 
@@ -730,7 +731,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 1
     mean_RMSE_M1: 0.57(±0.46)
-    mean_RMSE_Combined: 0.63(±0.49)
+    mean_RMSE_Combined: 0.61(±0.50)
 
 
 
@@ -741,7 +742,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 2
     mean_RMSE_M1: 4.64(±4.01)
-    mean_RMSE_Combined: 4.63(±3.49)
+    mean_RMSE_Combined: 4.50(±2.93)
 
 
 
@@ -752,7 +753,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 3
     mean_RMSE_M1: 8.54(±1.61)
-    mean_RMSE_Combined: 4.04(±1.99)
+    mean_RMSE_Combined: 3.83(±2.01)
 
 
 
@@ -763,7 +764,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 4
     mean_RMSE_M1: 15.42(±6.07)
-    mean_RMSE_Combined: 8.64(±2.63)
+    mean_RMSE_Combined: 8.02(±2.09)
 
 
 
@@ -774,7 +775,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 5
     mean_RMSE_M1: 31.53(±12.93)
-    mean_RMSE_Combined: 19.92(±5.31)
+    mean_RMSE_Combined: 24.02(±3.10)
 
 
 
