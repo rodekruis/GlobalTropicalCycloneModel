@@ -696,10 +696,9 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
 
 ```python
 print("RMSE and Stdev in total")
-rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 0.0, 3.5, 0.2)
+rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 0, 5, 0.25)
 ```
 
-    RMSE and Stdev in total
     mean_RMSE_M1: 1.61(±1.31)
     mean_RMSE_Combined: 1.35(±1.07)
 
@@ -713,13 +712,12 @@ rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 0.0, 3.5, 0.2)
 
 ```python
 bin_params = {
-    1: (0.0, 2.0, 0.13),
-    2: (1.0, 10.0, 0.6),
-    3: (2.0, 12.0, 0.7),
-    4: (6.0, 25.0, 1.5),
-    5: (12.0, 45.5, 2.5),
+    1: (0.0, 2.0, 0.2),
+    2: (2, 15, 1),
+    3: (2, 15, 1),
+    4: (5, 30, 2),
+    5: (15, 65, 3),
 }
-
 
 for bin_num in range(1, 6):
 
@@ -783,8 +781,3 @@ for bin_num in range(1, 6):
 ![png](output_17_9.png)
     
 
-
-
-```python
-
-```
