@@ -215,7 +215,7 @@ for run_ix in range(num_exp):
 
     # Oldest typhoons in the training set
     typhoons_train_lst = typhoons[run_ix : run_ix + 27]
-    #print(typhoons_train_lst)
+    # print(typhoons_train_lst)
 
     bin_index2 = np.digitize(df["percent_houses_damaged"], bins=binsP2)
     y_input_strat = bin_index2
@@ -341,11 +341,13 @@ for run_ix in range(num_exp):
 
     # Make prediction on test data and print Confusion Matrix
     y_pred_test = xgb_model.predict(X_test)
-    cm = confusion_matrix(y_test_bin, y_pred_test)
+    cm_test = confusion_matrix(y_test_bin, y_pred_test)
+    print(cm_test)
 
     # Make prediction on train data and print Confusion Matrix
     y_pred_train = xgb_model.predict(X_train)
-    cm = confusion_matrix(y_train_bin, y_pred_train)
+    cm_train = confusion_matrix(y_train_bin, y_pred_train)
+    print(cm_train)
 
     reduced_df = X_train.copy()
 
@@ -484,17 +486,24 @@ for run_ix in range(num_exp):
     bin[3]:17.299815500972798
     bin[4]:13.516810964137715
     bin[5]:13.721287123012859
+    [[1384   50]
+     [  11   54]]
+    [[32980   324]
+     [    0   795]]
     RMSE in total and per bin (Combined model)
-    total: 6.18
-    bin[1]: 3.0008571509481885
-    bin[2]: 16.111235093016717
-    bin[3]: 19.53114106520288
-    bin[4]: 15.97910197056816
-    bin[5]: 8.107768324242093
+    total: 5.94
+    bin[1]: 2.819069285490086
+    bin[2]: 15.679068441259737
+    bin[3]: 18.49953121857319
+    bin[4]: 15.870995864691437
+    bin[5]: 12.12478166305024
     ['SARIKA2016']
     RMSE in total and per bin (M1 model)
     total: 0.42
     bin[1]:0.4199770870355288
+    [[1495]]
+    [[33100   307]
+     [    0   752]]
     RMSE in total and per bin (Combined model)
     total: 0.42
     bin[1]: 0.4199770870355288
@@ -504,20 +513,28 @@ for run_ix in range(num_exp):
     bin[1]:1.0539302874074294
     bin[2]:13.425444269856524
     bin[3]:24.093734523582786
+    [[549  75]
+     [  0  24]]
+    [[32285   290]
+     [    0   714]]
     RMSE in total and per bin (Combined model)
-    total: 8.25
-    bin[1]: 1.3057164842412128
-    bin[2]: 14.434761490758069
-    bin[3]: 21.607681068536174
+    total: 8.43
+    bin[1]: 1.5405065185966746
+    bin[2]: 14.481105558749455
+    bin[3]: 22.918447604910234
     ['YUTU2018']
     RMSE in total and per bin (M1 model)
     total: 0.64
     bin[1]:0.43199094876331723
     bin[2]:1.876105148392642
+    [[912   1]
+     [  0   0]]
+    [[31683   318]
+     [    0   735]]
     RMSE in total and per bin (Combined model)
-    total: 0.94
-    bin[1]: 0.8383163694141542
-    bin[2]: 1.876105148392642
+    total: 0.74
+    bin[1]: 0.43199094876331723
+    bin[2]: 2.393243705565958
     ['KAMMURI2019']
     RMSE in total and per bin (M1 model)
     total: 3.29
@@ -525,16 +542,23 @@ for run_ix in range(num_exp):
     bin[2]:4.203581249729546
     bin[3]:9.458876488640973
     bin[4]:23.730160323436664
+    [[1371  121]
+     [  43   31]]
+    [[31190   372]
+     [    0   735]]
     RMSE in total and per bin (Combined model)
-    total: 4.61
-    bin[1]: 3.101273895597483
-    bin[2]: 6.582959156204083
-    bin[3]: 9.806190900306698
-    bin[4]: 23.106143050036955
+    total: 4.36
+    bin[1]: 2.6316105161856407
+    bin[2]: 6.441611768551141
+    bin[3]: 10.057601865201889
+    bin[4]: 22.8270936991154
     ['NAKRI2019']
     RMSE in total and per bin (M1 model)
     total: 0.10
     bin[1]:0.09715520385945597
+    [[16]]
+    [[31657   297]
+     [    0   809]]
     RMSE in total and per bin (Combined model)
     total: 0.10
     bin[1]: 0.09715520385945597
@@ -545,16 +569,23 @@ for run_ix in range(num_exp):
     bin[2]:3.6050055900409483
     bin[3]:13.779777223804697
     bin[4]:23.579551598163945
+    [[1781    0]
+     [  63    0]]
+    [[29379   307]
+     [    0   729]]
     RMSE in total and per bin (Combined model)
-    total: 3.46
-    bin[1]: 0.5977851813234725
-    bin[2]: 3.704618834278728
+    total: 3.45
+    bin[1]: 0.5402294706681139
+    bin[2]: 3.6050055900409483
     bin[3]: 13.779777223804697
     bin[4]: 23.579551598163945
     ['SAUDEL2020']
     RMSE in total and per bin (M1 model)
     total: 0.27
     bin[1]:0.26587746181249133
+    [[1195]]
+    [[29917   348]
+     [    0   791]]
     RMSE in total and per bin (Combined model)
     total: 0.27
     bin[1]: 0.26587746181249133
@@ -565,22 +596,30 @@ for run_ix in range(num_exp):
     bin[2]:4.799190559045729
     bin[3]:11.445482237418698
     bin[4]:16.848161753891116
+    [[1471    8]
+     [  11   19]]
+    [[30499   346]
+     [    0   791]]
     RMSE in total and per bin (Combined model)
-    total: 2.62
-    bin[1]: 1.5250944301888714
-    bin[2]: 4.800847299699308
-    bin[3]: 10.353497100034296
-    bin[4]: 14.58649980101785
+    total: 2.49
+    bin[1]: 1.4275840484128142
+    bin[2]: 4.516006625021107
+    bin[3]: 10.351186346867125
+    bin[4]: 13.411734218425895
     ['VAMCO2020']
     RMSE in total and per bin (M1 model)
     total: 1.18
     bin[1]:0.33650232346593917
     bin[2]:2.8132974623021427
     bin[3]:8.615402804097041
+    [[1328   13]
+     [   8    0]]
+    [[30341   469]
+     [    0   541]]
     RMSE in total and per bin (Combined model)
-    total: 1.36
+    total: 1.38
     bin[1]: 0.33650232346593917
-    bin[2]: 3.4944957113264064
+    bin[2]: 3.532228280692805
     bin[3]: 8.615402804097041
     ['VONGFONG2020']
     RMSE in total and per bin (M1 model)
@@ -590,22 +629,30 @@ for run_ix in range(num_exp):
     bin[3]:11.097742316590832
     bin[4]:22.813637970804656
     bin[5]:56.89878445731824
+    [[2168    9]
+     [   6    4]]
+    [[31511   492]
+     [    0   549]]
     RMSE in total and per bin (Combined model)
-    total: 1.72
-    bin[1]: 0.43263766738682263
-    bin[2]: 3.5808320882602156
-    bin[3]: 10.197125242500688
-    bin[4]: 20.47656101381973
-    bin[5]: 56.89878445731824
+    total: 1.76
+    bin[1]: 0.8392681446601669
+    bin[2]: 4.752161872859567
+    bin[3]: 8.782726647429387
+    bin[4]: 20.409878660715776
+    bin[5]: 47.60767155753797
     ['MOLAVE2020']
     RMSE in total and per bin (M1 model)
     total: 0.62
     bin[1]:0.48943012409577735
     bin[2]:2.12708030580983
+    [[1431    3]
+     [   0    0]]
+    [[32425   494]
+     [    0   549]]
     RMSE in total and per bin (Combined model)
-    total: 0.62
-    bin[1]: 0.48943012409577735
-    bin[2]: 2.12708030580983
+    total: 1.21
+    bin[1]: 1.0554014235827003
+    bin[2]: 3.3890449207307
 
 
 
@@ -619,7 +666,7 @@ print(f"mean_RMSE_test_Combined_model: {combined_test_rmse:.2f}")
 ```
 
     mean_RMSE_test_M1_model: 2.32
-    mean_RMSE_test_Combined_model: 2.55
+    mean_RMSE_test_Combined_model: 2.54
 
 
 
@@ -640,19 +687,19 @@ for bin_num in range(1, 6):
     mean_RMSE_test_M1_model: 0.79
     
     RMSE per bin 2
-    mean_RMSE_test_Combined_model: 6.30
+    mean_RMSE_test_Combined_model: 6.53
     mean_RMSE_test_M1_model: 5.51
     
     RMSE per bin 3
-    mean_RMSE_test_Combined_model: 13.41
+    mean_RMSE_test_Combined_model: 13.29
     mean_RMSE_test_M1_model: 13.68
     
     RMSE per bin 4
-    mean_RMSE_test_Combined_model: 19.55
+    mean_RMSE_test_Combined_model: 19.22
     mean_RMSE_test_M1_model: 20.10
     
     RMSE per bin 5
-    mean_RMSE_test_Combined_model: 32.50
+    mean_RMSE_test_Combined_model: 29.87
     mean_RMSE_test_M1_model: 35.31
     
 
@@ -708,7 +755,7 @@ rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 0, 5, 0.25)
 
     RMSE and Stdev in total
     mean_RMSE_M1: 2.32(±2.43)
-    mean_RMSE_Combined: 2.55(±2.61)
+    mean_RMSE_Combined: 2.54(±2.58)
 
 
 
@@ -724,7 +771,7 @@ bin_params = {
     2: (2, 15, 1),
     3: (2, 15, 1),
     4: (5, 30, 2),
-    5: (8, 65, 3),
+    5: (10, 60, 3),
 }
 
 for bin_num in range(1, 6):
@@ -737,7 +784,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 1
     mean_RMSE_M1: 0.79(±0.68)
-    mean_RMSE_Combined: 1.03(±1.03)
+    mean_RMSE_Combined: 1.03(±0.91)
 
 
 
@@ -748,7 +795,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 2
     mean_RMSE_M1: 5.51(±4.89)
-    mean_RMSE_Combined: 6.30(±5.29)
+    mean_RMSE_Combined: 6.53(±4.98)
 
 
 
@@ -759,7 +806,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 3
     mean_RMSE_M1: 13.68(±5.43)
-    mean_RMSE_Combined: 13.41(±5.17)
+    mean_RMSE_Combined: 13.29(±5.50)
 
 
 
@@ -770,7 +817,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 4
     mean_RMSE_M1: 20.10(±4.65)
-    mean_RMSE_Combined: 19.55(±4.10)
+    mean_RMSE_Combined: 19.22(±4.43)
 
 
 
@@ -781,7 +828,7 @@ for bin_num in range(1, 6):
 
     RMSE and Stdev per bin 5
     mean_RMSE_M1: 35.31(±30.53)
-    mean_RMSE_Combined: 32.50(±34.50)
+    mean_RMSE_Combined: 29.87(±25.09)
 
 
 
