@@ -174,6 +174,18 @@ df_top.columns
 df_top
 ```
 
+## Read in urban / rural / pop
+
+```python
+filename = input_dir / "06_settlement/output/ghs_rural_urban_pop.csv"
+df_urban = (
+    pd.read_csv(filename)
+    .rename(columns={"id": "grid_point_id"})
+    .drop(columns=["Centroid"])
+)
+df_urban
+```
+
 ## Merge the datasets
 
 ```python
@@ -192,7 +204,7 @@ df_all = df_windfield.set_index(index).merge(
 )
 
 # Finally, add the datasets that only have grid points, no associated typhoon
-object_list = [df_houses, df_rwi, df_cmt, df_top]
+object_list = [df_houses, df_rwi, df_cmt, df_top, df_urban]
 df_no_typhoon = pd.concat(
     objs=[df.set_index("grid_point_id") for df in object_list],
     axis=1,
