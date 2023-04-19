@@ -1,6 +1,6 @@
-# Combined  Model (XGBoost Undersampling + XGBoost Regression)
+# Combined  Model (XGBoost Oversampling + XGBoost Regression)
 
-We developed a hybrid model using both xgboost regression and xgboost classification(while undersampling technique was implemented to enhance its performance). Subsequently, we evaluated the performance of this combined model on the test dataset while train_test_split is done based on typhoons' time and compared it with the result of the simple xgboost regression model. 
+We developed a hybrid model using both xgboost regression and xgboost classification(while oversampling technique was implemented to enhance its performance). Subsequently, we evaluated the performance of this combined model on the test dataset while train_test_split is done based on typhoons' time and compared it with the result of the simple xgboost regression model. 
 
 
 ```python
