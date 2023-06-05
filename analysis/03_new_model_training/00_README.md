@@ -4,7 +4,7 @@ All the codes from number 01 to 15 are related to the analysis of the
 input data, features, and the three main implemented models (regression, classification, and hybrid one).
 
 Code 01 <br />
-[](01_collate_data.ipynb)
+[Input data collection](01_collate_data.ipynb)
 
 Feature selection was applied by using Correlation and Variance Inflation Factor(VIF)
 among all the 38 features including the target.  Value of 80 was considered as the threshold
