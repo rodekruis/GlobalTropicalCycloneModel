@@ -6,7 +6,9 @@ input data, features, and the three main implemented models (regression, classif
 Code 01 <br />
 [Input data collection](01_collate_data.ipynb)
 
-Feature selection was applied by using Correlation and Variance Inflation Factor(VIF)
-among all the 38 features including the target.  Value of 80 was considered as the threshold
-to express the highly correlated pairs in correlation matrix and 7 was considered as the 
-threshold for VIF result.
+In this code we collect and combine the data needed to train the model including windspeed, rainfall and etc.
+
+Code 02 <br />
+[main regression model](02_model_training_baseline.ipynb)
+
+In this code we applied the XGBoost regression model that obtained from analysis on baseline model on the collected input data (data in grid format). 
