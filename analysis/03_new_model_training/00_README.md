@@ -9,6 +9,11 @@ Code 01 <br />
 In this code we collect and combine the data needed to train the model including windspeed, rainfall and etc.
 
 Code 02 <br />
-[main regression model](02_model_training_baseline.ipynb)
+[Naive baseline model](02_model_training_baselines.ipynb)
 
-In this code we applied the XGBoost regression model that obtained from analysis on baseline model on the collected input data (data in grid format). 
+
+
+Code 02 <br />
+[XGBoost regression model](03_model_training.ipynb)
+
+In this code, we trained the XGBoost regression model obtained from the baseline model analysis, on the collected dataset (data in grid format).
