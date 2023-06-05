@@ -110,5 +110,3 @@ Code 15 <br />
 The idea of this code is to determine how well the model performs in learning from older typhoons' characteristics to make predictions on the target value of the most recent ones.
 In this code, we defined a loop with the length of 12 since the training/test ratio is considered 70:30.
 We run the hybrid model to estimate the RMSE while the split of training and test data is done based on the typhoon's time. Therefore, 12 of most recent typhoons wrt times are considered as the test set and the rest as the training set. In each iteration a new typhoon is added to the training set, and the model is tested on the next one.
-
-one 
