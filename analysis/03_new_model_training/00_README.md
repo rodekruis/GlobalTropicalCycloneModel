@@ -9,9 +9,9 @@ Code 01 <br />
 In this code we collect and combine the data needed to train the model including windspeed, rainfall and etc.
 
 Code 02 <br />
-[Naive baseline model](02_model_training_baselines.ipynb)
+[Naive baseline model](02_model_training-baselines.ipynb)
 
-
+In this code, we implemented a Naive baseline model as a simple algorithm to provide predictions without complex computations.
 
 Code 02 <br />
 [XGBoost regression model](03_model_training.ipynb)
