@@ -98,7 +98,7 @@ Code 14 <br />
 In this code, we defined a loop of m iteration.
 Since we faced some variation in the result of hybrid model in multiple runs, we inserted the whole code of hybrid model in a loop to have an m average of RMSE estimation.
 
-Code 14 <br />
+Code 15 <br />
 [Combined Model typhoon split (leave-one-out cross-validation)](14_Combined_model_train_test_split_typhoon.ipynb)
 
 In this code, we defined a loop with the length of number of typhoons.
