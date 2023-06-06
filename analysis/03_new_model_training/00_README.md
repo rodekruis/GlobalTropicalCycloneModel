@@ -99,7 +99,7 @@ In this code, we defined a loop of m iteration.
 Since we faced some variation in the result of hybrid model in multiple runs, we inserted the whole code of hybrid model in a loop to have an m average of RMSE estimation.
 
 Code 14 <br />
-[Combined Model typhoon split (eave-one-out cross-validation)](14_Combined_model_train_test_split_typhoon.ipynb)
+[Combined Model typhoon split (leave-one-out cross-validation)](14_Combined_model_train_test_split_typhoon.ipynb)
 
 In this code, we defined a loop with the length of number of typhoons.
 We evaluated the performance of the combined model by conducting multiple iterations of a for loop, where each iteration used a different typhoon as the test set, while the remaining typhoons were included in the training set. This approach allowed us to estimate the model's performance when the training and test data were split based on all typhoons.
