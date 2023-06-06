@@ -40,7 +40,7 @@ Feature Importance based on XGBoost regression model.
 In this code, we applied feature importance to input data using SHAP values and built-in XGBoost feature importance plot. 
 
 Code 08 <br />
-[new variable: "percent_houses_damaged_5years](08_historical_variable.ipynb)
+[new variable: "percent_houses_damaged_5years"](08_historical_variable.ipynb)
 
 In this code, we added a new variable to the dataset. To estimate this new feature, an average of damages caused by typhoons over the past 5 years will be calculated for every data point and recorded as the value for this new variable.
 
