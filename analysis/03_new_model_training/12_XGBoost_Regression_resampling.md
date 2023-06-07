@@ -1629,7 +1629,7 @@ xgb = XGBRegressor(
     random_state=0,
 )
 
-eval_set = [(X_test, y_test)]
+eval_set = [(X_train, y_train)]
 xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 
 X2 = sm.add_constant(X_train)
