@@ -1,8 +1,7 @@
-Here is the link to the GitHub repository:
+## Documentation of all codes in this branch
 
-
-
-Code 02: Naive baseline model
+Code 02: <\br>
+[Naive baseline model] 02_model_training-baselines.ipynb
 
 Goal: This code is utilized to train a simple baseline model on the input data and estimate the performance of this model. 
 
