@@ -24,8 +24,8 @@ We define a function named create_dummy(), the input of the function are test an
 Finally, we predict both train and test data totally and per bin.
 
 
-
-Code 03: XGBoost regression model (building counts)
+Code 03: <br />
+[XGBoost regression model (building counts)](03_model_training.ipynb)
 
 Goal: This code is utilized to train the build model on the input data and estimate the model performance. 
 
