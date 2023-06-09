@@ -802,6 +802,7 @@ display(Xnew)
 
 
 ```python
+# All df without target column
 dfa[0]
 ```
 
@@ -1884,7 +1885,8 @@ df_test = pd.DataFrame(
         "rural",
         "water",
         "total_pop",
-        "percent_houses_damaged_5years" "percent_houses_damaged",
+        "percent_houses_damaged_5years",
+        "percent_houses_damaged",
     ],
 )
 
@@ -1905,13 +1907,13 @@ df_train = Xnew
 display(df_train)
 ```
 
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:37: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_30127/354225951.py:38: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[3]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:38: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_30127/354225951.py:39: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[2]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:39: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_30127/354225951.py:40: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[1]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:40: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_30127/354225951.py:41: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[0]])
 
 
@@ -2609,7 +2611,7 @@ print(est2.summary())
       elif isinstance(data.columns, (pd.Int64Index, pd.RangeIndex)):
 
 
-    [03:31:02] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [15:36:29] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
     Parameters: { "early_stopping_rounds" } might not be used.
     
       This could be a false alarm, with some parameters getting used by language bindings but
@@ -2622,8 +2624,8 @@ print(est2.summary())
     Dep. Variable:     percent_houses_damaged   R-squared:                       0.229
     Model:                                OLS   Adj. R-squared:                  0.228
     Method:                     Least Squares   F-statistic:                     479.1
-    Date:                    Thu, 08 Jun 2023   Prob (F-statistic):               0.00
-    Time:                            03:31:07   Log-Likelihood:            -1.2583e+05
+    Date:                    Fri, 09 Jun 2023   Prob (F-statistic):               0.00
+    Time:                            15:36:34   Log-Likelihood:            -1.2583e+05
     No. Observations:                   43643   AIC:                         2.517e+05
     Df Residuals:                       43615   BIC:                         2.520e+05
     Df Model:                              27                                         
