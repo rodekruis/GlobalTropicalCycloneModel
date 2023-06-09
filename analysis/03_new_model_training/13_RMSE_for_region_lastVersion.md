@@ -93,7 +93,7 @@ df.head()
       <th>rainfall_max_24h</th>
       <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
+      <th>strong_roof_strong_wall</th>
       <th>...</th>
       <th>std_tri</th>
       <th>mean_elev</th>
@@ -119,7 +119,7 @@ df.head()
       <td>0.085417</td>
       <td>31.000000</td>
       <td>NaN</td>
-      <td>1.018526</td>
+      <td>22.580645</td>
       <td>...</td>
       <td>2.699781</td>
       <td>5.762712</td>
@@ -143,7 +143,7 @@ df.head()
       <td>0.027083</td>
       <td>3.301020</td>
       <td>-0.527000</td>
-      <td>1.579400</td>
+      <td>2.639401</td>
       <td>...</td>
       <td>4.585088</td>
       <td>12.799127</td>
@@ -167,7 +167,7 @@ df.head()
       <td>0.146354</td>
       <td>12.103741</td>
       <td>-0.283000</td>
-      <td>0.551764</td>
+      <td>2.639401</td>
       <td>...</td>
       <td>1.527495</td>
       <td>8.833333</td>
@@ -191,7 +191,7 @@ df.head()
       <td>0.101562</td>
       <td>645.899660</td>
       <td>-0.358889</td>
-      <td>2.107949</td>
+      <td>2.639401</td>
       <td>...</td>
       <td>11.677657</td>
       <td>17.530431</td>
@@ -215,7 +215,7 @@ df.head()
       <td>0.057812</td>
       <td>1071.731293</td>
       <td>-0.462800</td>
-      <td>3.538881</td>
+      <td>2.639401</td>
       <td>...</td>
       <td>17.074011</td>
       <td>31.931338</td>
@@ -230,7 +230,7 @@ df.head()
     </tr>
   </tbody>
 </table>
-<p>5 rows × 22 columns</p>
+<p>5 rows × 31 columns</p>
 </div>
 
 
@@ -292,8 +292,8 @@ df.head()
       <th>rainfall_max_24h</th>
       <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
       <th>std_tri</th>
       <th>mean_elev</th>
@@ -318,8 +318,8 @@ df.head()
       <td>0.313021</td>
       <td>0.479848</td>
       <td>-0.213039</td>
-      <td>12.896581</td>
-      <td>7.450346</td>
+      <td>31.336503</td>
+      <td>29.117802</td>
       <td>...</td>
       <td>34.629550</td>
       <td>42.218750</td>
@@ -342,8 +342,8 @@ df.head()
       <td>0.343229</td>
       <td>55.649739</td>
       <td>0.206000</td>
-      <td>14.070741</td>
-      <td>6.514647</td>
+      <td>23.447758</td>
+      <td>23.591571</td>
       <td>...</td>
       <td>25.475388</td>
       <td>72.283154</td>
@@ -366,8 +366,8 @@ df.head()
       <td>0.424479</td>
       <td>8.157414</td>
       <td>-0.636000</td>
-      <td>19.758682</td>
-      <td>10.940700</td>
+      <td>31.336503</td>
+      <td>29.117802</td>
       <td>...</td>
       <td>54.353996</td>
       <td>102.215198</td>
@@ -390,8 +390,8 @@ df.head()
       <td>0.336979</td>
       <td>88.292015</td>
       <td>-0.227500</td>
-      <td>11.499097</td>
-      <td>6.901584</td>
+      <td>31.336503</td>
+      <td>29.117802</td>
       <td>...</td>
       <td>31.814048</td>
       <td>58.988877</td>
@@ -414,8 +414,8 @@ df.head()
       <td>0.290625</td>
       <td>962.766739</td>
       <td>-0.299667</td>
-      <td>13.866633</td>
-      <td>6.528689</td>
+      <td>23.546053</td>
+      <td>23.660429</td>
       <td>...</td>
       <td>25.976413</td>
       <td>111.386527</td>
@@ -430,7 +430,7 @@ df.head()
     </tr>
   </tbody>
 </table>
-<p>5 rows × 21 columns</p>
+<p>5 rows × 30 columns</p>
 </div>
 
 
@@ -476,7 +476,7 @@ y_input_strat = bin_index2
 
 # Separate typhoon from other features
 dfs = np.split(df, [2], axis=1)
-dfa = np.split(dfs[1], [14], axis=1)
+dfa = np.split(dfs[1], [27], axis=1)
 # print(dfs[0], dfs[1], dfa[0], dfa[1])
 
 # Standardaize data
@@ -516,10 +516,17 @@ display(Xnew)
       <th>7</th>
       <th>8</th>
       <th>9</th>
-      <th>10</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
+      <th>...</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
     </tr>
   </thead>
   <tbody>
@@ -531,14 +538,21 @@ display(Xnew)
       <td>0.009660</td>
       <td>2.334511e-07</td>
       <td>0.330964</td>
-      <td>0.421621</td>
-      <td>0.526082</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
+      <td>0.008392</td>
+      <td>0.015702</td>
+      <td>...</td>
       <td>0.478800</td>
       <td>0.413882</td>
       <td>0.028344</td>
       <td>0.031312</td>
       <td>1.0</td>
       <td>0.00</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>1</th>
@@ -548,14 +562,21 @@ display(Xnew)
       <td>0.010594</td>
       <td>9.712553e-05</td>
       <td>0.504983</td>
-      <td>0.460007</td>
-      <td>0.460011</td>
+      <td>0.233919</td>
+      <td>0.273404</td>
+      <td>0.007450</td>
+      <td>0.035236</td>
+      <td>...</td>
       <td>0.440663</td>
       <td>0.304474</td>
       <td>0.043049</td>
       <td>0.360224</td>
       <td>1.0</td>
       <td>0.00</td>
+      <td>0.140000</td>
+      <td>0.860000</td>
+      <td>0.000086</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>2</th>
@@ -565,14 +586,21 @@ display(Xnew)
       <td>0.013105</td>
       <td>1.371717e-05</td>
       <td>0.155316</td>
-      <td>0.645959</td>
-      <td>0.772542</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
+      <td>0.008392</td>
+      <td>0.015702</td>
+      <td>...</td>
       <td>0.670175</td>
       <td>0.649623</td>
       <td>0.057690</td>
       <td>0.393828</td>
       <td>1.0</td>
       <td>0.00</td>
+      <td>0.110000</td>
+      <td>0.890000</td>
+      <td>0.000139</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>3</th>
@@ -582,14 +610,21 @@ display(Xnew)
       <td>0.010400</td>
       <td>1.544535e-04</td>
       <td>0.324958</td>
-      <td>0.375933</td>
-      <td>0.487333</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
+      <td>0.008392</td>
+      <td>0.015702</td>
+      <td>...</td>
       <td>0.383667</td>
       <td>0.380232</td>
       <td>0.036547</td>
       <td>0.317867</td>
       <td>1.0</td>
       <td>0.00</td>
+      <td>0.120000</td>
+      <td>0.880000</td>
+      <td>0.000654</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>4</th>
@@ -599,17 +634,31 @@ display(Xnew)
       <td>0.008968</td>
       <td>1.690249e-03</td>
       <td>0.294989</td>
-      <td>0.453334</td>
-      <td>0.461002</td>
+      <td>0.234927</td>
+      <td>0.274202</td>
+      <td>0.007462</td>
+      <td>0.034992</td>
+      <td>...</td>
       <td>0.421247</td>
       <td>0.310462</td>
       <td>0.062176</td>
       <td>0.515864</td>
       <td>1.0</td>
       <td>0.07</td>
+      <td>0.460000</td>
+      <td>0.470000</td>
+      <td>0.003618</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -633,14 +682,21 @@ display(Xnew)
       <td>0.032650</td>
       <td>7.311641e-05</td>
       <td>0.111296</td>
-      <td>0.327556</td>
-      <td>0.563018</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.331492</td>
       <td>0.433746</td>
       <td>0.026779</td>
       <td>0.011391</td>
       <td>1.0</td>
       <td>0.01</td>
+      <td>0.000000</td>
+      <td>0.990000</td>
+      <td>0.000103</td>
+      <td>0.009097</td>
     </tr>
     <tr>
       <th>49750</th>
@@ -650,14 +706,21 @@ display(Xnew)
       <td>0.028851</td>
       <td>2.854586e-03</td>
       <td>0.379331</td>
-      <td>0.129550</td>
-      <td>0.275946</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.129081</td>
       <td>0.208269</td>
       <td>0.019943</td>
       <td>0.271370</td>
       <td>1.0</td>
       <td>0.05</td>
+      <td>0.190000</td>
+      <td>0.760000</td>
+      <td>0.001682</td>
+      <td>0.009097</td>
     </tr>
     <tr>
       <th>49751</th>
@@ -667,14 +730,21 @@ display(Xnew)
       <td>0.025744</td>
       <td>1.096340e-03</td>
       <td>0.498339</td>
-      <td>0.129227</td>
-      <td>0.261104</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.138776</td>
       <td>0.204722</td>
       <td>0.016272</td>
       <td>0.087050</td>
       <td>1.0</td>
       <td>0.01</td>
+      <td>0.020000</td>
+      <td>0.970000</td>
+      <td>0.001673</td>
+      <td>0.009097</td>
     </tr>
     <tr>
       <th>49752</th>
@@ -684,14 +754,21 @@ display(Xnew)
       <td>0.035882</td>
       <td>3.178534e-05</td>
       <td>0.286545</td>
-      <td>0.132543</td>
-      <td>0.177055</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.156689</td>
       <td>0.151533</td>
       <td>0.015221</td>
       <td>0.031742</td>
       <td>1.0</td>
       <td>0.00</td>
+      <td>0.027273</td>
+      <td>0.972727</td>
+      <td>0.000284</td>
+      <td>0.009097</td>
     </tr>
     <tr>
       <th>49753</th>
@@ -701,19 +778,347 @@ display(Xnew)
       <td>0.038826</td>
       <td>2.127484e-04</td>
       <td>0.315199</td>
-      <td>0.179078</td>
-      <td>0.324393</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.188511</td>
       <td>0.254262</td>
       <td>0.025869</td>
       <td>0.057267</td>
       <td>1.0</td>
       <td>0.00</td>
+      <td>0.020000</td>
+      <td>0.980000</td>
+      <td>0.000456</td>
+      <td>0.009097</td>
     </tr>
   </tbody>
 </table>
-<p>49754 rows × 14 columns</p>
+<p>49754 rows × 27 columns</p>
 </div>
+
+
+
+```python
+dfa[0]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>wind_speed</th>
+      <th>track_distance</th>
+      <th>rainfall_max_6h</th>
+      <th>rainfall_max_24h</th>
+      <th>total_houses</th>
+      <th>rwi</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
+      <th>strong_roof_salvage_wall</th>
+      <th>light_roof_strong_wall</th>
+      <th>...</th>
+      <th>mean_tri</th>
+      <th>std_tri</th>
+      <th>mean_elev</th>
+      <th>coast_length</th>
+      <th>with_coast</th>
+      <th>urban</th>
+      <th>rural</th>
+      <th>water</th>
+      <th>total_pop</th>
+      <th>percent_houses_damaged_5years</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>12.460039</td>
+      <td>275.018491</td>
+      <td>0.670833</td>
+      <td>0.313021</td>
+      <td>0.479848</td>
+      <td>-0.213039</td>
+      <td>31.336503</td>
+      <td>29.117802</td>
+      <td>0.042261</td>
+      <td>0.507132</td>
+      <td>...</td>
+      <td>74.625539</td>
+      <td>34.62955</td>
+      <td>42.21875</td>
+      <td>5303.65949</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11.428974</td>
+      <td>297.027578</td>
+      <td>0.929167</td>
+      <td>0.343229</td>
+      <td>55.649739</td>
+      <td>0.206</td>
+      <td>23.447758</td>
+      <td>23.591571</td>
+      <td>0.037516</td>
+      <td>1.137998</td>
+      <td>...</td>
+      <td>68.681417</td>
+      <td>25.475388</td>
+      <td>72.283154</td>
+      <td>61015.543599</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.14</td>
+      <td>0.86</td>
+      <td>276.871504</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>13.077471</td>
+      <td>262.598363</td>
+      <td>0.716667</td>
+      <td>0.424479</td>
+      <td>8.157414</td>
+      <td>-0.636</td>
+      <td>31.336503</td>
+      <td>29.117802</td>
+      <td>0.042261</td>
+      <td>0.507132</td>
+      <td>...</td>
+      <td>104.453163</td>
+      <td>54.353996</td>
+      <td>102.215198</td>
+      <td>66707.43807</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.11</td>
+      <td>0.89</td>
+      <td>448.539453</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>12.511864</td>
+      <td>273.63933</td>
+      <td>0.56875</td>
+      <td>0.336979</td>
+      <td>88.292015</td>
+      <td>-0.2275</td>
+      <td>31.336503</td>
+      <td>29.117802</td>
+      <td>0.042261</td>
+      <td>0.507132</td>
+      <td>...</td>
+      <td>59.798108</td>
+      <td>31.814048</td>
+      <td>58.988877</td>
+      <td>53841.050168</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.12</td>
+      <td>0.88</td>
+      <td>2101.708435</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11.977511</td>
+      <td>284.680297</td>
+      <td>0.589583</td>
+      <td>0.290625</td>
+      <td>962.766739</td>
+      <td>-0.299667</td>
+      <td>23.546053</td>
+      <td>23.660429</td>
+      <td>0.037576</td>
+      <td>1.130137</td>
+      <td>...</td>
+      <td>65.65528</td>
+      <td>25.976413</td>
+      <td>111.386527</td>
+      <td>87378.257957</td>
+      <td>1</td>
+      <td>0.07</td>
+      <td>0.46</td>
+      <td>0.47</td>
+      <td>11632.726327</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>49749</th>
+      <td>8.011792</td>
+      <td>255.535258</td>
+      <td>2.25625</td>
+      <td>1.056771</td>
+      <td>41.979062</td>
+      <td>-0.742</td>
+      <td>34.903986</td>
+      <td>60.634178</td>
+      <td>1.444247</td>
+      <td>0.177505</td>
+      <td>...</td>
+      <td>51.666178</td>
+      <td>36.291573</td>
+      <td>39.018519</td>
+      <td>1929.419748</td>
+      <td>1</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.99</td>
+      <td>330.215768</td>
+      <td>1.143833</td>
+    </tr>
+    <tr>
+      <th>49750</th>
+      <td>7.61746</td>
+      <td>266.645258</td>
+      <td>2.170833</td>
+      <td>0.933854</td>
+      <td>1625.734579</td>
+      <td>-0.096571</td>
+      <td>34.903986</td>
+      <td>60.634178</td>
+      <td>1.444247</td>
+      <td>0.177505</td>
+      <td>...</td>
+      <td>20.11842</td>
+      <td>17.425889</td>
+      <td>25.042969</td>
+      <td>45965.284119</td>
+      <td>1</td>
+      <td>0.05</td>
+      <td>0.19</td>
+      <td>0.76</td>
+      <td>5409.607943</td>
+      <td>1.143833</td>
+    </tr>
+    <tr>
+      <th>49751</th>
+      <td>7.170117</td>
+      <td>277.755258</td>
+      <td>1.91875</td>
+      <td>0.833333</td>
+      <td>624.597557</td>
+      <td>0.19</td>
+      <td>34.903986</td>
+      <td>60.634178</td>
+      <td>1.444247</td>
+      <td>0.177505</td>
+      <td>...</td>
+      <td>21.62959</td>
+      <td>17.129093</td>
+      <td>17.537129</td>
+      <td>14744.712453</td>
+      <td>1</td>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.97</td>
+      <td>5378.401365</td>
+      <td>1.143833</td>
+    </tr>
+    <tr>
+      <th>49752</th>
+      <td>6.834925</td>
+      <td>288.864374</td>
+      <td>3.747917</td>
+      <td>1.16131</td>
+      <td>18.445345</td>
+      <td>-0.32</td>
+      <td>34.903986</td>
+      <td>60.634178</td>
+      <td>1.444247</td>
+      <td>0.177505</td>
+      <td>...</td>
+      <td>24.42143</td>
+      <td>12.678785</td>
+      <td>15.389474</td>
+      <td>5376.583753</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.027273</td>
+      <td>0.972727</td>
+      <td>914.677196</td>
+      <td>1.143833</td>
+    </tr>
+    <tr>
+      <th>49753</th>
+      <td>6.879427</td>
+      <td>288.863491</td>
+      <td>4.177083</td>
+      <td>1.256548</td>
+      <td>121.484861</td>
+      <td>-0.251</td>
+      <td>34.903986</td>
+      <td>60.634178</td>
+      <td>1.444247</td>
+      <td>0.177505</td>
+      <td>...</td>
+      <td>29.381264</td>
+      <td>21.274151</td>
+      <td>37.157791</td>
+      <td>9700.043352</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.02</td>
+      <td>0.98</td>
+      <td>1466.117288</td>
+      <td>1.143833</td>
+    </tr>
+  </tbody>
+</table>
+<p>49754 rows × 27 columns</p>
+</div>
+
 
 
 
@@ -758,14 +1163,16 @@ Xnew
       <th>7</th>
       <th>8</th>
       <th>9</th>
-      <th>10</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-      <th>rural</th>
-      <th>water</th>
-      <th>total_pop</th>
-      <th>percent_houses_damaged_5years</th>
+      <th>...</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
       <th>percent_houses_damaged</th>
     </tr>
   </thead>
@@ -778,9 +1185,11 @@ Xnew
       <td>0.009660</td>
       <td>2.334511e-07</td>
       <td>0.330964</td>
-      <td>0.421621</td>
-      <td>0.526082</td>
-      <td>0.478800</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
+      <td>0.008392</td>
+      <td>0.015702</td>
+      <td>...</td>
       <td>0.413882</td>
       <td>0.028344</td>
       <td>0.031312</td>
@@ -800,9 +1209,11 @@ Xnew
       <td>0.010594</td>
       <td>9.712553e-05</td>
       <td>0.504983</td>
-      <td>0.460007</td>
-      <td>0.460011</td>
-      <td>0.440663</td>
+      <td>0.233919</td>
+      <td>0.273404</td>
+      <td>0.007450</td>
+      <td>0.035236</td>
+      <td>...</td>
       <td>0.304474</td>
       <td>0.043049</td>
       <td>0.360224</td>
@@ -810,7 +1221,7 @@ Xnew
       <td>0.00</td>
       <td>0.140000</td>
       <td>0.860000</td>
-      <td>276.871504</td>
+      <td>0.000086</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -822,9 +1233,11 @@ Xnew
       <td>0.013105</td>
       <td>1.371717e-05</td>
       <td>0.155316</td>
-      <td>0.645959</td>
-      <td>0.772542</td>
-      <td>0.670175</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
+      <td>0.008392</td>
+      <td>0.015702</td>
+      <td>...</td>
       <td>0.649623</td>
       <td>0.057690</td>
       <td>0.393828</td>
@@ -832,7 +1245,7 @@ Xnew
       <td>0.00</td>
       <td>0.110000</td>
       <td>0.890000</td>
-      <td>448.539453</td>
+      <td>0.000139</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -844,9 +1257,11 @@ Xnew
       <td>0.010400</td>
       <td>1.544535e-04</td>
       <td>0.324958</td>
-      <td>0.375933</td>
-      <td>0.487333</td>
-      <td>0.383667</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
+      <td>0.008392</td>
+      <td>0.015702</td>
+      <td>...</td>
       <td>0.380232</td>
       <td>0.036547</td>
       <td>0.317867</td>
@@ -854,7 +1269,7 @@ Xnew
       <td>0.00</td>
       <td>0.120000</td>
       <td>0.880000</td>
-      <td>2101.708435</td>
+      <td>0.000654</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -866,9 +1281,11 @@ Xnew
       <td>0.008968</td>
       <td>1.690249e-03</td>
       <td>0.294989</td>
-      <td>0.453334</td>
-      <td>0.461002</td>
-      <td>0.421247</td>
+      <td>0.234927</td>
+      <td>0.274202</td>
+      <td>0.007462</td>
+      <td>0.034992</td>
+      <td>...</td>
       <td>0.310462</td>
       <td>0.062176</td>
       <td>0.515864</td>
@@ -876,12 +1293,14 @@ Xnew
       <td>0.07</td>
       <td>0.460000</td>
       <td>0.470000</td>
-      <td>11632.726327</td>
+      <td>0.003618</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -910,9 +1329,11 @@ Xnew
       <td>0.032650</td>
       <td>7.311641e-05</td>
       <td>0.111296</td>
-      <td>0.327556</td>
-      <td>0.563018</td>
-      <td>0.331492</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.433746</td>
       <td>0.026779</td>
       <td>0.011391</td>
@@ -920,8 +1341,8 @@ Xnew
       <td>0.01</td>
       <td>0.000000</td>
       <td>0.990000</td>
-      <td>330.215768</td>
-      <td>1.143833</td>
+      <td>0.000103</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -932,9 +1353,11 @@ Xnew
       <td>0.028851</td>
       <td>2.854586e-03</td>
       <td>0.379331</td>
-      <td>0.129550</td>
-      <td>0.275946</td>
-      <td>0.129081</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.208269</td>
       <td>0.019943</td>
       <td>0.271370</td>
@@ -942,8 +1365,8 @@ Xnew
       <td>0.05</td>
       <td>0.190000</td>
       <td>0.760000</td>
-      <td>5409.607943</td>
-      <td>1.143833</td>
+      <td>0.001682</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -954,9 +1377,11 @@ Xnew
       <td>0.025744</td>
       <td>1.096340e-03</td>
       <td>0.498339</td>
-      <td>0.129227</td>
-      <td>0.261104</td>
-      <td>0.138776</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.204722</td>
       <td>0.016272</td>
       <td>0.087050</td>
@@ -964,8 +1389,8 @@ Xnew
       <td>0.01</td>
       <td>0.020000</td>
       <td>0.970000</td>
-      <td>5378.401365</td>
-      <td>1.143833</td>
+      <td>0.001673</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -976,9 +1401,11 @@ Xnew
       <td>0.035882</td>
       <td>3.178534e-05</td>
       <td>0.286545</td>
-      <td>0.132543</td>
-      <td>0.177055</td>
-      <td>0.156689</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.151533</td>
       <td>0.015221</td>
       <td>0.031742</td>
@@ -986,8 +1413,8 @@ Xnew
       <td>0.00</td>
       <td>0.027273</td>
       <td>0.972727</td>
-      <td>914.677196</td>
-      <td>1.143833</td>
+      <td>0.000284</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -998,9 +1425,11 @@ Xnew
       <td>0.038826</td>
       <td>2.127484e-04</td>
       <td>0.315199</td>
-      <td>0.179078</td>
-      <td>0.324393</td>
-      <td>0.188511</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
+      <td>0.286799</td>
+      <td>0.005496</td>
+      <td>...</td>
       <td>0.254262</td>
       <td>0.025869</td>
       <td>0.057267</td>
@@ -1008,13 +1437,13 @@ Xnew
       <td>0.00</td>
       <td>0.020000</td>
       <td>0.980000</td>
-      <td>1466.117288</td>
-      <td>1.143833</td>
+      <td>0.000456</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>49754 rows × 19 columns</p>
+<p>49754 rows × 28 columns</p>
 </div>
 
 
@@ -1024,10 +1453,19 @@ Xnew
 features = [
     "wind_speed",
     "track_distance",
-    "total_houses",
     "rainfall_max_6h",
     "rainfall_max_24h",
+    "total_houses",
     "rwi",
+    "strong_roof_strong_wall",
+    "strong_roof_light_wall",
+    "strong_roof_salvage_wall",
+    "light_roof_strong_wall",
+    "light_roof_light_wall",
+    "light_roof_salvage_wall",
+    "salvaged_roof_strong_wall",
+    "salvaged_roof_light_wall",
+    "salvaged_roof_salvage_wall",
     "mean_slope",
     "std_slope",
     "mean_tri",
@@ -1080,12 +1518,12 @@ Xnew
       <th>grid_point_id</th>
       <th>wind_speed</th>
       <th>track_distance</th>
-      <th>total_houses</th>
       <th>rainfall_max_6h</th>
       <th>rainfall_max_24h</th>
+      <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
       <th>std_tri</th>
       <th>mean_elev</th>
@@ -1110,8 +1548,8 @@ Xnew
       <td>0.009660</td>
       <td>2.334511e-07</td>
       <td>0.330964</td>
-      <td>0.421621</td>
-      <td>0.526082</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
       <td>...</td>
       <td>0.413882</td>
       <td>0.028344</td>
@@ -1134,8 +1572,8 @@ Xnew
       <td>0.010594</td>
       <td>9.712553e-05</td>
       <td>0.504983</td>
-      <td>0.460007</td>
-      <td>0.460011</td>
+      <td>0.233919</td>
+      <td>0.273404</td>
       <td>...</td>
       <td>0.304474</td>
       <td>0.043049</td>
@@ -1144,7 +1582,7 @@ Xnew
       <td>0.00</td>
       <td>0.140000</td>
       <td>0.860000</td>
-      <td>276.871504</td>
+      <td>0.000086</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1158,8 +1596,8 @@ Xnew
       <td>0.013105</td>
       <td>1.371717e-05</td>
       <td>0.155316</td>
-      <td>0.645959</td>
-      <td>0.772542</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
       <td>...</td>
       <td>0.649623</td>
       <td>0.057690</td>
@@ -1168,7 +1606,7 @@ Xnew
       <td>0.00</td>
       <td>0.110000</td>
       <td>0.890000</td>
-      <td>448.539453</td>
+      <td>0.000139</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1182,8 +1620,8 @@ Xnew
       <td>0.010400</td>
       <td>1.544535e-04</td>
       <td>0.324958</td>
-      <td>0.375933</td>
-      <td>0.487333</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
       <td>...</td>
       <td>0.380232</td>
       <td>0.036547</td>
@@ -1192,7 +1630,7 @@ Xnew
       <td>0.00</td>
       <td>0.120000</td>
       <td>0.880000</td>
-      <td>2101.708435</td>
+      <td>0.000654</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1206,8 +1644,8 @@ Xnew
       <td>0.008968</td>
       <td>1.690249e-03</td>
       <td>0.294989</td>
-      <td>0.453334</td>
-      <td>0.461002</td>
+      <td>0.234927</td>
+      <td>0.274202</td>
       <td>...</td>
       <td>0.310462</td>
       <td>0.062176</td>
@@ -1216,7 +1654,7 @@ Xnew
       <td>0.07</td>
       <td>0.460000</td>
       <td>0.470000</td>
-      <td>11632.726327</td>
+      <td>0.003618</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1254,8 +1692,8 @@ Xnew
       <td>0.032650</td>
       <td>7.311641e-05</td>
       <td>0.111296</td>
-      <td>0.327556</td>
-      <td>0.563018</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.433746</td>
       <td>0.026779</td>
@@ -1264,8 +1702,8 @@ Xnew
       <td>0.01</td>
       <td>0.000000</td>
       <td>0.990000</td>
-      <td>330.215768</td>
-      <td>1.143833</td>
+      <td>0.000103</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1278,8 +1716,8 @@ Xnew
       <td>0.028851</td>
       <td>2.854586e-03</td>
       <td>0.379331</td>
-      <td>0.129550</td>
-      <td>0.275946</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.208269</td>
       <td>0.019943</td>
@@ -1288,8 +1726,8 @@ Xnew
       <td>0.05</td>
       <td>0.190000</td>
       <td>0.760000</td>
-      <td>5409.607943</td>
-      <td>1.143833</td>
+      <td>0.001682</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1302,8 +1740,8 @@ Xnew
       <td>0.025744</td>
       <td>1.096340e-03</td>
       <td>0.498339</td>
-      <td>0.129227</td>
-      <td>0.261104</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.204722</td>
       <td>0.016272</td>
@@ -1312,8 +1750,8 @@ Xnew
       <td>0.01</td>
       <td>0.020000</td>
       <td>0.970000</td>
-      <td>5378.401365</td>
-      <td>1.143833</td>
+      <td>0.001673</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1326,8 +1764,8 @@ Xnew
       <td>0.035882</td>
       <td>3.178534e-05</td>
       <td>0.286545</td>
-      <td>0.132543</td>
-      <td>0.177055</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.151533</td>
       <td>0.015221</td>
@@ -1336,8 +1774,8 @@ Xnew
       <td>0.00</td>
       <td>0.027273</td>
       <td>0.972727</td>
-      <td>914.677196</td>
-      <td>1.143833</td>
+      <td>0.000284</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1350,8 +1788,8 @@ Xnew
       <td>0.038826</td>
       <td>2.127484e-04</td>
       <td>0.315199</td>
-      <td>0.179078</td>
-      <td>0.324393</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.254262</td>
       <td>0.025869</td>
@@ -1360,13 +1798,13 @@ Xnew
       <td>0.00</td>
       <td>0.020000</td>
       <td>0.980000</td>
-      <td>1466.117288</td>
-      <td>1.143833</td>
+      <td>0.000456</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>49754 rows × 21 columns</p>
+<p>49754 rows × 30 columns</p>
 </div>
 
 
@@ -1422,10 +1860,19 @@ df_test = pd.DataFrame(
         "grid_point_id",
         "wind_speed",
         "track_distance",
-        "total_houses",
         "rainfall_max_6h",
         "rainfall_max_24h",
+        "total_houses",
         "rwi",
+        "strong_roof_strong_wall",
+        "strong_roof_light_wall",
+        "strong_roof_salvage_wall",
+        "light_roof_strong_wall",
+        "light_roof_light_wall",
+        "light_roof_salvage_wall",
+        "salvaged_roof_strong_wall",
+        "salvaged_roof_light_wall",
+        "salvaged_roof_salvage_wall",
         "mean_slope",
         "std_slope",
         "mean_tri",
@@ -1437,8 +1884,7 @@ df_test = pd.DataFrame(
         "rural",
         "water",
         "total_pop",
-        "percent_houses_damaged_5years",
-        "percent_houses_damaged",
+        "percent_houses_damaged_5years" "percent_houses_damaged",
     ],
 )
 
@@ -1459,13 +1905,13 @@ df_train = Xnew
 display(df_train)
 ```
 
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32858/1046774399.py:29: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:37: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[3]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32858/1046774399.py:30: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:38: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[2]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32858/1046774399.py:31: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:39: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[1]])
-    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_32858/1046774399.py:32: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_26352/3205454698.py:40: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
       df_test = df_test.append(Xnew[Xnew["typhoon_name"] == test_list_3[0]])
 
 
@@ -1492,12 +1938,12 @@ display(df_train)
       <th>grid_point_id</th>
       <th>wind_speed</th>
       <th>track_distance</th>
-      <th>total_houses</th>
       <th>rainfall_max_6h</th>
       <th>rainfall_max_24h</th>
+      <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
       <th>std_tri</th>
       <th>mean_elev</th>
@@ -1522,8 +1968,8 @@ display(df_train)
       <td>0.044935</td>
       <td>0.000753</td>
       <td>0.462625</td>
-      <td>0.069010</td>
-      <td>0.090805</td>
+      <td>0.657219</td>
+      <td>0.284772</td>
       <td>...</td>
       <td>0.065630</td>
       <td>0.020180</td>
@@ -1532,7 +1978,7 @@ display(df_train)
       <td>0.05</td>
       <td>0.03</td>
       <td>0.92</td>
-      <td>3893.053124</td>
+      <td>0.001211</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1546,8 +1992,8 @@ display(df_train)
       <td>0.077553</td>
       <td>0.005352</td>
       <td>0.324779</td>
-      <td>0.084089</td>
-      <td>0.189581</td>
+      <td>0.657960</td>
+      <td>0.278739</td>
       <td>...</td>
       <td>0.141129</td>
       <td>0.060336</td>
@@ -1556,7 +2002,7 @@ display(df_train)
       <td>0.10</td>
       <td>0.60</td>
       <td>0.30</td>
-      <td>13238.460497</td>
+      <td>0.004117</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1570,8 +2016,8 @@ display(df_train)
       <td>0.114486</td>
       <td>0.006004</td>
       <td>0.308338</td>
-      <td>0.139945</td>
-      <td>0.291882</td>
+      <td>0.646976</td>
+      <td>0.266692</td>
       <td>...</td>
       <td>0.214061</td>
       <td>0.058423</td>
@@ -1580,7 +2026,7 @@ display(df_train)
       <td>0.28</td>
       <td>0.59</td>
       <td>0.13</td>
-      <td>21410.246051</td>
+      <td>0.006658</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1594,8 +2040,8 @@ display(df_train)
       <td>0.139054</td>
       <td>0.008478</td>
       <td>0.307074</td>
-      <td>0.147618</td>
-      <td>0.257436</td>
+      <td>0.605574</td>
+      <td>0.265275</td>
       <td>...</td>
       <td>0.184985</td>
       <td>0.033297</td>
@@ -1604,7 +2050,7 @@ display(df_train)
       <td>0.24</td>
       <td>0.62</td>
       <td>0.14</td>
-      <td>27185.054763</td>
+      <td>0.008454</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1618,8 +2064,8 @@ display(df_train)
       <td>0.143739</td>
       <td>0.005643</td>
       <td>0.320598</td>
-      <td>0.088132</td>
-      <td>0.140876</td>
+      <td>0.637688</td>
+      <td>0.231547</td>
       <td>...</td>
       <td>0.103623</td>
       <td>0.028936</td>
@@ -1628,7 +2074,7 @@ display(df_train)
       <td>0.00</td>
       <td>0.89</td>
       <td>0.11</td>
-      <td>9535.117048</td>
+      <td>0.002965</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1666,8 +2112,8 @@ display(df_train)
       <td>0.077746</td>
       <td>0.004009</td>
       <td>0.358942</td>
-      <td>0.094337</td>
-      <td>0.197095</td>
+      <td>0.292576</td>
+      <td>0.487645</td>
       <td>...</td>
       <td>0.158586</td>
       <td>0.015329</td>
@@ -1676,8 +2122,8 @@ display(df_train)
       <td>0.12</td>
       <td>0.16</td>
       <td>0.72</td>
-      <td>12112.204272</td>
-      <td>1.133269</td>
+      <td>0.003767</td>
+      <td>0.009013</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1690,8 +2136,8 @@ display(df_train)
       <td>0.066750</td>
       <td>0.008603</td>
       <td>0.548934</td>
-      <td>0.043329</td>
-      <td>0.115342</td>
+      <td>0.325208</td>
+      <td>0.513887</td>
       <td>...</td>
       <td>0.095746</td>
       <td>0.012607</td>
@@ -1700,8 +2146,8 @@ display(df_train)
       <td>0.14</td>
       <td>0.06</td>
       <td>0.80</td>
-      <td>23128.451605</td>
-      <td>0.922223</td>
+      <td>0.007193</td>
+      <td>0.007335</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1714,8 +2160,8 @@ display(df_train)
       <td>0.057364</td>
       <td>0.000619</td>
       <td>0.329734</td>
-      <td>0.066634</td>
-      <td>0.119561</td>
+      <td>0.473382</td>
+      <td>0.475945</td>
       <td>...</td>
       <td>0.088262</td>
       <td>0.013689</td>
@@ -1724,8 +2170,8 @@ display(df_train)
       <td>0.03</td>
       <td>0.07</td>
       <td>0.90</td>
-      <td>361.762983</td>
-      <td>1.475799</td>
+      <td>0.000113</td>
+      <td>0.011737</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1738,8 +2184,8 @@ display(df_train)
       <td>0.054691</td>
       <td>0.001009</td>
       <td>0.372093</td>
-      <td>0.106989</td>
-      <td>0.150028</td>
+      <td>0.293731</td>
+      <td>0.446105</td>
       <td>...</td>
       <td>0.117307</td>
       <td>0.016159</td>
@@ -1748,8 +2194,8 @@ display(df_train)
       <td>0.00</td>
       <td>0.03</td>
       <td>0.97</td>
-      <td>2407.611398</td>
-      <td>1.310422</td>
+      <td>0.000749</td>
+      <td>0.010422</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1762,8 +2208,8 @@ display(df_train)
       <td>0.050505</td>
       <td>0.001149</td>
       <td>0.406977</td>
-      <td>0.085628</td>
-      <td>0.101782</td>
+      <td>0.291560</td>
+      <td>0.524191</td>
       <td>...</td>
       <td>0.084217</td>
       <td>0.013664</td>
@@ -1772,13 +2218,13 @@ display(df_train)
       <td>0.00</td>
       <td>0.03</td>
       <td>0.97</td>
-      <td>2750.286411</td>
-      <td>0.977414</td>
+      <td>0.000855</td>
+      <td>0.007773</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>6111 rows × 21 columns</p>
+<p>6111 rows × 30 columns</p>
 </div>
 
 
@@ -1805,12 +2251,12 @@ display(df_train)
       <th>grid_point_id</th>
       <th>wind_speed</th>
       <th>track_distance</th>
-      <th>total_houses</th>
       <th>rainfall_max_6h</th>
       <th>rainfall_max_24h</th>
+      <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
       <th>std_tri</th>
       <th>mean_elev</th>
@@ -1835,8 +2281,8 @@ display(df_train)
       <td>0.009660</td>
       <td>2.334511e-07</td>
       <td>0.330964</td>
-      <td>0.421621</td>
-      <td>0.526082</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
       <td>...</td>
       <td>0.413882</td>
       <td>0.028344</td>
@@ -1859,8 +2305,8 @@ display(df_train)
       <td>0.010594</td>
       <td>9.712553e-05</td>
       <td>0.504983</td>
-      <td>0.460007</td>
-      <td>0.460011</td>
+      <td>0.233919</td>
+      <td>0.273404</td>
       <td>...</td>
       <td>0.304474</td>
       <td>0.043049</td>
@@ -1869,7 +2315,7 @@ display(df_train)
       <td>0.00</td>
       <td>0.140000</td>
       <td>0.860000</td>
-      <td>276.871504</td>
+      <td>0.000086</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1883,8 +2329,8 @@ display(df_train)
       <td>0.013105</td>
       <td>1.371717e-05</td>
       <td>0.155316</td>
-      <td>0.645959</td>
-      <td>0.772542</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
       <td>...</td>
       <td>0.649623</td>
       <td>0.057690</td>
@@ -1893,7 +2339,7 @@ display(df_train)
       <td>0.00</td>
       <td>0.110000</td>
       <td>0.890000</td>
-      <td>448.539453</td>
+      <td>0.000139</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1907,8 +2353,8 @@ display(df_train)
       <td>0.010400</td>
       <td>1.544535e-04</td>
       <td>0.324958</td>
-      <td>0.375933</td>
-      <td>0.487333</td>
+      <td>0.314832</td>
+      <td>0.337448</td>
       <td>...</td>
       <td>0.380232</td>
       <td>0.036547</td>
@@ -1917,7 +2363,7 @@ display(df_train)
       <td>0.00</td>
       <td>0.120000</td>
       <td>0.880000</td>
-      <td>2101.708435</td>
+      <td>0.000654</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1931,8 +2377,8 @@ display(df_train)
       <td>0.008968</td>
       <td>1.690249e-03</td>
       <td>0.294989</td>
-      <td>0.453334</td>
-      <td>0.461002</td>
+      <td>0.234927</td>
+      <td>0.274202</td>
       <td>...</td>
       <td>0.310462</td>
       <td>0.062176</td>
@@ -1941,7 +2387,7 @@ display(df_train)
       <td>0.07</td>
       <td>0.460000</td>
       <td>0.470000</td>
-      <td>11632.726327</td>
+      <td>0.003618</td>
       <td>0.000000</td>
       <td>0.0</td>
     </tr>
@@ -1979,8 +2425,8 @@ display(df_train)
       <td>0.032650</td>
       <td>7.311641e-05</td>
       <td>0.111296</td>
-      <td>0.327556</td>
-      <td>0.563018</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.433746</td>
       <td>0.026779</td>
@@ -1989,8 +2435,8 @@ display(df_train)
       <td>0.01</td>
       <td>0.000000</td>
       <td>0.990000</td>
-      <td>330.215768</td>
-      <td>1.143833</td>
+      <td>0.000103</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -2003,8 +2449,8 @@ display(df_train)
       <td>0.028851</td>
       <td>2.854586e-03</td>
       <td>0.379331</td>
-      <td>0.129550</td>
-      <td>0.275946</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.208269</td>
       <td>0.019943</td>
@@ -2013,8 +2459,8 @@ display(df_train)
       <td>0.05</td>
       <td>0.190000</td>
       <td>0.760000</td>
-      <td>5409.607943</td>
-      <td>1.143833</td>
+      <td>0.001682</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -2027,8 +2473,8 @@ display(df_train)
       <td>0.025744</td>
       <td>1.096340e-03</td>
       <td>0.498339</td>
-      <td>0.129227</td>
-      <td>0.261104</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.204722</td>
       <td>0.016272</td>
@@ -2037,8 +2483,8 @@ display(df_train)
       <td>0.01</td>
       <td>0.020000</td>
       <td>0.970000</td>
-      <td>5378.401365</td>
-      <td>1.143833</td>
+      <td>0.001673</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -2051,8 +2497,8 @@ display(df_train)
       <td>0.035882</td>
       <td>3.178534e-05</td>
       <td>0.286545</td>
-      <td>0.132543</td>
-      <td>0.177055</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.151533</td>
       <td>0.015221</td>
@@ -2061,8 +2507,8 @@ display(df_train)
       <td>0.00</td>
       <td>0.027273</td>
       <td>0.972727</td>
-      <td>914.677196</td>
-      <td>1.143833</td>
+      <td>0.000284</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -2075,8 +2521,8 @@ display(df_train)
       <td>0.038826</td>
       <td>2.127484e-04</td>
       <td>0.315199</td>
-      <td>0.179078</td>
-      <td>0.324393</td>
+      <td>0.351423</td>
+      <td>0.702693</td>
       <td>...</td>
       <td>0.254262</td>
       <td>0.025869</td>
@@ -2085,13 +2531,13 @@ display(df_train)
       <td>0.00</td>
       <td>0.020000</td>
       <td>0.980000</td>
-      <td>1466.117288</td>
-      <td>1.143833</td>
+      <td>0.000456</td>
+      <td>0.009097</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>43643 rows × 21 columns</p>
+<p>43643 rows × 30 columns</p>
 </div>
 
 
@@ -2163,7 +2609,7 @@ print(est2.summary())
       elif isinstance(data.columns, (pd.Int64Index, pd.RangeIndex)):
 
 
-    [19:00:29] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [03:31:02] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
     Parameters: { "early_stopping_rounds" } might not be used.
     
       This could be a false alarm, with some parameters getting used by language bindings but
@@ -2173,47 +2619,56 @@ print(est2.summary())
     
                                   OLS Regression Results                              
     ==================================================================================
-    Dep. Variable:     percent_houses_damaged   R-squared:                       0.215
-    Model:                                OLS   Adj. R-squared:                  0.215
-    Method:                     Least Squares   F-statistic:                     704.8
-    Date:                    Thu, 23 Mar 2023   Prob (F-statistic):               0.00
-    Time:                            19:00:33   Log-Likelihood:            -1.2620e+05
-    No. Observations:                   43643   AIC:                         2.524e+05
-    Df Residuals:                       43625   BIC:                         2.526e+05
-    Df Model:                              17                                         
+    Dep. Variable:     percent_houses_damaged   R-squared:                       0.229
+    Model:                                OLS   Adj. R-squared:                  0.228
+    Method:                     Least Squares   F-statistic:                     479.1
+    Date:                    Thu, 08 Jun 2023   Prob (F-statistic):               0.00
+    Time:                            03:31:07   Log-Likelihood:            -1.2583e+05
+    No. Observations:                   43643   AIC:                         2.517e+05
+    Df Residuals:                       43615   BIC:                         2.520e+05
+    Df Model:                              27                                         
     Covariance Type:                nonrobust                                         
     =================================================================================================
                                         coef    std err          t      P>|t|      [0.025      0.975]
     -------------------------------------------------------------------------------------------------
-    const                            -4.2635      0.123    -34.789      0.000      -4.504      -4.023
-    wind_speed                       17.6589      0.194     91.138      0.000      17.279      18.039
-    track_distance                    3.6361      0.114     31.914      0.000       3.413       3.859
-    total_houses                      3.5889      0.564      6.368      0.000       2.484       4.693
-    rainfall_max_6h                  -4.2084      0.551     -7.645      0.000      -5.287      -3.129
-    rainfall_max_24h                  0.5180      1.565      0.331      0.741      -2.550       3.586
-    rwi                              -0.9921      0.241     -4.118      0.000      -1.464      -0.520
-    mean_slope                       -7.2427      2.025     -3.576      0.000     -11.212      -3.273
-    std_slope                         0.2400      1.022      0.235      0.814      -1.763       2.243
-    mean_tri                          7.1147      2.100      3.389      0.001       2.999      11.230
-    std_tri                           0.5063      1.191      0.425      0.671      -1.829       2.841
-    mean_elev                        -0.3810      0.283     -1.347      0.178      -0.936       0.174
-    coast_length                      1.0542      0.255      4.135      0.000       0.554       1.554
-    with_coast                        0.0463      0.074      0.626      0.531      -0.099       0.191
-    urban                            -1.3979      0.130    -10.718      0.000      -1.654      -1.142
-    rural                            -1.5669      0.076    -20.580      0.000      -1.716      -1.418
-    water                            -1.2987      0.073    -17.750      0.000      -1.442      -1.155
-    total_pop                     -3.988e-07   5.35e-07     -0.746      0.456   -1.45e-06    6.49e-07
-    percent_houses_damaged_5years     0.0725      0.017      4.256      0.000       0.039       0.106
+    const                         -4.905e+10   3.97e+11     -0.124      0.902   -8.27e+11    7.29e+11
+    wind_speed                       17.4519      0.193     90.623      0.000      17.074      17.829
+    track_distance                    3.4347      0.113     30.286      0.000       3.212       3.657
+    rainfall_max_6h                   3.6435      0.559      6.514      0.000       2.547       4.740
+    rainfall_max_24h                 -4.2706      0.546     -7.817      0.000      -5.341      -3.200
+    total_houses                     -0.1335      1.553     -0.086      0.932      -3.178       2.911
+    rwi                              -0.0095      0.256     -0.037      0.971      -0.511       0.492
+    strong_roof_strong_wall           7.0063      3.442      2.035      0.042       0.259      13.753
+    strong_roof_light_wall            8.4713      3.055      2.773      0.006       2.483      14.460
+    strong_roof_salvage_wall          5.9594      0.404     14.736      0.000       5.167       6.752
+    light_roof_strong_wall            4.1391      1.158      3.574      0.000       1.869       6.409
+    light_roof_light_wall             6.9589      2.968      2.345      0.019       1.142      12.776
+    light_roof_salvage_wall          -1.5073      0.875     -1.722      0.085      -3.223       0.209
+    salvaged_roof_strong_wall         0.9716      0.565      1.718      0.086      -0.137       2.080
+    salvaged_roof_light_wall         -0.4198      0.863     -0.486      0.627      -2.112       1.272
+    salvaged_roof_salvage_wall        0.0442      0.391      0.113      0.910      -0.722       0.810
+    mean_slope                       -0.9250      2.046     -0.452      0.651      -4.935       3.085
+    std_slope                        -1.5320      1.024     -1.496      0.135      -3.539       0.475
+    mean_tri                          0.7997      2.122      0.377      0.706      -3.360       4.959
+    std_tri                           2.5473      1.194      2.134      0.033       0.207       4.887
+    mean_elev                        -0.3685      0.287     -1.282      0.200      -0.932       0.195
+    coast_length                      0.6033      0.256      2.359      0.018       0.102       1.105
+    with_coast                       -0.0761      0.074     -1.025      0.305      -0.222       0.069
+    urban                          4.905e+10   3.97e+11      0.124      0.902   -7.29e+11    8.27e+11
+    rural                          4.905e+10   3.97e+11      0.124      0.902   -7.29e+11    8.27e+11
+    water                          4.905e+10   3.97e+11      0.124      0.902   -7.29e+11    8.27e+11
+    total_pop                        -0.2064      1.706     -0.121      0.904      -3.549       3.136
+    percent_houses_damaged_5years    -3.4584      2.176     -1.589      0.112      -7.724       0.807
     ==============================================================================
-    Omnibus:                    62175.634   Durbin-Watson:                   0.641
-    Prob(Omnibus):                  0.000   Jarque-Bera (JB):         22251468.950
-    Skew:                           8.520   Prob(JB):                         0.00
-    Kurtosis:                     112.298   Cond. No.                     4.50e+18
+    Omnibus:                    61282.876   Durbin-Watson:                   0.648
+    Prob(Omnibus):                  0.000   Jarque-Bera (JB):         20701380.945
+    Skew:                           8.299   Prob(JB):                         0.00
+    Kurtosis:                     108.397   Cond. No.                     6.66e+13
     ==============================================================================
     
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-    [2] The smallest eigenvalue is 4.81e-23. This might indicate that there are
+    [2] The smallest eigenvalue is 2.97e-23. This might indicate that there are
     strong multicollinearity problems or that the design matrix is singular.
 
 
@@ -2266,12 +2721,12 @@ df_test
       <th>grid_point_id</th>
       <th>wind_speed</th>
       <th>track_distance</th>
-      <th>total_houses</th>
       <th>rainfall_max_6h</th>
       <th>rainfall_max_24h</th>
+      <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
       <th>mean_elev</th>
       <th>coast_length</th>
@@ -2296,8 +2751,8 @@ df_test
       <td>0.044935</td>
       <td>0.000753</td>
       <td>0.462625</td>
-      <td>0.069010</td>
-      <td>0.090805</td>
+      <td>0.657219</td>
+      <td>0.284772</td>
       <td>...</td>
       <td>0.020180</td>
       <td>0.031687</td>
@@ -2305,10 +2760,10 @@ df_test
       <td>0.05</td>
       <td>0.03</td>
       <td>0.92</td>
-      <td>3893.053124</td>
+      <td>0.001211</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>0.025106</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>1</th>
@@ -2320,8 +2775,8 @@ df_test
       <td>0.077553</td>
       <td>0.005352</td>
       <td>0.324779</td>
-      <td>0.084089</td>
-      <td>0.189581</td>
+      <td>0.657960</td>
+      <td>0.278739</td>
       <td>...</td>
       <td>0.060336</td>
       <td>0.091281</td>
@@ -2329,10 +2784,10 @@ df_test
       <td>0.10</td>
       <td>0.60</td>
       <td>0.30</td>
-      <td>13238.460497</td>
+      <td>0.004117</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>0.062428</td>
+      <td>0.024520</td>
     </tr>
     <tr>
       <th>2</th>
@@ -2344,8 +2799,8 @@ df_test
       <td>0.114486</td>
       <td>0.006004</td>
       <td>0.308338</td>
-      <td>0.139945</td>
-      <td>0.291882</td>
+      <td>0.646976</td>
+      <td>0.266692</td>
       <td>...</td>
       <td>0.058423</td>
       <td>0.104104</td>
@@ -2353,10 +2808,10 @@ df_test
       <td>0.28</td>
       <td>0.59</td>
       <td>0.13</td>
-      <td>21410.246051</td>
+      <td>0.006658</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>0.087257</td>
+      <td>0.042715</td>
     </tr>
     <tr>
       <th>3</th>
@@ -2368,8 +2823,8 @@ df_test
       <td>0.139054</td>
       <td>0.008478</td>
       <td>0.307074</td>
-      <td>0.147618</td>
-      <td>0.257436</td>
+      <td>0.605574</td>
+      <td>0.265275</td>
       <td>...</td>
       <td>0.033297</td>
       <td>0.091221</td>
@@ -2377,10 +2832,10 @@ df_test
       <td>0.24</td>
       <td>0.62</td>
       <td>0.14</td>
-      <td>27185.054763</td>
+      <td>0.008454</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>0.166181</td>
+      <td>0.209506</td>
     </tr>
     <tr>
       <th>4</th>
@@ -2392,8 +2847,8 @@ df_test
       <td>0.143739</td>
       <td>0.005643</td>
       <td>0.320598</td>
-      <td>0.088132</td>
-      <td>0.140876</td>
+      <td>0.637688</td>
+      <td>0.231547</td>
       <td>...</td>
       <td>0.028936</td>
       <td>0.140126</td>
@@ -2401,10 +2856,10 @@ df_test
       <td>0.00</td>
       <td>0.89</td>
       <td>0.11</td>
-      <td>9535.117048</td>
+      <td>0.002965</td>
       <td>0.000000</td>
       <td>0.0</td>
-      <td>0.567609</td>
+      <td>0.029664</td>
     </tr>
     <tr>
       <th>...</th>
@@ -2440,8 +2895,8 @@ df_test
       <td>0.077746</td>
       <td>0.004009</td>
       <td>0.358942</td>
-      <td>0.094337</td>
-      <td>0.197095</td>
+      <td>0.292576</td>
+      <td>0.487645</td>
       <td>...</td>
       <td>0.015329</td>
       <td>0.265042</td>
@@ -2449,8 +2904,8 @@ df_test
       <td>0.12</td>
       <td>0.16</td>
       <td>0.72</td>
-      <td>12112.204272</td>
-      <td>1.133269</td>
+      <td>0.003767</td>
+      <td>0.009013</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
@@ -2464,8 +2919,8 @@ df_test
       <td>0.066750</td>
       <td>0.008603</td>
       <td>0.548934</td>
-      <td>0.043329</td>
-      <td>0.115342</td>
+      <td>0.325208</td>
+      <td>0.513887</td>
       <td>...</td>
       <td>0.012607</td>
       <td>0.089733</td>
@@ -2473,10 +2928,10 @@ df_test
       <td>0.14</td>
       <td>0.06</td>
       <td>0.80</td>
-      <td>23128.451605</td>
-      <td>0.922223</td>
+      <td>0.007193</td>
+      <td>0.007335</td>
       <td>0.0</td>
-      <td>0.000000</td>
+      <td>0.032423</td>
     </tr>
     <tr>
       <th>6108</th>
@@ -2488,8 +2943,8 @@ df_test
       <td>0.057364</td>
       <td>0.000619</td>
       <td>0.329734</td>
-      <td>0.066634</td>
-      <td>0.119561</td>
+      <td>0.473382</td>
+      <td>0.475945</td>
       <td>...</td>
       <td>0.013689</td>
       <td>0.077939</td>
@@ -2497,10 +2952,10 @@ df_test
       <td>0.03</td>
       <td>0.07</td>
       <td>0.90</td>
-      <td>361.762983</td>
-      <td>1.475799</td>
+      <td>0.000113</td>
+      <td>0.011737</td>
       <td>0.0</td>
-      <td>0.008930</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>6109</th>
@@ -2512,8 +2967,8 @@ df_test
       <td>0.054691</td>
       <td>0.001009</td>
       <td>0.372093</td>
-      <td>0.106989</td>
-      <td>0.150028</td>
+      <td>0.293731</td>
+      <td>0.446105</td>
       <td>...</td>
       <td>0.016159</td>
       <td>0.095031</td>
@@ -2521,10 +2976,10 @@ df_test
       <td>0.00</td>
       <td>0.03</td>
       <td>0.97</td>
-      <td>2407.611398</td>
-      <td>1.310422</td>
+      <td>0.000749</td>
+      <td>0.010422</td>
       <td>0.0</td>
-      <td>0.005853</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>6110</th>
@@ -2536,8 +2991,8 @@ df_test
       <td>0.050505</td>
       <td>0.001149</td>
       <td>0.406977</td>
-      <td>0.085628</td>
-      <td>0.101782</td>
+      <td>0.291560</td>
+      <td>0.524191</td>
       <td>...</td>
       <td>0.013664</td>
       <td>0.064003</td>
@@ -2545,14 +3000,14 @@ df_test
       <td>0.00</td>
       <td>0.03</td>
       <td>0.97</td>
-      <td>2750.286411</td>
-      <td>0.977414</td>
+      <td>0.000855</td>
+      <td>0.007773</td>
       <td>0.0</td>
       <td>0.000000</td>
     </tr>
   </tbody>
 </table>
-<p>6111 rows × 22 columns</p>
+<p>6111 rows × 31 columns</p>
 </div>
 
 
@@ -2712,19 +3167,19 @@ join_final
       <th>grid_point_id</th>
       <th>wind_speed</th>
       <th>track_distance</th>
-      <th>total_houses</th>
       <th>rainfall_max_6h</th>
       <th>rainfall_max_24h</th>
+      <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
-      <th>water</th>
-      <th>total_pop</th>
-      <th>percent_houses_damaged_5years</th>
-      <th>percent_houses_damaged</th>
       <th>y_pred</th>
       <th>ADM3_PCODE</th>
+      <th>id_x</th>
+      <th>Centroid</th>
+      <th>numbuildings_x</th>
+      <th>numbuildings</th>
       <th>weight</th>
       <th>weight*%damg*houses</th>
       <th>weight*%predicted_damg*houses</th>
@@ -2742,19 +3197,19 @@ join_final
       <td>0.044935</td>
       <td>0.000753</td>
       <td>0.462625</td>
-      <td>0.069010</td>
-      <td>0.090805</td>
+      <td>0.657219</td>
+      <td>0.284772</td>
       <td>...</td>
-      <td>0.92</td>
-      <td>3893.053124</td>
       <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.025106</td>
       <td>PH015514000</td>
+      <td>9233.0</td>
+      <td>119.8E_16.4N</td>
+      <td>689</td>
+      <td>689</td>
       <td>1.000000</td>
       <td>0.0</td>
-      <td>1.106424e-05</td>
-      <td>0.000441</td>
+      <td>0.000000e+00</td>
+      <td>0.000008</td>
     </tr>
     <tr>
       <th>1</th>
@@ -2766,19 +3221,19 @@ join_final
       <td>0.077553</td>
       <td>0.005352</td>
       <td>0.324779</td>
-      <td>0.084089</td>
-      <td>0.189581</td>
+      <td>0.657960</td>
+      <td>0.278739</td>
       <td>...</td>
-      <td>0.30</td>
-      <td>13238.460497</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.062428</td>
+      <td>0.024520</td>
       <td>PH015508000</td>
+      <td>9234.0</td>
+      <td>119.8E_16.3N</td>
+      <td>1844</td>
+      <td>5089</td>
       <td>0.362350</td>
       <td>0.0</td>
-      <td>1.625420e-05</td>
-      <td>0.000260</td>
+      <td>4.755256e-07</td>
+      <td>0.000019</td>
     </tr>
     <tr>
       <th>2</th>
@@ -2790,19 +3245,19 @@ join_final
       <td>0.077553</td>
       <td>0.005352</td>
       <td>0.324779</td>
-      <td>0.084089</td>
-      <td>0.189581</td>
+      <td>0.657960</td>
+      <td>0.278739</td>
       <td>...</td>
-      <td>0.30</td>
-      <td>13238.460497</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.062428</td>
+      <td>0.024520</td>
       <td>PH015514000</td>
+      <td>9234.0</td>
+      <td>119.8E_16.3N</td>
+      <td>3245</td>
+      <td>5089</td>
       <td>0.637650</td>
       <td>0.0</td>
-      <td>2.860352e-05</td>
-      <td>0.000458</td>
+      <td>8.368116e-07</td>
+      <td>0.000034</td>
     </tr>
     <tr>
       <th>3</th>
@@ -2814,19 +3269,19 @@ join_final
       <td>0.114486</td>
       <td>0.006004</td>
       <td>0.308338</td>
-      <td>0.139945</td>
-      <td>0.291882</td>
+      <td>0.646976</td>
+      <td>0.266692</td>
       <td>...</td>
-      <td>0.13</td>
-      <td>21410.246051</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.087257</td>
+      <td>0.042715</td>
       <td>PH015501000</td>
+      <td>9235.0</td>
+      <td>119.8E_16.2N</td>
+      <td>1351</td>
+      <td>6106</td>
       <td>0.221258</td>
       <td>0.0</td>
-      <td>1.908737e-05</td>
-      <td>0.000219</td>
+      <td>5.674695e-07</td>
+      <td>0.000013</td>
     </tr>
     <tr>
       <th>4</th>
@@ -2838,19 +3293,19 @@ join_final
       <td>0.114486</td>
       <td>0.006004</td>
       <td>0.308338</td>
-      <td>0.139945</td>
-      <td>0.291882</td>
+      <td>0.646976</td>
+      <td>0.266692</td>
       <td>...</td>
-      <td>0.13</td>
-      <td>21410.246051</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.087257</td>
+      <td>0.042715</td>
       <td>PH015508000</td>
+      <td>9235.0</td>
+      <td>119.8E_16.2N</td>
+      <td>4755</td>
+      <td>6106</td>
       <td>0.778742</td>
       <td>0.0</td>
-      <td>6.718019e-05</td>
-      <td>0.000770</td>
+      <td>1.997274e-06</td>
+      <td>0.000047</td>
     </tr>
     <tr>
       <th>...</th>
@@ -2886,19 +3341,19 @@ join_final
       <td>0.066750</td>
       <td>0.008603</td>
       <td>0.548934</td>
-      <td>0.043329</td>
-      <td>0.115342</td>
+      <td>0.325208</td>
+      <td>0.513887</td>
       <td>...</td>
-      <td>0.80</td>
-      <td>23128.451605</td>
-      <td>0.922223</td>
-      <td>0.0</td>
-      <td>0.000000</td>
+      <td>0.032423</td>
       <td>PH082606000</td>
+      <td>18796.0</td>
+      <td>125.5E_12.0N</td>
+      <td>4070</td>
+      <td>5944</td>
       <td>0.684724</td>
       <td>0.0</td>
-      <td>0.000000e+00</td>
-      <td>0.000620</td>
+      <td>1.909853e-06</td>
+      <td>0.000059</td>
     </tr>
     <tr>
       <th>18338</th>
@@ -2910,19 +3365,19 @@ join_final
       <td>0.057364</td>
       <td>0.000619</td>
       <td>0.329734</td>
-      <td>0.066634</td>
-      <td>0.119561</td>
+      <td>0.473382</td>
+      <td>0.475945</td>
       <td>...</td>
-      <td>0.90</td>
-      <td>361.762983</td>
-      <td>1.475799</td>
-      <td>0.0</td>
-      <td>0.008930</td>
+      <td>0.000000</td>
       <td>PH082622000</td>
+      <td>18797.0</td>
+      <td>125.5E_11.9N</td>
+      <td>463</td>
+      <td>463</td>
       <td>1.000000</td>
       <td>0.0</td>
-      <td>6.849179e-06</td>
-      <td>0.000767</td>
+      <td>0.000000e+00</td>
+      <td>0.000006</td>
     </tr>
     <tr>
       <th>18339</th>
@@ -2934,19 +3389,19 @@ join_final
       <td>0.054691</td>
       <td>0.001009</td>
       <td>0.372093</td>
-      <td>0.106989</td>
-      <td>0.150028</td>
+      <td>0.293731</td>
+      <td>0.446105</td>
       <td>...</td>
-      <td>0.97</td>
-      <td>2407.611398</td>
-      <td>1.310422</td>
-      <td>0.0</td>
-      <td>0.005853</td>
+      <td>0.000000</td>
       <td>PH082606000</td>
+      <td>18962.0</td>
+      <td>125.6E_12.1N</td>
+      <td>77</td>
+      <td>461</td>
       <td>0.167028</td>
       <td>0.0</td>
-      <td>5.274526e-07</td>
-      <td>0.000090</td>
+      <td>0.000000e+00</td>
+      <td>0.000002</td>
     </tr>
     <tr>
       <th>18340</th>
@@ -2958,19 +3413,19 @@ join_final
       <td>0.054691</td>
       <td>0.001009</td>
       <td>0.372093</td>
-      <td>0.106989</td>
-      <td>0.150028</td>
+      <td>0.293731</td>
+      <td>0.446105</td>
       <td>...</td>
-      <td>0.97</td>
-      <td>2407.611398</td>
-      <td>1.310422</td>
-      <td>0.0</td>
-      <td>0.005853</td>
+      <td>0.000000</td>
       <td>PH082617000</td>
+      <td>18962.0</td>
+      <td>125.6E_12.1N</td>
+      <td>384</td>
+      <td>461</td>
       <td>0.832972</td>
       <td>0.0</td>
-      <td>2.630413e-06</td>
-      <td>0.000449</td>
+      <td>0.000000e+00</td>
+      <td>0.000008</td>
     </tr>
     <tr>
       <th>18341</th>
@@ -2982,23 +3437,23 @@ join_final
       <td>0.050505</td>
       <td>0.001149</td>
       <td>0.406977</td>
-      <td>0.085628</td>
-      <td>0.101782</td>
+      <td>0.291560</td>
+      <td>0.524191</td>
       <td>...</td>
-      <td>0.97</td>
-      <td>2750.286411</td>
-      <td>0.977414</td>
-      <td>0.0</td>
       <td>0.000000</td>
       <td>PH082606000</td>
+      <td>18963.0</td>
+      <td>125.6E_12.0N</td>
+      <td>731</td>
+      <td>731</td>
       <td>1.000000</td>
       <td>0.0</td>
       <td>0.000000e+00</td>
-      <td>0.000578</td>
+      <td>0.000011</td>
     </tr>
   </tbody>
 </table>
-<p>18342 rows × 27 columns</p>
+<p>18342 rows × 36 columns</p>
 </div>
 
 
@@ -3197,17 +3652,17 @@ join_region_df
       <th>grid_point_id</th>
       <th>wind_speed</th>
       <th>track_distance</th>
-      <th>total_houses</th>
       <th>rainfall_max_6h</th>
       <th>rainfall_max_24h</th>
+      <th>total_houses</th>
       <th>rwi</th>
-      <th>mean_slope</th>
-      <th>std_slope</th>
+      <th>strong_roof_strong_wall</th>
+      <th>strong_roof_light_wall</th>
       <th>...</th>
-      <th>percent_houses_damaged_5years</th>
-      <th>percent_houses_damaged</th>
-      <th>y_pred</th>
-      <th>ADM3_PCODE</th>
+      <th>id_x</th>
+      <th>Centroid</th>
+      <th>numbuildings_x</th>
+      <th>numbuildings</th>
       <th>weight</th>
       <th>weight*%damg*houses</th>
       <th>weight*%predicted_damg*houses</th>
@@ -3227,17 +3682,17 @@ join_region_df
       <td>0.044935</td>
       <td>0.000753</td>
       <td>0.462625</td>
-      <td>0.069010</td>
-      <td>0.090805</td>
+      <td>0.657219</td>
+      <td>0.284772</td>
       <td>...</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.025106</td>
-      <td>PH015514000</td>
+      <td>9233.0</td>
+      <td>119.8E_16.4N</td>
+      <td>689</td>
+      <td>689</td>
       <td>1.000000</td>
       <td>0.0</td>
-      <td>1.106424e-05</td>
-      <td>0.000441</td>
+      <td>0.000000e+00</td>
+      <td>0.000008</td>
       <td>Region I</td>
       <td>PH010000000</td>
     </tr>
@@ -3251,17 +3706,17 @@ join_region_df
       <td>0.077553</td>
       <td>0.005352</td>
       <td>0.324779</td>
-      <td>0.084089</td>
-      <td>0.189581</td>
+      <td>0.657960</td>
+      <td>0.278739</td>
       <td>...</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.062428</td>
-      <td>PH015508000</td>
+      <td>9234.0</td>
+      <td>119.8E_16.3N</td>
+      <td>1844</td>
+      <td>5089</td>
       <td>0.362350</td>
       <td>0.0</td>
-      <td>1.625420e-05</td>
-      <td>0.000260</td>
+      <td>4.755256e-07</td>
+      <td>0.000019</td>
       <td>Region I</td>
       <td>PH010000000</td>
     </tr>
@@ -3275,17 +3730,17 @@ join_region_df
       <td>0.077553</td>
       <td>0.005352</td>
       <td>0.324779</td>
-      <td>0.084089</td>
-      <td>0.189581</td>
+      <td>0.657960</td>
+      <td>0.278739</td>
       <td>...</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.062428</td>
-      <td>PH015514000</td>
+      <td>9234.0</td>
+      <td>119.8E_16.3N</td>
+      <td>3245</td>
+      <td>5089</td>
       <td>0.637650</td>
       <td>0.0</td>
-      <td>2.860352e-05</td>
-      <td>0.000458</td>
+      <td>8.368116e-07</td>
+      <td>0.000034</td>
       <td>Region I</td>
       <td>PH010000000</td>
     </tr>
@@ -3299,17 +3754,17 @@ join_region_df
       <td>0.114486</td>
       <td>0.006004</td>
       <td>0.308338</td>
-      <td>0.139945</td>
-      <td>0.291882</td>
+      <td>0.646976</td>
+      <td>0.266692</td>
       <td>...</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.087257</td>
-      <td>PH015501000</td>
+      <td>9235.0</td>
+      <td>119.8E_16.2N</td>
+      <td>1351</td>
+      <td>6106</td>
       <td>0.221258</td>
       <td>0.0</td>
-      <td>1.908737e-05</td>
-      <td>0.000219</td>
+      <td>5.674695e-07</td>
+      <td>0.000013</td>
       <td>Region I</td>
       <td>PH010000000</td>
     </tr>
@@ -3323,17 +3778,17 @@ join_region_df
       <td>0.114486</td>
       <td>0.006004</td>
       <td>0.308338</td>
-      <td>0.139945</td>
-      <td>0.291882</td>
+      <td>0.646976</td>
+      <td>0.266692</td>
       <td>...</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.087257</td>
-      <td>PH015508000</td>
+      <td>9235.0</td>
+      <td>119.8E_16.2N</td>
+      <td>4755</td>
+      <td>6106</td>
       <td>0.778742</td>
       <td>0.0</td>
-      <td>6.718019e-05</td>
-      <td>0.000770</td>
+      <td>1.997274e-06</td>
+      <td>0.000047</td>
       <td>Region I</td>
       <td>PH010000000</td>
     </tr>
@@ -3371,17 +3826,17 @@ join_region_df
       <td>0.066750</td>
       <td>0.008603</td>
       <td>0.548934</td>
-      <td>0.043329</td>
-      <td>0.115342</td>
+      <td>0.325208</td>
+      <td>0.513887</td>
       <td>...</td>
-      <td>0.922223</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>PH082606000</td>
+      <td>18796.0</td>
+      <td>125.5E_12.0N</td>
+      <td>4070</td>
+      <td>5944</td>
       <td>0.684724</td>
       <td>0.0</td>
-      <td>0.000000e+00</td>
-      <td>0.000620</td>
+      <td>1.909853e-06</td>
+      <td>0.000059</td>
       <td>Region VIII</td>
       <td>PH080000000</td>
     </tr>
@@ -3395,17 +3850,17 @@ join_region_df
       <td>0.057364</td>
       <td>0.000619</td>
       <td>0.329734</td>
-      <td>0.066634</td>
-      <td>0.119561</td>
+      <td>0.473382</td>
+      <td>0.475945</td>
       <td>...</td>
-      <td>1.475799</td>
-      <td>0.0</td>
-      <td>0.008930</td>
-      <td>PH082622000</td>
+      <td>18797.0</td>
+      <td>125.5E_11.9N</td>
+      <td>463</td>
+      <td>463</td>
       <td>1.000000</td>
       <td>0.0</td>
-      <td>6.849179e-06</td>
-      <td>0.000767</td>
+      <td>0.000000e+00</td>
+      <td>0.000006</td>
       <td>Region VIII</td>
       <td>PH080000000</td>
     </tr>
@@ -3419,17 +3874,17 @@ join_region_df
       <td>0.054691</td>
       <td>0.001009</td>
       <td>0.372093</td>
-      <td>0.106989</td>
-      <td>0.150028</td>
+      <td>0.293731</td>
+      <td>0.446105</td>
       <td>...</td>
-      <td>1.310422</td>
-      <td>0.0</td>
-      <td>0.005853</td>
-      <td>PH082606000</td>
+      <td>18962.0</td>
+      <td>125.6E_12.1N</td>
+      <td>77</td>
+      <td>461</td>
       <td>0.167028</td>
       <td>0.0</td>
-      <td>5.274526e-07</td>
-      <td>0.000090</td>
+      <td>0.000000e+00</td>
+      <td>0.000002</td>
       <td>Region VIII</td>
       <td>PH080000000</td>
     </tr>
@@ -3443,17 +3898,17 @@ join_region_df
       <td>0.054691</td>
       <td>0.001009</td>
       <td>0.372093</td>
-      <td>0.106989</td>
-      <td>0.150028</td>
+      <td>0.293731</td>
+      <td>0.446105</td>
       <td>...</td>
-      <td>1.310422</td>
-      <td>0.0</td>
-      <td>0.005853</td>
-      <td>PH082617000</td>
+      <td>18962.0</td>
+      <td>125.6E_12.1N</td>
+      <td>384</td>
+      <td>461</td>
       <td>0.832972</td>
       <td>0.0</td>
-      <td>2.630413e-06</td>
-      <td>0.000449</td>
+      <td>0.000000e+00</td>
+      <td>0.000008</td>
       <td>Region VIII</td>
       <td>PH080000000</td>
     </tr>
@@ -3467,23 +3922,23 @@ join_region_df
       <td>0.050505</td>
       <td>0.001149</td>
       <td>0.406977</td>
-      <td>0.085628</td>
-      <td>0.101782</td>
+      <td>0.291560</td>
+      <td>0.524191</td>
       <td>...</td>
-      <td>0.977414</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>PH082606000</td>
+      <td>18963.0</td>
+      <td>125.6E_12.0N</td>
+      <td>731</td>
+      <td>731</td>
       <td>1.000000</td>
       <td>0.0</td>
       <td>0.000000e+00</td>
-      <td>0.000578</td>
+      <td>0.000011</td>
       <td>Region VIII</td>
       <td>PH080000000</td>
     </tr>
   </tbody>
 </table>
-<p>18342 rows × 29 columns</p>
+<p>18342 rows × 38 columns</p>
 </div>
 
 
@@ -3546,39 +4001,39 @@ agg_df
       <th rowspan="4" valign="top">PH010000000</th>
       <th>BOPHA</th>
       <td>0.000000</td>
-      <td>0.000000</td>
+      <td>5.610564e-07</td>
       <td>1.571093</td>
-      <td>0.000338</td>
+      <td>0.000008</td>
     </tr>
     <tr>
       <th>HAIMA</th>
-      <td>0.000664</td>
-      <td>0.004569</td>
+      <td>0.000003</td>
+      <td>1.302088e-05</td>
       <td>1.571093</td>
-      <td>0.002437</td>
+      <td>0.000008</td>
     </tr>
     <tr>
       <th>MANGKHUT</th>
-      <td>0.002289</td>
-      <td>0.015345</td>
+      <td>0.000008</td>
+      <td>1.671826e-05</td>
       <td>1.571093</td>
-      <td>0.003863</td>
+      <td>0.000008</td>
     </tr>
     <tr>
       <th>SAUDEL</th>
       <td>0.000000</td>
-      <td>0.000000</td>
+      <td>5.867593e-07</td>
       <td>1.571093</td>
-      <td>0.000650</td>
+      <td>0.000008</td>
     </tr>
     <tr>
       <th>PH012802000</th>
       <th>PH010000000</th>
       <th>BOPHA</th>
       <td>0.000000</td>
-      <td>0.000000</td>
+      <td>0.000000e+00</td>
       <td>0.724799</td>
-      <td>0.000044</td>
+      <td>0.000135</td>
     </tr>
     <tr>
       <th>...</th>
@@ -3594,45 +4049,45 @@ agg_df
       <th>PH170000000</th>
       <th>KETSANA</th>
       <td>0.000000</td>
-      <td>0.000388</td>
+      <td>3.195157e-06</td>
       <td>4.000000</td>
-      <td>0.005455</td>
+      <td>0.000025</td>
     </tr>
     <tr>
       <th>PH175905000</th>
       <th>PH170000000</th>
       <th>KETSANA</th>
       <td>0.000000</td>
-      <td>0.000329</td>
+      <td>2.012662e-06</td>
       <td>1.000000</td>
-      <td>0.001521</td>
+      <td>0.000018</td>
     </tr>
     <tr>
       <th>PH175907000</th>
       <th>PH170000000</th>
       <th>BOPHA</th>
       <td>0.000000</td>
-      <td>0.000000</td>
+      <td>2.687087e-06</td>
       <td>0.340199</td>
-      <td>0.000043</td>
+      <td>0.000026</td>
     </tr>
     <tr>
       <th>PH175914000</th>
       <th>PH170000000</th>
       <th>BOPHA</th>
       <td>0.000000</td>
-      <td>0.000004</td>
+      <td>3.842557e-06</td>
       <td>2.551962</td>
-      <td>0.000365</td>
+      <td>0.000045</td>
     </tr>
     <tr>
       <th>PH175915000</th>
       <th>PH170000000</th>
       <th>BOPHA</th>
       <td>0.000000</td>
-      <td>0.000001</td>
+      <td>6.038499e-06</td>
       <td>1.692708</td>
-      <td>0.000204</td>
+      <td>0.000061</td>
     </tr>
   </tbody>
 </table>
@@ -3709,33 +4164,33 @@ agg_df_1.head()
     <tr>
       <th rowspan="5" valign="top">PH010000000</th>
       <th>BOPHA</th>
-      <td>0.000001</td>
-      <td>0.000242</td>
-      <td>0.017613</td>
+      <td>0.000002</td>
+      <td>0.000034</td>
+      <td>0.025227</td>
     </tr>
     <tr>
       <th>HAIMA</th>
-      <td>0.132145</td>
-      <td>0.067877</td>
-      <td>0.194996</td>
+      <td>0.008584</td>
+      <td>0.002912</td>
+      <td>0.025226</td>
     </tr>
     <tr>
       <th>KETSANA</th>
-      <td>0.000060</td>
-      <td>0.006893</td>
-      <td>0.111819</td>
+      <td>0.000016</td>
+      <td>0.001282</td>
+      <td>0.025133</td>
     </tr>
     <tr>
       <th>MANGKHUT</th>
-      <td>0.127631</td>
-      <td>0.164637</td>
-      <td>0.301262</td>
+      <td>0.008383</td>
+      <td>0.004394</td>
+      <td>0.025226</td>
     </tr>
     <tr>
       <th>SAUDEL</th>
       <td>0.000000</td>
-      <td>0.005398</td>
-      <td>0.099009</td>
+      <td>0.000824</td>
+      <td>0.025226</td>
     </tr>
   </tbody>
 </table>
@@ -3837,84 +4292,84 @@ df_sorted
       <th>0</th>
       <td>PH010000000</td>
       <td>BOPHA</td>
-      <td>-1.370529</td>
-      <td>-198.202436</td>
+      <td>-0.127543</td>
+      <td>-174.982917</td>
     </tr>
     <tr>
       <th>1</th>
       <td>PH120000000</td>
       <td>BOPHA</td>
-      <td>-0.936847</td>
-      <td>-186.302130</td>
+      <td>-1.253007</td>
+      <td>-185.686083</td>
     </tr>
     <tr>
       <th>2</th>
       <td>PH110000000</td>
       <td>BOPHA</td>
-      <td>1006.103064</td>
-      <td>92.235226</td>
+      <td>83.751252</td>
+      <td>17.553016</td>
     </tr>
     <tr>
       <th>3</th>
       <td>PH100000000</td>
       <td>BOPHA</td>
-      <td>-267.626501</td>
-      <td>-165.767892</td>
+      <td>-355.292351</td>
+      <td>-185.758949</td>
     </tr>
     <tr>
       <th>4</th>
       <td>PH170000000</td>
       <td>BOPHA</td>
-      <td>-63.221954</td>
-      <td>-83.048895</td>
+      <td>-22.150110</td>
+      <td>-110.394098</td>
     </tr>
     <tr>
       <th>5</th>
       <td>PH020000000</td>
       <td>BOPHA</td>
-      <td>-0.941131</td>
+      <td>-0.248335</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>6</th>
       <td>PH090000000</td>
       <td>BOPHA</td>
-      <td>-31.262838</td>
-      <td>-199.893267</td>
+      <td>-69.823665</td>
+      <td>-199.928579</td>
     </tr>
     <tr>
       <th>7</th>
       <td>PH080000000</td>
       <td>BOPHA</td>
-      <td>-1.126596</td>
+      <td>-4.429423</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>8</th>
       <td>PH070000000</td>
       <td>BOPHA</td>
-      <td>-28.098951</td>
-      <td>-122.750504</td>
+      <td>-30.785225</td>
+      <td>-151.953915</td>
     </tr>
     <tr>
       <th>9</th>
       <td>PH160000000</td>
       <td>BOPHA</td>
-      <td>586.353550</td>
-      <td>137.971322</td>
+      <td>211.166748</td>
+      <td>94.730554</td>
     </tr>
     <tr>
       <th>10</th>
       <td>PH030000000</td>
       <td>BOPHA</td>
-      <td>-0.014199</td>
+      <td>-0.010275</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>11</th>
       <td>PH060000000</td>
       <td>BOPHA</td>
-      <td>-11.593242</td>
+      <td>-3.602340</td>
       <td>-200.000000</td>
     </tr>
     <tr>
@@ -3928,210 +4383,210 @@ df_sorted
       <th>13</th>
       <td>PH150000000</td>
       <td>BOPHA</td>
-      <td>-20.503124</td>
-      <td>-95.444403</td>
+      <td>-26.281640</td>
+      <td>-132.842506</td>
     </tr>
     <tr>
       <th>14</th>
       <td>PH140000000</td>
       <td>BOPHA</td>
-      <td>-0.019263</td>
+      <td>-0.088624</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>15</th>
       <td>PH050000000</td>
       <td>HAIMA</td>
-      <td>-3.443930</td>
-      <td>-184.369567</td>
+      <td>-7.756523</td>
+      <td>-199.992998</td>
     </tr>
     <tr>
       <th>16</th>
       <td>PH140000000</td>
       <td>HAIMA</td>
-      <td>22.277784</td>
-      <td>22.540475</td>
+      <td>46.361478</td>
+      <td>98.185205</td>
     </tr>
     <tr>
       <th>17</th>
       <td>PH040000000</td>
       <td>HAIMA</td>
-      <td>-1.023477</td>
-      <td>-191.723781</td>
+      <td>-4.691729</td>
+      <td>-197.393125</td>
     </tr>
     <tr>
       <th>18</th>
       <td>PH010000000</td>
       <td>HAIMA</td>
-      <td>32.958484</td>
-      <td>64.260414</td>
+      <td>22.482713</td>
+      <td>98.672212</td>
     </tr>
     <tr>
       <th>19</th>
       <td>PH030000000</td>
       <td>HAIMA</td>
-      <td>-1.802512</td>
-      <td>-96.955580</td>
+      <td>-0.015844</td>
+      <td>-4.692472</td>
     </tr>
     <tr>
       <th>20</th>
       <td>PH020000000</td>
       <td>HAIMA</td>
-      <td>203.559265</td>
-      <td>74.266467</td>
+      <td>211.102771</td>
+      <td>127.918257</td>
     </tr>
     <tr>
       <th>21</th>
       <td>PH140000000</td>
       <td>KETSANA</td>
-      <td>-1.096554</td>
-      <td>-199.435792</td>
+      <td>-0.226627</td>
+      <td>-192.999069</td>
     </tr>
     <tr>
       <th>22</th>
       <td>PH130000000</td>
       <td>KETSANA</td>
-      <td>82.130520</td>
-      <td>117.125003</td>
+      <td>39.896623</td>
+      <td>107.273231</td>
     </tr>
     <tr>
       <th>23</th>
       <td>PH010000000</td>
       <td>KETSANA</td>
-      <td>-6.110583</td>
-      <td>-196.565413</td>
+      <td>-5.035092</td>
+      <td>-195.005553</td>
     </tr>
     <tr>
       <th>24</th>
       <td>PH040000000</td>
       <td>KETSANA</td>
-      <td>21.003093</td>
-      <td>27.414090</td>
+      <td>22.893053</td>
+      <td>84.540587</td>
     </tr>
     <tr>
       <th>25</th>
       <td>PH080000000</td>
       <td>KETSANA</td>
-      <td>-0.407757</td>
+      <td>-5.557022</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>26</th>
       <td>PH170000000</td>
       <td>KETSANA</td>
-      <td>-15.876545</td>
+      <td>-30.417154</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>27</th>
       <td>PH050000000</td>
       <td>KETSANA</td>
-      <td>-22.688620</td>
+      <td>-10.650608</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>28</th>
       <td>PH030000000</td>
       <td>KETSANA</td>
-      <td>2.388462</td>
-      <td>16.015704</td>
+      <td>15.638458</td>
+      <td>113.283910</td>
     </tr>
     <tr>
       <th>29</th>
       <td>PH020000000</td>
       <td>KETSANA</td>
-      <td>-5.285384</td>
+      <td>-0.822697</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>30</th>
       <td>PH140000000</td>
       <td>MANGKHUT</td>
-      <td>-21.306796</td>
-      <td>-29.056292</td>
+      <td>10.636721</td>
+      <td>22.309486</td>
     </tr>
     <tr>
       <th>31</th>
       <td>PH020000000</td>
       <td>MANGKHUT</td>
-      <td>-113.472285</td>
-      <td>-41.736938</td>
+      <td>-2.555654</td>
+      <td>-1.612966</td>
     </tr>
     <tr>
       <th>32</th>
       <td>PH010000000</td>
       <td>MANGKHUT</td>
-      <td>-12.283663</td>
-      <td>-25.323341</td>
+      <td>15.814087</td>
+      <td>62.445734</td>
     </tr>
     <tr>
       <th>33</th>
       <td>PH030000000</td>
       <td>MANGKHUT</td>
-      <td>-1.000464</td>
-      <td>-43.688339</td>
+      <td>-0.278175</td>
+      <td>-60.834791</td>
     </tr>
     <tr>
       <th>34</th>
       <td>PH140000000</td>
       <td>SAUDEL</td>
-      <td>-5.174829</td>
+      <td>-1.100343</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>35</th>
       <td>PH050000000</td>
       <td>SAUDEL</td>
-      <td>-10.582172</td>
+      <td>-7.203795</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>36</th>
       <td>PH080000000</td>
       <td>SAUDEL</td>
-      <td>-1.917907</td>
+      <td>-4.011936</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>37</th>
       <td>PH040000000</td>
       <td>SAUDEL</td>
-      <td>-6.272242</td>
-      <td>-196.657449</td>
+      <td>-0.205057</td>
+      <td>-193.972202</td>
     </tr>
     <tr>
       <th>38</th>
       <td>PH030000000</td>
       <td>SAUDEL</td>
-      <td>-14.284173</td>
+      <td>-1.628723</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>39</th>
       <td>PH020000000</td>
       <td>SAUDEL</td>
-      <td>-12.920680</td>
+      <td>-2.228053</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>40</th>
       <td>PH010000000</td>
       <td>SAUDEL</td>
-      <td>-5.452019</td>
+      <td>-3.267107</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>41</th>
       <td>PH130000000</td>
       <td>SAUDEL</td>
-      <td>-1.595789</td>
+      <td>-0.000004</td>
       <td>-200.000000</td>
     </tr>
     <tr>
       <th>42</th>
       <td>PH170000000</td>
       <td>SAUDEL</td>
-      <td>-5.324003</td>
+      <td>-0.978456</td>
       <td>-200.000000</td>
     </tr>
   </tbody>
