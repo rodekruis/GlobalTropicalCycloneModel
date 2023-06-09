@@ -689,7 +689,7 @@ print(Counter(y_train_us))
 xgb_model = XGBClassifier(eval_metric=["error", "logloss"])
 
 # eval_set = [(X_train, y_train), (X_train, y_train)]
-eval_set = [(X_test, y_test_bin)]
+eval_set = [(X_train, y_train_bin)]
 xgb_model.fit(
     X_train_us,
     y_train_us,
