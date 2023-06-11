@@ -24,10 +24,11 @@ We define a function named create_dummy(), the input of the function are test an
 Finally, we predict both train and test data totally and per bin.
 
 
-Code 03: <br />
-[XGBoost regression model (building counts)](03_model_training.ipynb)
 
-Goal: This code is utilized to train the build model on the input data and estimate the model performance. 
+Code 03:  <br />
+[XGBoost regression model (building counts)]()
+
+Goal: This code is utilized to train the built model on the input data and estimate the model performance. 
 
 In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame.  
 
@@ -66,9 +67,10 @@ At the very end to get a plot of RMSEs we define a function named rmse_bin_plot(
 
 
 
-Code 03: XGBoost regression model (houses counts)
+Code 03:  <br />
+[XGBoost regression model (houses counts)]()
 
-Goal: This code is utilized to train the build model on the input data and estimate the model performance. 
+Goal: This code is utilized to train the built model on the input data and estimate the model performance. 
 
 Generally, code 03 was updated to train the model on input data using the ‘total_houses' instead of ‘total_building’ since there are distinct concepts for buildings and houses. Consequently, the target variable ‘percent_damage_building’ was replaced with 'percent_damage_houses’ to accurately represents the percentage of damaged houses. 
 
@@ -80,7 +82,8 @@ Due to the replacement of the building with houses, some values in the target da
 
 
 
-Code 04: Correlation Matrix
+Code 04:  <br />
+[Correlation Matrix]()
 
 Goal: This code is utilized to compute the correlation among various features present in the input dataset.
 
@@ -98,7 +101,8 @@ At the very end, we create a scatter plot to show the relation between ‘total_
 
 
 
-Code 05: Simple Moving Average(SMA)
+Code 05:  <br />
+[Simple Moving Average(SMA)]()
 
 Goal: To better understand the relationship between some of the variables together or with the target.
 
@@ -118,7 +122,8 @@ The last part of this section is a piece of code that allows us to plot the tren
 
 
 
-Code 07: Feature Importance (XGBoost regression model)
+Code 07:  <br />
+[Feature Importance (XGBoost regression model)]()
 
 Goal: This code is utilized to find which features are most important in predicting the target variable.
 
@@ -152,28 +157,36 @@ To have a visualization of the results we show the bar and beeswarm plot based o
 
 
 
-Code 08: Creating a historical variable
+Code 08:  <br />
+[Creating a historical variable]()
 
 Goal: This code is utilized to generate a historical variable and incorporate it into the data to improve the performance of the built model when training on the input data.
 
 In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset_primary() which is the one we need to call.  
 
-Basically, wegroupby() based on "typhoon_year", "grid_point_id", and "percent_houses_damaged". Then, we calculate an average of damages over the past 5 years for every data point and recorded it as the value for the new variable ("percent_houses_damaged_5years"). 
+Basically, wegroupby() the data frame based on "typhoon_year", "grid_point_id", and "percent_houses_damaged".  The obtained df has known as df_avgDmgCell_and_Year.
 
-For a more clear description of the piece of code below, we groupby() on df_avgDmgCell_and_Year based on a specific columngrid_point_id. We compute the rolling mean of the “percent_houses_damaged" column and the maximum value of the "typhoon_year" column within a rolling window of size 5 (representing 5 years).
+Then, we calculate an average of damages over the past 5 years for every data point and recorded it as the value for the new variable (new column) ("percent_houses_damaged_5years"). 
 
 df_res2 = (
     df_avgDmgCell_and_Year.groupby("grid_point_id")
     .rolling(5, min_periods=1)
     .agg({"percent_houses_damaged": "mean", "typhoon_year": "max"}))
 
+For a more clear description of the piece of code above, we groupby() on df_avgDmgCell_and_Year based on a specific columngrid_point_id. We compute the rolling mean of the “percent_houses_damaged" column and the maximum value of the "typhoon_year" column within a rolling window of size 5 (representing 5 years).
+
 Note: min_periods is set to 1, which means that the rolling window requires at least one valid observation in the window before computing the result.
+
+Finaly we "typhoon_year" sum one, because we want to join with the data until the previous year (for example if there is a typhoon in 2020 we use the 5 years average until 2019 and not considering 2020)
+
+df_res2["typhoon_year"] = df_res2["typhoon_year"] + 1
 
 Finally, we merge this DataFrame with the original one based on ["typhoon_year", "grid_point_id"] and fill missing values in the new column of a merged DataFrame with the value 0.
 
 
 
-Code 09: Binary Model (Random Forest)
+Code 09:  <br />
+[Binary Model (Random Forest)]()
 
 Goal: This code is implemented a classification algorithm (Random Forest) to construct a model and train it on binary input data.
 
@@ -203,7 +216,8 @@ At the very end, we also check the importance of features in the Random Forest c
 
 
 
-Code 09: Binary Model (XGBoost)
+Code 09:  <br />
+[Binary Model (XGBoost)]()
 
 Goal: This code is implemented a classification algorithm (XGBoost) to construct a model and train it on binary input data.
 
@@ -233,7 +247,8 @@ At the very end, we also check the importance of features in the XGBoost classif
 
 
 
-Code 09: Binary Logistic Regression Model
+Code 09:  <br />
+[Binary Logistic Regression Model]()
 
 Goal: This code is implemented a classification algorithm (Logistic Regression) to construct a model and train it on binary input data.
 
@@ -263,7 +278,8 @@ At the very end, we also check the importance of features in the Binary Logistic
 
 
 
-Code 09: XGBoost (different n_estimators)
+Code 09:  <br />
+[XGBoost (different n_estimators)]()
 
 Goal: This code is implemented to compare the performance of the XGBoost classification model with respect to different n-estimators.
 
@@ -291,7 +307,8 @@ We define an empty list to keep the f1_score of each n_estimator f1_lst = [], an
 
 
 
-Code 10: Feature Importance (XGBoost classification model)
+Code 10:  <br />
+[Feature Importance (XGBoost classification model)]()
 
 Goal: This code is implemented to find which features are most important in predicting the binary target variable.
 
@@ -329,7 +346,8 @@ To have a visualization of the results we show the bar and beeswarm plot based o
 
 
 
-Code 11: ROC Curve for binary models
+Code 11:  <br />
+[ROC Curve for binary models]()
 
 Goal: This code is utilized to have a graphical representation of the performance of the three binary models and compare their performance using the ROC curve.
 
@@ -364,7 +382,8 @@ Note: The fpr_lr and tpr_lr arrays contain the false positive rate and true posi
 
 
 
-Code 12: Data Resampling in Regression Model
+Code 12:  <br />
+[Data Resampling in Regression Model]()
 
 Goals: This code is implemented the SMOTE technique to reduce the class imbalance in the continuous target data by oversampling the minority class.
 
@@ -396,29 +415,88 @@ Note: We figure out that some predicted values are negatives, we clip the predic
 
 
 
-Code 13: RMSE estimation for regions (ADM1)
+Code 13:  <br />
+[RMSE estimation for regions (ADM1)]()
 
 Goal: This code is utilized to check how the model can perform for a wide area. (region ADM1 instead of Municipality ADM3)
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame. For simplicity of our work we move the target to be the last column of the data frame.
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame. For simplicity of our work we move the target to be the last column of the data frame.
 
 Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells. Therefore, we decide to fill those rows with the mean value of "rwi", and since some values in the target dataset have exceeded 100 we set those numbers to the maximum value (100) to ensure that all values fall within the range of 0 to 100. We remove rows in the dataset in which windspeed equals zero, and we drop"typhoon_year".
 
-We define a new set of bin bins2 = [0, 0.00009, 1, 10, 50, 101] and counted the number of samples per bin. We use NumPy Digitize() function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
+We define a new set of bin bins2 = [0, 0.00009, 1, 10, 50, 101] and count the number of samples per bin. We use NumPy Digitize() function to get the indices of bins to which each of these values belongs in the input array. 
 
-The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+We use MinMaxScaler() function for data standardization that normalize data in range of [0,1], but prior to that we separate the first two columns which are “typhoon_name“ and “grid_point_id“ and the last column which is target. After applying standardization we again join target column to standardaized data frame and then we rewrite columns header since during normalization process they were changed to numbers.
 
-We use MinMaxScaler() function for data standardization that normalize data in range of [0,1], but earlier we separate the first two columns which are “typhoon_name“ and “grid_point_id“ and the last column which is target.
+At this point we randomly choose a few typhoons and assign them to a new list to create multiple lists of typhoons, so we select one of the defined lists for test set and drop it from standardaized data frame and keep the remaining typhoons in our data frame for training the model.
+
+When we split test and train data we run the model and make prediction for both test and train data. We joined prediction column to the data frame. We read a new CSV file (ggl_grid_to_mun_weights.csv) and import it to a data frame named as df_weight and merge it with df_test to generate a new data frame known as join_final. We drop unrequired columns from join_final and for each row we multiply %damage and also %predicted_damage with total_houses and weight.
+
+Now, it is time to read a new CSV file named "adm3_area.csv" and import to a data frame region_df, this file includes region name and region code.  We join region name and region code of region_df to join_final based on municipality code in both data frames and create a new joint df known as join_region_df. 
+
+We groupby join_region_df by municipality with sum as the aggregation function so the aggregated df is agg_df. Then we normalaize this agg_df by sum of the weights and again groupby by region and sum as aggregation function. 
+
+We estimate the difference between real and predicted values in two different ways and add the results as new column to the final data frame df_sorted.
 
 
 
-Code 14: Combined Model
+Code 14:  <br />
+[Combined Model]()
 
 Goal: This code is implemented to build a hybrid model leading to reduce the RMSE estimation of high bins (high damaged values). 
 
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells. Therefore, we decide to fill those rows with the mean value of "rwi", and since some values in the target dataset have exceeded 100 we set those numbers to the maximum value (100) to ensure that all values fall within the range of 0 to 100. 
+
+There are some rows in the dataset in which windspeed equals zero, we decided to remove those rows before we train the model on the input data. We remove rows in the dataset in which windspeed equals zero, and we drop"grid_point_id" and "typhoon_year".
+
+Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets. bins2=[0, 0.00009, 1, 10, 50, 101]
+
+The value_counts() function checks the bins' intervals, so we can figure out how many data points we have in each bin. The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array.
+
+We split features into X and y sets (all features were considered for X and the target variable for y). We define the train_test_split() function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. 
+
+We specify the XGBoost model (with all the specified hyperparameters) and then fit the model to train data. Finally, we make predictions on both test and train data wrt the XGBoost model and calculate the total RMSE per bin using a for loop in range(1, 6).
+
+Now we train XGBoost Binary model for the same training data we had in previous model. Therefore, first, we define a threshold (thresh = 10.0) to separate the target into damaged and not damaged and apply it to both test and train data of the previous model. Then we perform undersampling on train data  sampling_strategy=0.1
+
+We run a binary model and then make prdictions for both test and training data, check the confusion matrix and classification report for both sets of data (test and train).
+
+In order to go towards the third step, we add y_train and y_train_prediction to X_train data and called this data frame as reduced_df then filter it by predcitted_values==1 and called this filtered data frame fliterd_df. Now in the third step, we retrain the XGBoost regression model but this time for this reduced train data (including damg>10.0%)
+
+Then, we make predictions on this reduced train set (RMSE_train_in_reduced), the reduced test set(MR) and the first test data M1 that we had for the first XGBoost regression model and check the RMSE in total and per bin for both.
+
+In the last step to have the combination model, we check the result of the classifier for the test set and then we join continuous and binary predicted values of the target to the X_test set data frame reduced_test_df.
+
+Then we seprate binary target the same as below:
+
+# damaged prediction
+fliterd_test_df1 = reduced_test_df[reduced_test_df.predicted_value == 1]
+
+# not damaged prediction
+fliterd_test_df0 = reduced_test_df[reduced_test_df.predicted_value == 0]
+
+Now, for the output equal to 1 we apply MR to evaluate the performance
+
+y1_pred = xgbR.predict(X1)
+y1 = fliterd_test_df1["percent_houses_damaged"]
+
+and for the output equal to 0 we apply M1 to evaluate the performance
+
+y0_pred = xgb.predict(X0)
+y0 = fliterd_test_df0["percent_houses_damaged"]
+
+Finally, we combine the two outputs by joining the two data frames of M1 and MR, so:
+
+join_test_dfs = pd.concat([fliterd_test_df0, fliterd_test_df1])
+
+and compare performance of this combined modeljoin_test_dfs with M1 df (M1 is the first model which is simple xgboost regression model)
 
 
-Code 14: Combined Model in a loop
+
+Code 14:  <br />
+[Combined Model in a loop]()
 
 Goal: This code is utilized to define a loop of m iteration to have an average of m RMSE estimations leading to more secure result.
 
@@ -426,12 +504,93 @@ Since we faced some variation in the result of hybrid model for multiple runs, w
 
 
 
-Code 15: Combined Model typhoon split (leave-one-out cross-validation)
+Code 15:  <br />
+[Combined Model typhoon split (leave-one-out cross-validation)]()
 
 Goal: This code is implemented to evaluate the performance of the combined model while train and test split is typhoon based (leave-one-out cross-validation). 
 
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells. Therefore, we decide to fill those rows with the mean value of "rwi", and since some values in the target dataset have exceeded 100 we set those numbers to the maximum value (100) to ensure that all values fall within the range of 0 to 100. 
+
+There are some rows in the dataset in which windspeed equals zero, we decided to remove those rows before we train the model on the input data. We remove rows in the dataset in which windspeed equals zero, and we drop"grid_point_id" and "typhoon_year".
+
+Then we define features and name of typhoons in two different lists, features, typhoons.
+
+Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets bins2=[0, 0.00009, 1, 10, 50, 101], but we define slightly different set of bin bins_eval = [0, 1, 10, 20, 50, 101] to use it for RMSE estimation instead of bins2.
+
+# Define range of for loop
+num_exp = len(typhoons)
+
+# Define number of bins
+num_bins = len(bins_eval)
+
+and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
+
+The first step in the loop is to define the NumPy Digitize() function that is used to get the indices of bins to which each of these values belongs in the input array, afterward, we split features into X and y sets (all features were considered for X and the target variable for y).
+
+We divide the data frame to train and test data so in every iteration one typhoon is for test and the rest of the typhoons for the train.
+
+df_test = df[df["typhoon_name"] == typhoons[run_ix]]
+df_train = df[df["typhoon_name"] != typhoons[run_ix]]
+
+and we separate the original data frame to test and train data frames based on the name of the test typhoon.
+
+We run the combined model, in every iteration, the code will estimate the performance of RMSE in total and per bin for each test typhoon till all typhoon will consider as the test data once.
+
+After the loop ends the RMSE in total and per bin for both M1 (simple XGBoost regression) and combined model are estimated by using a function rmse_bin_plot with 5 inputs.
+
+The inputs of the function are M1 and combined RMSE lists, min and max range, and the steps (the last three inputs are used for plots). In this function, we estimate the mean and standard deviation for each list.
+
+The outputs of the function are the average of RMSE and Stdev for both models and their plots.
 
 
-Code 15: Combined Model typhoonTime split (walk forward evaluation)
 
-Goal: This code is implemented to evaluate the performance of the combined model while train and test split is typhoon based (walk forward evaluation).
+Code 15:  <br />
+[Combined Model typhoonTime split (walk forward evaluation)]()
+
+Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
+
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells. Therefore, we decide to fill those rows with the mean value of "rwi", and since some values in the target dataset have exceeded 100 we set those numbers to the maximum value (100) to ensure that all values fall within the range of 0 to 100. 
+
+There are some rows in the dataset in which windspeed equals zero, we decided to remove those rows before we train the model on the input data. We remove rows in the dataset in which windspeed equals zero, and we drop"grid_point_id" and "typhoon_year".
+
+Then we define the features and names of typhoons in two different lists, features, typhoons.
+
+Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets bins2=[0, 0.00009, 1, 10, 50, 101], but we define a slightly different set of bin bins_eval = [0, 1, 10, 20, 50, 101] to use it for RMSE estimation instead of bins2.
+
+# Define range of for loop
+num_exp = 12  # Latest typhoons in terms of time
+typhoons_for_test = typhoons[-num_exp:]
+
+# Define number of bins
+num_bins = len(bins_eval)
+
+and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
+
+The first step in the loop is to define the NumPy Digitize() function that is used to get the indices of bins to which each of these values belongs in the input array, afterward, we split features into X and y sets (all features were considered for X and the target variable for y).
+
+We divide the data frame to train and test data so that in every iteration of for loop one typhoon in the list typhoons_for_test is considered for the test.
+
+ df_test = df[df["typhoon_name"] == typhoons_for_test[run_ix]]
+
+We keep the rest of the typhoons in the training set: 
+
+typhoons_train_lst= len(typhoons) - len(typhoons_for_test)
+
+# Oldest typhoons in the training set
+typhoons_train_lst = typhoons[run_ix : run_ix + 27]
+
+Note: in each iteration, the oldest typhoon will remove from the train set and the previous typhoon in the test set will be added to the train set, therefore, the number of typhoons in the training set is always fixed.
+
+We run the combined model, in every iteration, the code will estimate the performance of RMSE in total and per bin for each test typhoon till all typhoons in the test set will consider as the test data once.
+
+After the loop ends the RMSE in total and per bin for both M1 (simple XGBoost regression) and combined model are estimated by using a function rmse_bin_plot with 5 inputs.
+
+The inputs of the function are M1 and combined RMSE lists, min and max range, and the steps (the last three inputs are used for plots). In this function, we estimate the mean and standard deviation of each list.
+
+The outputs of the function are the average of RMSE and Stdev for both models and their plots. 
+
+
