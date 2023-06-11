@@ -26,7 +26,7 @@ Finally, we predict both train and test data totally and per bin.
 
 
 Code 03:  <br />
-[XGBoost regression model (building counts)]()
+[XGBoost regression model (building counts)](03_model_training.ipynb)
 
 Goal: This code is utilized to train the built model on the input data and estimate the model performance. 
 
@@ -68,7 +68,7 @@ At the very end to get a plot of RMSEs we define a function named rmse_bin_plot(
 
 
 Code 03:  <br />
-[XGBoost regression model (houses counts)]()
+[XGBoost regression model (houses counts)](03_model_training_updated_with_houses.ipynb)
 
 Goal: This code is utilized to train the built model on the input data and estimate the model performance. 
 
@@ -83,7 +83,7 @@ Due to the replacement of the building with houses, some values in the target da
 
 
 Code 04:  <br />
-[Correlation Matrix]()
+[Correlation Matrix](04_Correlation_Matrix.ipynb)
 
 Goal: This code is utilized to compute the correlation among various features present in the input dataset.
 
@@ -102,7 +102,7 @@ At the very end, we create a scatter plot to show the relation between ‘total_
 
 
 Code 05:  <br />
-[Simple Moving Average(SMA)]()
+[Simple Moving Average(SMA)](05_Moving_Average.ipynb)
 
 Goal: To better understand the relationship between some of the variables together or with the target.
 
@@ -123,7 +123,7 @@ The last part of this section is a piece of code that allows us to plot the tren
 
 
 Code 07:  <br />
-[Feature Importance (XGBoost regression model)]()
+[Feature Importance (XGBoost regression model)](07_Feature_Importance.ipynb)
 
 Goal: This code is utilized to find which features are most important in predicting the target variable.
 
@@ -158,7 +158,7 @@ To have a visualization of the results we show the bar and beeswarm plot based o
 
 
 Code 08:  <br />
-[Creating a historical variable]()
+[Creating a historical variable](08_historical_variable.ipynb)
 
 Goal: This code is utilized to generate a historical variable and incorporate it into the data to improve the performance of the built model when training on the input data.
 
@@ -186,7 +186,7 @@ Finally, we merge this DataFrame with the original one based on ["typhoon_year",
 
 
 Code 09:  <br />
-[Binary Model (Random Forest)]()
+[Binary Model (Random Forest)](09_binary_model-RandomForest.ipynb)
 
 Goal: This code is implemented a classification algorithm (Random Forest) to construct a model and train it on binary input data.
 
@@ -217,7 +217,7 @@ At the very end, we also check the importance of features in the Random Forest c
 
 
 Code 09:  <br />
-[Binary Model (XGBoost)]()
+[Binary Model (XGBoost)](09_binary_model-Xgboost.ipynb)
 
 Goal: This code is implemented a classification algorithm (XGBoost) to construct a model and train it on binary input data.
 
@@ -248,7 +248,7 @@ At the very end, we also check the importance of features in the XGBoost classif
 
 
 Code 09:  <br />
-[Binary Logistic Regression Model]()
+[Binary Logistic Regression Model](09_binary_model_LogisticRegr.ipynb)
 
 Goal: This code is implemented a classification algorithm (Logistic Regression) to construct a model and train it on binary input data.
 
@@ -279,7 +279,7 @@ At the very end, we also check the importance of features in the Binary Logistic
 
 
 Code 09:  <br />
-[XGBoost (different n_estimators)]()
+[XGBoost (different n_estimators)](09_binary_Xgboost-different_n_estimators.ipynb)
 
 Goal: This code is implemented to compare the performance of the XGBoost classification model with respect to different n-estimators.
 
@@ -308,7 +308,7 @@ We define an empty list to keep the f1_score of each n_estimator f1_lst = [], an
 
 
 Code 10:  <br />
-[Feature Importance (XGBoost classification model)]()
+[Feature Importance (XGBoost classification model)](10_Feature_Importance(SHAP)_Xgboost_binary_model.ipynb)
 
 Goal: This code is implemented to find which features are most important in predicting the binary target variable.
 
@@ -347,7 +347,7 @@ To have a visualization of the results we show the bar and beeswarm plot based o
 
 
 Code 11:  <br />
-[ROC Curve for binary models]()
+[ROC Curve for binary models](11_ROC_CURVE_xgb_rf_lregr.ipynb)
 
 Goal: This code is utilized to have a graphical representation of the performance of the three binary models and compare their performance using the ROC curve.
 
@@ -383,7 +383,7 @@ Note: The fpr_lr and tpr_lr arrays contain the false positive rate and true posi
 
 
 Code 12:  <br />
-[Data Resampling in Regression Model]()
+[Data Resampling in Regression Model](12_XGBoost_Regression_resampling.ipynb)
 
 Goals: This code is implemented the SMOTE technique to reduce the class imbalance in the continuous target data by oversampling the minority class.
 
@@ -416,7 +416,7 @@ Note: We figure out that some predicted values are negatives, we clip the predic
 
 
 Code 13:  <br />
-[RMSE estimation for regions (ADM1)]()
+[RMSE estimation for regions (ADM1)](13_RMSE_for_region_lastVersion.ipynb)
 
 Goal: This code is utilized to check how the model can perform for a wide area. (region ADM1 instead of Municipality ADM3)
 
@@ -441,7 +441,7 @@ We estimate the difference between real and predicted values in two different wa
 
 
 Code 14:  <br />
-[Combined Model]()
+[Combined Model](14_Combined_model_LastVersion.ipynb)
 
 Goal: This code is implemented to build a hybrid model leading to reduce the RMSE estimation of high bins (high damaged values). 
 
@@ -496,7 +496,7 @@ and compare performance of this combined modeljoin_test_dfs with M1 df (M1 is th
 
 
 Code 14:  <br />
-[Combined Model in a loop]()
+[Combined Model in a loop](14_Combined_model_in_Loop.ipynb)
 
 Goal: This code is utilized to define a loop of m iteration to have an average of m RMSE estimations leading to more secure result.
 
@@ -505,7 +505,7 @@ Since we faced some variation in the result of hybrid model for multiple runs, w
 
 
 Code 15:  <br />
-[Combined Model typhoon split (leave-one-out cross-validation)]()
+[Combined Model typhoon split (leave-one-out cross-validation)](15_Combined_model_train_test_split_typhoon.ipynb)
 
 Goal: This code is implemented to evaluate the performance of the combined model while train and test split is typhoon based (leave-one-out cross-validation). 
 
@@ -547,7 +547,7 @@ The outputs of the function are the average of RMSE and Stdev for both models an
 
 
 Code 15:  <br />
-[Combined Model typhoonTime split (walk forward evaluation)]()
+[Combined Model typhoonTime split (walk forward evaluation)](15_Combined_model_train_test_split_typhoonTime(undersampling).ipynb)
 
 Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
 
