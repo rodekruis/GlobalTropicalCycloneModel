@@ -471,10 +471,10 @@ In the last step to have the combination model, we check the result of the class
 
 Then we seprate binary target the same as below:
 
-# damaged prediction
+#### damaged prediction
 fliterd_test_df1 = reduced_test_df[reduced_test_df.predicted_value == 1]
 
-# not damaged prediction
+#### not damaged prediction
 fliterd_test_df0 = reduced_test_df[reduced_test_df.predicted_value == 0]
 
 Now, for the output equal to 1 we apply MR to evaluate the performance
@@ -519,10 +519,10 @@ Then we define features and name of typhoons in two different lists, features, t
 
 Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets bins2=[0, 0.00009, 1, 10, 50, 101], but we define slightly different set of bin bins_eval = [0, 1, 10, 20, 50, 101] to use it for RMSE estimation instead of bins2.
 
-# Define range of for loop
+#### Define range of for loop
 num_exp = len(typhoons)
 
-# Define number of bins
+#### Define number of bins
 num_bins = len(bins_eval)
 
 and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
@@ -561,11 +561,11 @@ Then we define the features and names of typhoons in two different lists, featur
 
 Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets bins2=[0, 0.00009, 1, 10, 50, 101], but we define a slightly different set of bin bins_eval = [0, 1, 10, 20, 50, 101] to use it for RMSE estimation instead of bins2.
 
-# Define range of for loop
+#### Define range of for loop
 num_exp = 12  # Latest typhoons in terms of time
 typhoons_for_test = typhoons[-num_exp:]
 
-# Define number of bins
+#### Define number of bins
 num_bins = len(bins_eval)
 
 and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
@@ -580,7 +580,7 @@ We keep the rest of the typhoons in the training set:
 
 typhoons_train_lst= len(typhoons) - len(typhoons_for_test)
 
-# Oldest typhoons in the training set
+#### Oldest typhoons in the training set
 typhoons_train_lst = typhoons[run_ix : run_ix + 27]
 
 Note: in each iteration, the oldest typhoon will remove from the train set and the previous typhoon in the test set will be added to the train set, therefore, the number of typhoons in the training set is always fixed.
