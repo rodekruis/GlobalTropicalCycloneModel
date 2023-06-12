@@ -594,3 +594,52 @@ The inputs of the function are M1 and combined RMSE lists, min and max range, an
 The outputs of the function are the average of RMSE and Stdev for both models and their plots. 
 
 
+
+Code 15:  <br />
+[Combined Model typhoonTime split (walk forward evaluation)](15_Combined_model_train_test_split_typhoonTime(undersampling).ipynb)
+
+Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
+
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells. Therefore, we decide to fill those rows with the mean value of "rwi", and since some values in the target dataset have exceeded 100 we set those numbers to the maximum value (100) to ensure that all values fall within the range of 0 to 100. 
+
+There are some rows in the dataset in which windspeed equals zero, we decided to remove those rows before we train the model on the input data. We remove rows in the dataset in which windspeed equals zero, and we drop"grid_point_id" and "typhoon_year".
+
+Then we define the features and names of typhoons in two different lists, features, typhoons.
+
+Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets bins2=[0, 0.00009, 1, 10, 50, 101], but we define a slightly different set of bin bins_eval = [0, 1, 10, 20, 50, 101] to use it for RMSE estimation instead of bins2.
+
+#### Define range of for loop
+num_exp = 12  # Latest typhoons in terms of time
+typhoons_for_test = typhoons[-num_exp:]
+
+#### Define number of bins
+num_bins = len(bins_eval)
+
+and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
+
+The first step in the loop is to define the NumPy Digitize() function that is used to get the indices of bins to which each of these values belongs in the input array, afterward, we split features into X and y sets (all features were considered for X and the target variable for y).
+
+We divide the data frame to train and test data so that in every iteration of for loop one typhoon in the list typhoons_for_test is considered for the test.
+
+ df_test = df[df["typhoon_name"] == typhoons_for_test[run_ix]]
+
+We keep the rest of the typhoons in the training set: 
+
+typhoons_train_lst= len(typhoons) - len(typhoons_for_test)
+
+#### Oldest typhoons in the training set
+typhoons_train_lst = typhoons[run_ix : run_ix + 27]
+
+Note: in each iteration, the oldest typhoon will remove from the train set and the previous typhoon in the test set will be added to the train set, therefore, the number of typhoons in the training set is always fixed.
+
+We run the combined model, in every iteration, the code will estimate the performance of RMSE in total and per bin for each test typhoon till all typhoons in the test set will consider as the test data once.
+
+After the loop ends the RMSE in total and per bin for both M1 (simple XGBoost regression) and combined model are estimated by using a function rmse_bin_plot with 5 inputs.
+
+The inputs of the function are M1 and combined RMSE lists, min and max range, and the steps (the last three inputs are used for plots). In this function, we estimate the mean and standard deviation of each list.
+
+The outputs of the function are the average of RMSE and Stdev for both models and their plots. 
+
+
