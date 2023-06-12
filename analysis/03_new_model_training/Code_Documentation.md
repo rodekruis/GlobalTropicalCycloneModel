@@ -547,7 +547,7 @@ The outputs of the function are the average of RMSE and Stdev for both models an
 
 
 Code 15:  <br />
-[Combined Model typhoonTime split (walk forward evaluation)](15_Combined_model_train_test_split_typhoonTime(undersampling).ipynb)
+[Combined Model(oversampling) typhoonTime split (walk forward evaluation)](15_Combined_model_train_test_split_typhoonTime(oversampling).ipynb)
 
 Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
 
@@ -585,7 +585,7 @@ typhoons_train_lst = typhoons[run_ix : run_ix + 27]
 
 Note: in each iteration, the oldest typhoon will remove from the train set and the previous typhoon in the test set will be added to the train set, therefore, the number of typhoons in the training set is always fixed.
 
-We run the combined model, in every iteration, the code will estimate the performance of RMSE in total and per bin for each test typhoon till all typhoons in the test set will consider as the test data once.
+We run the combined model (in thos code, instead of undersampling in classification section of combined model we use oversampling with  sampling_strategy=0.4), in every iteration, the code will estimate the performance of RMSE in total and per bin for each test typhoon till all typhoons in the test set will consider as the test data once.
 
 After the loop ends the RMSE in total and per bin for both M1 (simple XGBoost regression) and combined model are estimated by using a function rmse_bin_plot with 5 inputs.
 
@@ -596,7 +596,7 @@ The outputs of the function are the average of RMSE and Stdev for both models an
 
 
 Code 15:  <br />
-[Combined Model typhoonTime split (walk forward evaluation)](15_Combined_model_train_test_split_typhoonTime(undersampling).ipynb)
+[Combined Model typhoonTime split(undersampling) (walk forward evaluation)](15_Combined_model_train_test_split_typhoonTime(undersampling).ipynb)
 
 Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
 
