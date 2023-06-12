@@ -111,9 +111,10 @@ To have a visualization of the results we show the bar, beeswarm, and heatmap pl
 
 
 
-Codes 03.1: [Linear Regression](03.1_Stratify_proportion_damage-LinearRegression.ipynb) <br /> 
-      03.2: [Random Forest Regression](03.2_Stratify_proportion_damage-RandomForest.ipynb)<br />
-      03.3: [XGBoost Regression](03.3_Stratify_proportion_damage-XGBoost.ipynb) 
+Codes <br />
+03.1: [Linear Regression](03.1_Stratify_proportion_damage-LinearRegression.ipynb) <br /> 
+03.2: [Random Forest Regression](03.2_Stratify_proportion_damage-RandomForest.ipynb)<br />
+03.3: [XGBoost Regression](03.3_Stratify_proportion_damage-XGBoost.ipynb) 
 
 Goal: These codes are implemented to estimate the performance of the built models for the average of 20 random shuffle splits using different error metrics (RMSE, MSE, MAE, Average Error).
 
@@ -146,8 +147,9 @@ Now we have a list of 20 numbers for each evaluation metric and we can simply es
 
 
 
-Codes 04.1: [Performance of Random Forest per bin](04.1_RandomForest-bins.ipynb)<br />
-      04.2: [Performance of XGBoost per bin](04.2_XGBoost-bins.ipynb)
+Codes <br />
+04.1: [Performance of Random Forest per bin](04.1_RandomForest-bins.ipynb)<br />
+04.2: [Performance of XGBoost per bin](04.2_XGBoost-bins.ipynb)
 
 Goal: These two codes are implemented to estimate the performance of the built models per bin for the average of 20 random shuffle splits using RMSE.
 
@@ -180,8 +182,9 @@ Now we have a list of 20 numbers (RMSEs) for each bin and we can simply estimate
 
 
 
-Codes 05.1: [Random Forest performance per bin(damage>10)](05.1_RandomForest-percent-damage.ipynb) <br />   
-      05.2: [XGBoost performance per bin(damage>10)](05.2_XGBoost-percent-damage.ipynb)
+Codes <br />
+05.1: [Random Forest performance per bin(damage>10)](05.1_RandomForest-percent-damage.ipynb) <br />   
+05.2: [XGBoost performance per bin(damage>10)](05.2_XGBoost-percent-damage.ipynb)
 
 Goal: These codes are implemented to allow the built models trained only with damage >10%, and check the model’s performance only on high bins (per bin).
 
@@ -216,8 +219,9 @@ Now we have a list of 20 numbers (RMSEs) for each bin and we can simply estimate
 
 
 
-Codes 06.1: [Random Forest performance in the average of all bins(damage>10)](06.1_RandomForest-wholedataset.ipynb)<br />
-      06.2: [XGBoost performance in the average of all bins (damage>10)](06.2_XGBoost-wholedataset.ipynb)
+Codes <br />
+06.1: [Random Forest performance in the average of all bins(damage>10)](06.1_RandomForest-wholedataset.ipynb)<br />
+06.2: [XGBoost performance in the average of all bins (damage>10)](06.2_XGBoost-wholedataset.ipynb)
 
 Goal: These codes are implemented to allow the built models trained only with damage >10%, and check the model’s performance only on high bins (average of all bins).
 
@@ -252,8 +256,9 @@ Now we have two lists each one includes 20 numbers (RMSEs) and we can simply est
 
 
 
-Codes 07.1: [(True vs Prediction Error) for Random Forest](07.1_RandomForest-predicted-and-true.ipynb)<br />
-      07.2: [(True vs Prediction Error) for XGBoost](07.2_XGBoost-predicted-and-true.ipynb)
+Codes <br />
+07.1: [(True vs Prediction Error) for Random Forest](07.1_RandomForest-predicted-and-true.ipynb)<br />
+07.2: [(True vs Prediction Error) for XGBoost](07.2_XGBoost-predicted-and-true.ipynb)
 
 Goal: These codes are implemented to estimate the real vs prediction Error for a single run in Random Forest and XGBoost Regression models and visualize their difference using a scatter plot.  
 
@@ -326,8 +331,9 @@ Note: We can choose another group of typhoons as the test list so the result wil
 
 
 
-Code 09.1: [Random Forest Typhoon’s Time Split](09.1_Typhoons_by_time-RandomForest-main.ipynb)<br /> 
-     09.2: [XGBoost Typhoon’s Time Split](09.2_Typhoons_by_time-XGBoost-main.ipynb)
+Codes <br />
+09.1: [Random Forest Typhoon’s Time Split](09.1_Typhoons_by_time-RandomForest-main.ipynb)<br />
+09.2: [XGBoost Typhoon’s Time Split](09.2_Typhoons_by_time-XGBoost-main.ipynb)
 
 Goal: This code is implemented to do a train and test split based on the typhoon’s time (80:20). The idea is to determine how well the model performs in learning from older typhoons' characteristics to make predictions on the target value of the most recent ones.
 
