@@ -183,7 +183,7 @@ Now we have a list of 20 numbers (RMSEs) for each bin and we can simply estimate
 
 
 Codes <br />
-05.1: [Random Forest performance per bin(damage>10)](05.1_RandomForest-percent-damage.ipynb)<br />   
+05.1: [Random Forest performance per bin(damage>10)](05.1_RandomForest-percent-damage.ipynb)  
 05.2: [XGBoost performance per bin(damage>10)](05.2_XGBoost-percent-damage.ipynb)
 
 Goal: These codes are implemented to allow the built models trained only with damage >10%, and check the model’s performance only on high bins (per bin).
