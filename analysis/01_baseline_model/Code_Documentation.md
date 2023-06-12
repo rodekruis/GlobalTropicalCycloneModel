@@ -1,8 +1,7 @@
 ## Documentation of all codes in this branch (baseline model)
 
 
-Code 01: <br />
-[Main correlation matrix](01_Main_Correlation_Matrix.ipynb)
+Code 01: <br />[Main correlation matrix](01_Main_Correlation_Matrix.ipynb)
 
 Goal: This code is utilized to compute the correlation among various features present in the input dataset and let us show a square matrix with dimensions equal to the number of features.
 
