@@ -1,5 +1,7 @@
 ## Documentation of all codes in this branch
 
+%load_ext jupyter_black
+
 Code 02: <br />
 [Naive baseline model](02_model_training-baselines.ipynb)
 
