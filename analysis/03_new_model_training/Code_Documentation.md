@@ -408,7 +408,7 @@ Goal: This code is utilized to check how the model can perform for a wide area. 
 
 In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame. For simplicity of our work we move the target to be the last column of the data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells. Therefore, we decide to fill those rows with the mean value of "rwi", and since some values in the target dataset have exceeded 100 we set those numbers to the maximum value (100) to ensure that all values fall within the range of 0 to 100. We remove rows in the dataset in which windspeed equals zero, and we drop"typhoon_year".
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. We remove rows in the dataset in which windspeed equals zero, and we drop"typhoon_year".
 
 We define a new set of bin bins2 = [0, 0.00009, 1, 10, 50, 101] and count the number of samples per bin. We use NumPy Digitize() function to get the indices of bins to which each of these values belongs in the input array. 
 
