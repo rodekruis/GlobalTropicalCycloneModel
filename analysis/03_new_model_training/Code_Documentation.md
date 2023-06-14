@@ -457,7 +457,7 @@ In the last step to have the combination model, we check the result of the class
 Then we seprate binary target the same as below:
 
 #### damaged prediction
-fliterd_test_df1 = reduced_test_df[reduced_test_df.predicted_value == 1]
+`fliterd_test_df1 = reduced_test_df[reduced_test_df.predicted_value == 1]`
 
 #### not damaged prediction
 fliterd_test_df0 = reduced_test_df[reduced_test_df.predicted_value == 0]
