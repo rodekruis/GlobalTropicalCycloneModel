@@ -5,13 +5,13 @@ Code 01: [Main correlation matrix](01_Main_Correlation_Matrix.ipynb)
 
 Goal: This code is utilized to compute the correlation among various features present in the input dataset and let us show a square matrix with dimensions equal to the number of features.
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data.
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data.
 
 Using the following code we create a folder in the specific direction that allows us to store the results of this code.
 
-output_dir = (Path(os.getenv("STORM_DATA_DIR"))/"analysis/01_baseline_model/output")
+`output_dir = (Path(os.getenv("STORM_DATA_DIR"))/"analysis/01_baseline_model/output")`
 
-Then we get the Pearson correlation coefficient of features corrMatrix = df.corr() and plot a heat map and save it in output_dir.
+Then we get the Pearson correlation coefficient of features `corrMatrix = df.corr()` and plot a heat map and save it in `output_dir`.
 
 Since the absolute correlation is an easier way to find highly correlated pair of features, we also check that and make a plot.
 
@@ -31,9 +31,9 @@ Code 02.1: [Feature Importance (Linear Regression Model)](02.1_Feature_Importanc
 
 Goal: This code is utilized to estimate the most important features using the Linear Regression model.
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[0, 1, 60, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[0, 1, 60, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
 The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array. 
 
@@ -41,7 +41,7 @@ We list all features after highly correlated ones based on the VIF result and th
 
 We define the train_test_split() function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the Linear Regression model to train data. 
 
-Then, we get the coefficient value of each feature using importance = regressor.coef_ and insert the name of features and their coefficient values into a created data frame and put it in descending order.  
+Then, we get the coefficient value of each feature using `importance = regressor.coef_` and insert the name of features and their coefficient values into a created data frame and put it in descending order.  
 
 In the end, using matplotlib.pyplot we make a plot of these features and coefficients. 
 
@@ -51,31 +51,31 @@ Code 02.2: [Feature Importance (Random Forest regression model)](02.2_Feature_Im
 
 Goal: This code is utilized to estimate the most important features using the Random Forest regression model according to two different approaches: 1. SHAP values, 2.Random Forest Built-in Feature Importance.
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[0, 1, 60, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[0, 1, 60, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array. 
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array. 
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). 
 
-Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. We define the train_test_split() function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the Random Forest regression model to train data. 
+Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. We define the `train_test_split()` function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the Random Forest regression model to train data. 
 
 The following line of code creates a DataFrame called X_train4shapely using the training data X_train and assigns column names from the features list.
 
-X_train4shapely = pd.DataFrame(data=X_train, columns=features)
+`X_train4shapely = pd.DataFrame(data=X_train, columns=features)`
 
 In the next line, we create an explainer object using the SHAP library's Explainer class. It takes two arguments: the trained Random Forest model rf_model and the training data DataFrame (X_train4shapely). The explainer_rf object will be used to explain the model's predictions.
 
-explainer_rf = shap.Explainer(rf_model, X_train4shapely)
+`explainer_rf = shap.Explainer(rf_model, X_train4shapely)`
 
 The last line generates the SHAP values for the training data using the explainer object. It calculates the contributions of each feature to the predictions made by the Random Forest model. The resulting shap_values_rf object contains the SHAP values for each data point in X_train4shapely.
 
-shap_values_rf = explainer_rf(X_train4shapely,check_additivity=False)
+`shap_values_rf = explainer_rf(X_train4shapely,check_additivity=False)`
 
 To have a visualization of the results we show the bar, beeswarm, and heatmap plots based on the estimated SHAP values.
 
- In the end, we also use the Random Forest Built-in Feature Importance rf.feature_importances_ to illustrate the relative importance of each feature in making predictions in a bar plot and compare it with the results according to SHAP values. 
+ In the end, we also use the Random Forest Built-in Feature Importance `rf.feature_importances_` to illustrate the relative importance of each feature in making predictions in a bar plot and compare it with the results according to SHAP values. 
 
 
 
@@ -85,9 +85,9 @@ Goal: This code is utilized to estimate the most important features using the XG
 
 After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[0, 1, 60, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[0, 1, 60, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array. 
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array. 
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). 
 
@@ -95,19 +95,19 @@ Since different features have various ranges we standardize X data. The method o
 
 The following line of code creates a DataFrame called X_train4shapely using the training data X_train and assigns column names from the features list.
 
-X_train4shapely = pd.DataFrame(data=X_train, columns=features)
+`X_train4shapely = pd.DataFrame(data=X_train, columns=features)`
 
 In the next line, we create an explainer object using the SHAP library's Explainer class. It takes two arguments: the trained Random Forest model xgb_model and the training data DataFrame (X_train4shapely). The explainer_xgb object will be used to explain the model's predictions.
 
-explainer_xgb = shap.Explainer(xgb_model, X_train4shapely)
+`explainer_xgb = shap.Explainer(xgb_model, X_train4shapely)`
 
 The last line generates the SHAP values for the training data using the explainer object. It calculates the contributions of each feature to the predictions made by the Random Forest model. The resulting shap_values_xgb object contains the SHAP values for each data point in X_train4shapely.
 
-shap_values_xgb = explainer_xgb(X_train4shapely)
+`shap_values_xgb = explainer_xgb(X_train4shapely)`
 
 To have a visualization of the results we show the bar, beeswarm, and heatmap plots based on the estimated SHAP values.
 
- In the end, we also use the Random Forest Built-in Feature Importance xgb.feature_importances_.argsort() to illustrate the relative importance of each feature in making predictions in a bar plot and compare it with the results according to SHAP values. 
+ In the end, we also use the Random Forest Built-in Feature Importance `xgb.feature_importances_.argsort()` to illustrate the relative importance of each feature in making predictions in a bar plot and compare it with the results according to SHAP values. 
 
 
 
@@ -120,26 +120,26 @@ Goal: These codes are implemented to estimate the performance of the built model
 
 After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[0, 0.00009, 1, 10, 50, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array. 
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array. 
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
 
 We determine RMSE, MSE, MAE, and AVE (average error) lists for both train and test data to use later for saving the results.
 
-We define a for loop with a range of 20 iterations and specify the train_test_split() function in the loop to randomly separate training and test data with the ratio of 80:20 in each iteration, while for the option stratify we consider the defined bins. We implement the model and fit it to train data. 
+We define a for loop with a range of 20 iterations and specify the `train_test_split()` function in the loop to randomly separate training and test data with the ratio of 80:20 in each iteration, while for the option stratify we consider the defined bins. We implement the model and fit it to train data. 
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
-X2 = sm.add_constant(X_train)
-    est = sm.OLS(y_train, X2)
-    est2 = est.fit()
-    print(est2.summary())
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
+    `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
+Note: The `add_constant()` function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
 
 In the final section of the loop, we make predictions on both training and test data to calculate and print the RMSE, MSE, MAE, and Average Error calculated in each run, and append them to the lists.
 
@@ -153,28 +153,28 @@ Codes <br />
 
 Goal: These two codes are implemented to estimate the performance of the built models per bin for the average of 20 random shuffle splits using RMSE.
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. We make a hist plot of target values and it is obvious that we face an imbalanced dataset. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[0, 1, 60, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[0, 1, 60, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array. 
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array. 
 
-Here we define some empty lists for both test and train data to later save results per bin. The note is that if you use bins2=[0, 1, 60, 101] then because we will categorize data into three groups, we need to define three lists while if we use bins2 =[0, 0.00009, 1, 10, 50, 101] we will need five lists.
+Here we define some empty lists for both test and train data to later save results per bin. The note is that if you use `bins2=[0, 1, 60, 101]` then because we will categorize data into three groups, we need to define three lists while if we use `bins2 =[0, 0.00009, 1, 10, 50, 101]` we will need five lists.
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
 
-We define a for loop with a range of 20 iterations and specify the train_test_split() function in the loop to randomly separate training and test data with the ratio of 80:20 in each iteration, while for the option stratify we consider the defined bins. We implement the model and fit it to train data. 
+We define a for loop with a range of 20 iterations and specify the `train_test_split()` function in the loop to randomly separate training and test data with the ratio of 80:20 in each iteration, while for the option stratify we consider the defined bins. We implement the model and fit it to train data. 
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
-X2 = sm.add_constant(X_train)
-    est = sm.OLS(y_train, X2)
-    est2 = est.fit()
-    print(est2.summary())
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
+    `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
+Note: The `add_constant()` function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
 
 In the final section of the loop, we make predictions on both training and test data to calculate the RMSE per bin in each run and append them to the lists.
 
@@ -188,13 +188,13 @@ Codes <br />
 
 Goal: These codes are implemented to allow the built models trained only with damage >10%, and check the model’s performance only on high bins (per bin).
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We filter the input data frame df to retain only the rows where the 'damage' value is greater than 10, discarding the rest. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. We filter the input data frame df to retain only the rows where the 'damage' value is greater than 10, discarding the rest. 
 
-df = df[df['DAM_perc_dmg'] > 10]
+`df = df[df['DAM_perc_dmg'] > 10]`
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[10.0009, 20, 50, 101]. However, as you can see bins2 will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[10.0009, 20, 50, 101]`. However, as you can see bins2 will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array.  Then we define three empty lists for training and subsequently test data to later save results per bin. 
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.  Then we define three empty lists for training and subsequently test data to later save results per bin. 
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
 
@@ -204,14 +204,14 @@ Note: As you can see we add some new hyper-parameters or change the values of pr
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
-X2 = sm.add_constant(X_train)
-    est = sm.OLS(y_train, X2)
-    est2 = est.fit()
-    print(est2.summary())
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
+    `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
+Note: The `add_constant()` function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
 
 In the final section of the loop, we make predictions on both training and test data to calculate and print the RMSE per bin in each run and append them to the lists.
 
@@ -227,28 +227,28 @@ Goal: These codes are implemented to allow the built models trained only with da
 
 After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We filter the input data frame df to retain only the rows where the 'damage' value is greater than 10, discarding the rest. 
 
-df = df[df['DAM_perc_dmg'] > 10]
+`df = df[df['DAM_perc_dmg'] > 10]`
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2=[10.0009, 20, 50, 101]. However, as you can see bins2 will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `bins2=[10.0009, 20, 50, 101]`. However, as you can see bins2 will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array.  Then we define two empty lists for training and subsequently test data to later save the results of total RMSEs.
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.  Then we define two empty lists for training and subsequently test data to later save the results of total RMSEs.
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
 
-We define a for loop with a range of 20 iterations and specify the train_test_split() function in the loop to randomly separate training and test data with the ratio of 80:20 in each iteration, while for the option stratify we consider the defined bins. We implement the model and fit it to train data. 
+We define a for loop with a range of 20 iterations and specify the `train_test_split()` function in the loop to randomly separate training and test data with the ratio of 80:20 in each iteration, while for the option stratify we consider the defined bins. We implement the model and fit it to train data. 
 
 Note: As you can see we add some new hyper-parameters or change the values of previous ones to build a reduced overfitted model which could decrease the test RMSE and the difference between test and train RMSEs.
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
-X2 = sm.add_constant(X_train)
-    est = sm.OLS(y_train, X2)
-    est2 = est.fit()
-    print(est2.summary())
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
+    `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
+Note: The `add_constant()` function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
 
 In the final section of the loop, we make predictions on both training and test data to calculate and print the total RMSEs of test and train in each run and append them to the lists.
 
@@ -262,37 +262,37 @@ Codes <br />
 
 Goal: These codes are implemented to estimate the real vs prediction Error for a single run in Random Forest and XGBoost Regression models and visualize their difference using a scatter plot.  
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. We can even simply filter the input data frame df to retain only the rows where the 'damage' value is greater than 10, discarding the rest. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. We can even simply filter the input data frame df to retain only the rows where the 'damage' value is greater than 10, discarding the rest. 
 
-df = df[df['DAM_perc_dmg'] > 10]
+`df = df[df['DAM_perc_dmg'] > 10]`
 
 Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets. We can choose one of the following bin sets:
 
-bins2= [0, 1, 60, 101]
-bins2 = [0, 0.00009, 1, 10, 50, 101]
+`bins2= [0, 1, 60, 101]`
+`bins2 = [0, 0.00009, 1, 10, 50, 101]`
 
-We can even use bins2=[10.0009, 20, 50, 101] will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
+We can even use `bins2=[10.0009, 20, 50, 101]` will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
 
-The NumPy Digitize() function is used to get the indices of bins to which each of these values belongs in the input array.  
+The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.  
 
 We list features and decide to drop highly correlated features where correlation value > 0.99 from X data (so we drop only 5 features) and then split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
 
-We define the train_test_split() function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the built model to train data. 
+We define the `train_test_split()` function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the built model to train data. 
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
-X2 = sm.add_constant(X_train)
-    est = sm.OLS(y_train, X2)
-    est2 = est.fit()
-    print(est2.summary())
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
+    `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
+Note: The `add_constant()` function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
 
 In the final section, we make predictions on both training and test data to calculate and print the RMSE, MSE, MAE, Max Error, and Average Error.
 
-Now we estimate the prediction error abs(y_pred - y_test) and show a plot of True vs absolute values of prediction error.
+Now we estimate the prediction error `abs(y_pred - y_test)` and show a plot of True vs absolute values of prediction error.
 
 
 
@@ -300,9 +300,9 @@ Code 08: [Random Forest & XGBoost Typhoon Split](08_Typhoon_train-test-split-Ran
 
 Goal: This code is implemented to see how the model performs when we have train and test split based on typhoons (with a ratio of 80:20).
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets [0, 0.00009, 1, 10, 50, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `[0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
 We separate the typhoons column and target columns from the input data frame and apply the standard scalar method to standardize the values of features by removing the mean and scaling to unit variance. Then we again add target values to the data frame.
 
@@ -316,14 +316,14 @@ Then we can choose a model between Random Forest and XGBoost and apply it to tra
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
-X2 = sm.add_constant(X_train)
-    est = sm.OLS(y_train, X2)
-    est2 = est.fit()
-    print(est2.summary())
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
+    `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
+Note: The `add_constant()` function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test. 
 
 Finally, we make predictions on both training and test data to calculate and print the RMSEs per bin. We even estimate the model performance based on different evaluation metrics.
 
@@ -337,9 +337,9 @@ Codes <br />
 
 Goal: This code is implemented to do a train and test split based on the typhoon’s time (80:20). The idea is to determine how well the model performs in learning from older typhoons' characteristics to make predictions on the target value of the most recent ones.
 
-After importing the required libraries, we also import a function named get_clean_dataset() from module utils, then we call the function so we have the input data. 
+After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets [0, 0.00009, 1, 10, 50, 101]. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `[0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
 We separate the typhoons column and target columns from the input data frame and apply the standard scalar method to standardize the values of features by removing the mean and scaling to unit variance. Then we again add target values to the data frame.
 
