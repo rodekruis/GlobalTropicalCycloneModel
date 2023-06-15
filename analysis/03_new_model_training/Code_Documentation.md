@@ -189,7 +189,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
 
 We used `sns.countplot()` which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -219,7 +219,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
 
 We used seaborn.countplot() which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -249,7 +249,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
 
 We used seaborn.countplot() which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -279,7 +279,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
 
 We used `seaborn.countplot()` which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -307,7 +307,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model. We used `seaborn.countplot()` which is a function to plot the count of observations in each category.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
 
  We provide a hist plot and define a new set of bin `bins2 = [0, 0.1, 1]` that is proper for the binary model and counted the number of samples per bin. `df["binary_damage"].value_counts(bins=binsP2)`.
 
@@ -345,7 +345,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model. We used `seaborn.countplot()` which is a function to plot the count of observations in each category.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
 
  We provide a hist plot and define a new set of bin `bins2 = [0, 0.1, 1]` that is proper for the binary model and counted the number of samples per bin. `df["binary_damage"].value_counts(bins=binsP2)`.
 
