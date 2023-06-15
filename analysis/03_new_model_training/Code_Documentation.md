@@ -1,4 +1,4 @@
-## Documentation of all codes in this branch
+## Documentation of all codes in this branch (grid-based model)
 
 
 Code 02: [Naive baseline model](02_model_training-baselines.ipynb)
