@@ -268,10 +268,10 @@ After importing the required libraries, we also import a function named `get_cle
 
 Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets. We can choose one of the following bin sets:
 
-`bins2= [0, 1, 60, 101]`
+`bins2= [0, 1, 60, 101]`<br />
 `bins2 = [0, 0.00009, 1, 10, 50, 101]`
 
-We can even use `bins2=[10.0009, 20, 50, 101]` will start from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
+We can even use `bins2=[10.0009, 20, 50, 101]` that starts from the values>10, due to the fact that we aim to categorize high values of the target column into different groups.
 
 The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.  
 
@@ -302,7 +302,7 @@ Goal: This code is implemented to see how the model performs when we have train 
 
 After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `[0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2 = [0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
 We separate the typhoons column and target columns from the input data frame and apply the standard scalar method to standardize the values of features by removing the mean and scaling to unit variance. Then we again add target values to the data frame.
 
@@ -339,7 +339,7 @@ Goal: This code is implemented to do a train and test split based on the typhoon
 
 After importing the required libraries, we also import a function named `get_clean_dataset()` from module utils, then we call the function so we have the input data. 
 
-Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets `[0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
+Since we have a low number of samples for high damage values we stratify data to make sure we will have a range of all samples for both training and test sets bins2 = [0, 0.00009, 1, 10, 50, 101]`. Indeed, the bins categorize target values into different groups called bins.
 
 We separate the typhoons column and target columns from the input data frame and apply the standard scalar method to standardize the values of features by removing the mean and scaling to unit variance. Then we again add target values to the data frame.
 
