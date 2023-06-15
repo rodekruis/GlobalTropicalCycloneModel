@@ -361,7 +361,7 @@ Finally, we perform an evaluation of all three binary classification models by c
 
 For example in the two following lines of code related to Logistic Regression, first, the code computes the AUC-ROC score (area under the ROC Curve), which is a measure of the model's ability to distinguish between the positive and negative classes and then calculates the ROC curve.  
 
-`auc_lr = roc_auc_score(y_test_int, probs_lr)`
+`auc_lr = roc_auc_score(y_test_int, probs_lr)`<br />
 `fpr_lr, tpr_lr, thresholds_lr = roc_curve(y_test_int, probs_lr)`
 
 Note: The fpr_lr and tpr_lr arrays contain the false positive rate and true positive rate values at different thresholds, respectively.
@@ -460,12 +460,12 @@ Then we seprate binary target the same as below:
 
 Now, for the output equal to 1 we apply MR to evaluate the performance
 
-`y1_pred = xgbR.predict(X1)`
+`y1_pred = xgbR.predict(X1)`<br />
 `y1 = fliterd_test_df1["percent_houses_damaged"]`
 
 and for the output equal to 0 we apply M1 to evaluate the performance
 
-`y0_pred = xgb.predict(X0)`
+`y0_pred = xgb.predict(X0)`<br />
 `y0 = fliterd_test_df0["percent_houses_damaged"]`
 
 Finally, we combine the two outputs by joining the two data frames of M1 and MR, so:
@@ -508,7 +508,7 @@ The first step in the loop is to define the NumPy Digitize() function that is us
 
 We divide the data frame to train and test data so in every iteration one typhoon is for test and the rest of the typhoons for the train.
 
-`df_test = df[df["typhoon_name"] == typhoons[run_ix]]`
+`df_test = df[df["typhoon_name"] == typhoons[run_ix]]`<br />
 `df_train = df[df["typhoon_name"] != typhoons[run_ix]]`
 
 and we separate the original data frame to test and train data frames based on the name of the test typhoon.
@@ -536,7 +536,7 @@ Then we define the features and names of typhoons in two different lists, featur
 Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets `bins2=[0, 0.00009, 1, 10, 50, 101]`, but we define a slightly different set of bin `bins_eval = [0, 1, 10, 20, 50, 101]` to use it for RMSE estimation instead of bins2.
 
 #### Define range of for loop
-`num_exp = 12  # Latest typhoons in terms of time`
+`num_exp = 12  # Latest typhoons in terms of time`<br />
 `typhoons_for_test = typhoons[-num_exp:]`
 
 #### Define number of bins
@@ -580,7 +580,7 @@ Then we define the features and names of typhoons in two different lists, featur
 Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets `bins2=[0, 0.00009, 1, 10, 50, 101]`, but we define a slightly different set of bin `bins_eval = [0, 1, 10, 20, 50, 101]` to use it for RMSE estimation instead of bins2.
 
 #### Define range of for loop
-`num_exp = 12  # Latest typhoons in terms of time`
+`num_exp = 12  # Latest typhoons in terms of time`<br />
 `typhoons_for_test = typhoons[-num_exp:]`
 
 #### Define number of bins
