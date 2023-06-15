@@ -51,14 +51,14 @@ We specify the XGBoost model (with all the specified hyperparameters) and then f
 
 Subsequently, we perform ordinary least squares (OLS) regression analysis. 
 
-`X2 = sm.add_constant(X_train)`
-    `est = sm.OLS(y_train, X2)`
-    `est2 = est.fit()`
+`X2 = sm.add_constant(X_train)`<br />
+    `est = sm.OLS(y_train, X2)`<br />
+    `est2 = est.fit()`<br />
     `print(est2.summary())`
 
 The above-mentioned code performs OLS regression by fitting a model to the training data and then printing a summary of the regression results.
 
-Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test (X2_test = sm.add_constant(X_test)), ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test.
+Note: The add_constant function from the sm module is used to add a column of ones to the beginning of X_train and later X_test `(X2_test = sm.add_constant(X_test))`, ensuring that the model estimates a constant term. The constant term ensures that the model considers the baseline value captured by the intercept term when predicting the values of the dependent variable based on the independent variables in X_train and X_test.
 
 Finally, we make predictions on both test and train data wrt the XGBoost model and calculate the total RMSE per bin using a for loop in range(1, 6).
 
