@@ -162,8 +162,8 @@ Basically, we `groupby()` the data frame based on "typhoon_year", "grid_point_id
 
 Then, we calculate an average of damages over the past 5 years for every data point and recorded it as the value for the new variable (new column) ("percent_houses_damaged_5years"). 
 
-`df_res2 = (df_avgDmgCell_and_Year.groupby("grid_point_id").rolling(5, min_periods=1)`
-    `.agg({"percent_houses_damaged": "mean", "typhoon_year": "max"}))`
+`df_res2 = (df_avgDmgCell_and_Year.groupby("grid_point_id").rolling(5, min_periods=1)
+    .agg({"percent_houses_damaged": "mean", "typhoon_year": "max"}))`
 
 For a more clear description of the piece of code above, we `groupby()` on df_avgDmgCell_and_Year based on a specific columngrid_point_id. We compute the rolling mean of the “percent_houses_damaged" column and the maximum value of the "typhoon_year" column within a rolling window of size 5 (representing 5 years).
 
