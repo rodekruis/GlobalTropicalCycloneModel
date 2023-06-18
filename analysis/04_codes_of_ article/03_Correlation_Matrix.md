@@ -41,7 +41,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sn
-from statsmodels.stats.outliers_influence import variance_inflation_factor
 ```
 
 
