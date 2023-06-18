@@ -1,6 +1,5 @@
-# Converting from grid-based to municipality-based 
-#### GridGlobal,  GridGlobal+
-
+# G-Global, G-Global+
+#### Converting from grid-based to municipality-based 
 
 ```python
 %load_ext jupyter_black
