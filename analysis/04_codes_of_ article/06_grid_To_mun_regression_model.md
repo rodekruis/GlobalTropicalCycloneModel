@@ -1,4 +1,4 @@
-# G-Global, G-Global+
+## G-Global, G-Global+
 #### Converting from grid-based to municipality-based 
 
 ```python
