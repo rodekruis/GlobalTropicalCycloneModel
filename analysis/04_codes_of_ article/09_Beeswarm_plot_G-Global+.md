@@ -1,12 +1,6 @@
 # Feature Importance
 
-SHAP values and XGBoost built-in feature importance are two popular techniques for determining feature importance.
-
-SHAP values are computed by analyzing the impact of each feature on the model's output when that feature is included or excluded.
-
-XGBoost is a gradient-boosting library that includes a built-in feature importance function that ranks features based on how often they are used to split the data in the boosting process. The XGBoost feature importance function takes into account the contribution of each feature to the model's accuracy.
-
-Both SHAP values and XGBoost built-in feature importance provide valuable insights into the importance of different features in a dataset. These techniques may produce different rankings of feature importance so it is useful to compare their results to get a more comprehensive understanding of the importance of different features.
+Beeswarm Plot based on SHAP value for Municipality dataset.
 
 
 ```python
