@@ -1,5 +1,4 @@
-# Converting from grid-based to municipality-based 
-#### GridGlobal++
+## 2SG-Global+
 
 
 ```python
