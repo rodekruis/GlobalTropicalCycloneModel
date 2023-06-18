@@ -1,6 +1,6 @@
 # Feature Importance
 
-Beeswarm Plot based on SHAP value for Municipality dataset.
+Beeswarm Plot based on SHAP value for G-Global+ model.
 
 
 ```python
@@ -366,68 +366,6 @@ df
 
 
 ```python
-# Show histogram of damage
-df.hist(column="percent_houses_damaged", figsize=(4, 3))
-```
-
-
-
-
-    array([[<AxesSubplot:title={'center':'percent_houses_damaged'}>]],
-          dtype=object)
-
-
-
-
-    
-![png](output_4_1.png)
-    
-
-
-
-```python
-# Hist plot after data stratification
-bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_houses_damaged"], bins=bins2)
-plt.figure(figsize=(4, 3))
-plt.xlabel("Damage Values")
-plt.ylabel("Frequency")
-plt.plot(binsP2[1:], samples_per_bin2)
-```
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7fbf78695250>]
-
-
-
-
-    
-![png](output_5_1.png)
-    
-
-
-
-```python
-# Check the bins' intervalls (first bin means all zeros, second bin means 0 < values <= 1)
-df["percent_houses_damaged"].value_counts(bins=binsP2)
-```
-
-
-
-
-    (-0.001, 9e-05]    129600
-    (9e-05, 1.0]         7938
-    (1.0, 10.0]          2634
-    (10.0, 50.0]          939
-    (50.0, 101.0]         147
-    Name: percent_houses_damaged, dtype: int64
-
-
-
-
-```python
 # Remove zeros from wind_speed
 df = df[(df[["wind_speed"]] != 0).any(axis=1)]
 df = df.drop(columns=["grid_point_id", "typhoon_year"])
@@ -453,7 +391,7 @@ plt.plot(binsP2[1:], samples_per_bin2)
 
 
     
-![png](output_8_1.png)
+![png](output_5_1.png)
     
 
 
@@ -504,15 +442,6 @@ features = [
     "rainfall_max_6h",
     "rainfall_max_24h",
     "rwi",
-    # "strong_roof_strong_wall",
-    # "strong_roof_light_wall",
-    # "strong_roof_salvage_wall",
-    # "light_roof_strong_wall",
-    # "light_roof_light_wall",
-    # "light_roof_salvage_wall",
-    # "salvaged_roof_strong_wall",
-    # "salvaged_roof_light_wall",
-    # "salvaged_roof_salvage_wall",
     "mean_slope",
     "std_slope",
     "mean_tri",
@@ -615,33 +544,6 @@ shap_values_xgb = explainer_xgb(X_train4shapely)
 
 
 ```python
-import pickle
-
-explanation = shap_values_xgb
-# Save the Explanation object to a file
-with open("explanation.pkl", "wb") as file:
-    pickle.dump(explanation, file)
-```
-
-
-```python
-# Showing Barplot
-plt.title("The Bar plot wrt Shap Values")
-shap.plots.bar(shap_values_xgb, max_display=30, show=False)
-plt.gcf().set_size_inches(9, 15)
-# plt.show()
-
-plt.savefig("feature_importance.pdf", bbox_inches="tight")
-```
-
-
-    
-![png](output_19_0.png)
-    
-
-
-
-```python
 shap.summary_plot(shap_values_xgb, max_display=30, plot_size=0.7, show=False)
 ax = plt.gca()
 
@@ -655,7 +557,7 @@ plt.savefig("SHAP_updated1.pdf", bbox_inches="tight")
 
 
     
-![png](output_20_0.png)
+![png](output_15_0.png)
     
 
 
@@ -676,33 +578,7 @@ plt.savefig("SHAP_updated2.pdf", bbox_inches="tight")
 
 
     
-![png](output_21_0.png)
-    
-
-
-
-```python
-# Xgboost Built-in Feature Importance
-
-plt.rcParams.update({"figure.figsize": (8.0, 7.0)})
-plt.rcParams.update({"font.size": 10})
-
-sorted_idx = xgb.feature_importances_.argsort()
-plt.barh(X.columns[sorted_idx], xgb.feature_importances_[sorted_idx])
-plt.title("Xgboost built-in Feature Importance")
-plt.xlabel("Feature Importance values")
-```
-
-
-
-
-    Text(0.5, 0, 'Feature Importance values')
-
-
-
-
-    
-![png](output_22_1.png)
+![png](output_16_0.png)
     
 
 
