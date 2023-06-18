@@ -11,7 +11,9 @@ In this code we analyze the target variable in the municipality and grid-based d
 
 Achievements: This bar plot provides insights into class imbalances and target variable characteristics. In addition, this data visualization will support the decision-making throughout the modeling process.
 
-Code 03 <br />
-[03_Bar plot of target variable in Grid dataset](02_Grid_dataset_plots.ipynb)
+Code <br />
+[03_Correlation Matrix of features in Municipality dataset](03_Correlation_Matrix.ipynb)
 
+This code is to find the relationship between all the features in the municipality-based dataset by the measure of the linear relationship between every two variables using [the Pearson correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient). We also search for highly correlated features which are specified in strong red (positive relationship) or strong blue (negative relationship).
 
+Achievements: Since the Pearson correlation coefficient is used to identify relevant features in a dataset so it could be helpful in the variable selection process for the machine learning model.
