@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 
 ```python
-df=pd.read_csv("data/510_data.csv", index_col=0)
+# This file is the municipality dataset merged with ground truth as column y_norm (grid to mun)
+df = pd.read_csv("data/df_merged_2.csv")
 df
 ```
 
@@ -42,7 +43,6 @@ df
       <th>GEN_stormsurge_per</th>
       <th>GEN_Bu_p_inSSA</th>
       <th>...</th>
-      <th>VUL_LightRoof_StrongWall</th>
       <th>VUL_LightRoof_LightWall</th>
       <th>VUL_LightRoof_SalvageWall</th>
       <th>VUL_SalvagedRoof_StrongWall</th>
@@ -52,13 +52,14 @@ df
       <th>VUL_pantawid_pamilya_beneficiary</th>
       <th>DAM_perc_dmg</th>
       <th>HAZ_v_max_3</th>
+      <th>y_norm</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>PH175101000</td>
-      <td>durian2006</td>
+      <td>DURIAN2006</td>
       <td>185.828571</td>
       <td>14.716071</td>
       <td>7.381696</td>
@@ -68,7 +69,6 @@ df
       <td>6.18</td>
       <td>6.18</td>
       <td>...</td>
-      <td>2.533055</td>
       <td>41.892832</td>
       <td>1.002088</td>
       <td>0.000000</td>
@@ -78,11 +78,12 @@ df
       <td>46.931106</td>
       <td>3.632568</td>
       <td>166667.757548</td>
+      <td>3.34975</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>1</th>
       <td>PH083701000</td>
-      <td>durian2006</td>
+      <td>DURIAN2006</td>
       <td>8.818750</td>
       <td>0.455208</td>
       <td>0.255319</td>
@@ -92,7 +93,6 @@ df
       <td>0.00</td>
       <td>0.00</td>
       <td>...</td>
-      <td>1.218595</td>
       <td>13.645253</td>
       <td>0.549120</td>
       <td>0.030089</td>
@@ -102,11 +102,12 @@ df
       <td>25.989168</td>
       <td>0.000000</td>
       <td>664.968323</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>2</th>
       <td>PH015501000</td>
-      <td>durian2006</td>
+      <td>DURIAN2006</td>
       <td>24.175000</td>
       <td>2.408333</td>
       <td>0.957639</td>
@@ -116,7 +117,6 @@ df
       <td>1.28</td>
       <td>1.28</td>
       <td>...</td>
-      <td>0.667374</td>
       <td>15.592295</td>
       <td>0.075838</td>
       <td>0.000000</td>
@@ -126,11 +126,12 @@ df
       <td>32.185651</td>
       <td>0.000000</td>
       <td>1311.358762</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>3</th>
       <td>PH015502000</td>
-      <td>durian2006</td>
+      <td>DURIAN2006</td>
       <td>14.930000</td>
       <td>1.650000</td>
       <td>0.586250</td>
@@ -140,7 +141,6 @@ df
       <td>0.00</td>
       <td>0.00</td>
       <td>...</td>
-      <td>0.675125</td>
       <td>7.100454</td>
       <td>0.023280</td>
       <td>0.011640</td>
@@ -150,11 +150,12 @@ df
       <td>29.612385</td>
       <td>0.000000</td>
       <td>1775.385328</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>4</th>
       <td>PH175302000</td>
-      <td>durian2006</td>
+      <td>DURIAN2006</td>
       <td>13.550000</td>
       <td>1.054167</td>
       <td>0.528125</td>
@@ -164,7 +165,6 @@ df
       <td>0.36</td>
       <td>0.36</td>
       <td>...</td>
-      <td>0.821288</td>
       <td>30.354796</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -174,6 +174,7 @@ df
       <td>35.052562</td>
       <td>0.000000</td>
       <td>1211.676901</td>
+      <td>0.00000</td>
     </tr>
     <tr>
       <th>...</th>
@@ -200,9 +201,9 @@ df
       <td>...</td>
     </tr>
     <tr>
-      <th>25835</th>
+      <th>8068</th>
       <td>PH084823000</td>
-      <td>noul2015</td>
+      <td>NOUL2015</td>
       <td>9.700000</td>
       <td>0.408333</td>
       <td>0.216146</td>
@@ -212,7 +213,6 @@ df
       <td>6.25</td>
       <td>6.25</td>
       <td>...</td>
-      <td>3.613707</td>
       <td>32.492212</td>
       <td>0.311526</td>
       <td>0.031153</td>
@@ -222,11 +222,12 @@ df
       <td>31.308411</td>
       <td>0.000000</td>
       <td>538.743551</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>25837</th>
+      <th>8069</th>
       <td>PH015547000</td>
-      <td>noul2015</td>
+      <td>NOUL2015</td>
       <td>17.587500</td>
       <td>1.414583</td>
       <td>0.386458</td>
@@ -236,7 +237,6 @@ df
       <td>0.00</td>
       <td>0.00</td>
       <td>...</td>
-      <td>0.383275</td>
       <td>4.703833</td>
       <td>0.027875</td>
       <td>0.000000</td>
@@ -246,11 +246,12 @@ df
       <td>12.766551</td>
       <td>0.000000</td>
       <td>946.676507</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>25838</th>
+      <th>8070</th>
       <td>PH025014000</td>
-      <td>noul2015</td>
+      <td>NOUL2015</td>
       <td>11.487500</td>
       <td>0.614583</td>
       <td>0.230319</td>
@@ -260,7 +261,6 @@ df
       <td>0.09</td>
       <td>0.09</td>
       <td>...</td>
-      <td>0.090110</td>
       <td>3.063753</td>
       <td>0.022528</td>
       <td>0.000000</td>
@@ -270,11 +270,12 @@ df
       <td>9.348952</td>
       <td>0.000000</td>
       <td>3938.254316</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>25839</th>
+      <th>8071</th>
       <td>PH140127000</td>
-      <td>noul2015</td>
+      <td>NOUL2015</td>
       <td>11.600000</td>
       <td>1.400000</td>
       <td>0.412766</td>
@@ -284,7 +285,6 @@ df
       <td>0.00</td>
       <td>0.00</td>
       <td>...</td>
-      <td>0.094518</td>
       <td>3.119093</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -294,11 +294,12 @@ df
       <td>21.928166</td>
       <td>0.000000</td>
       <td>2666.620370</td>
+      <td>0.00000</td>
     </tr>
     <tr>
-      <th>25841</th>
+      <th>8072</th>
       <td>PH051612000</td>
-      <td>noul2015</td>
+      <td>NOUL2015</td>
       <td>32.305556</td>
       <td>1.744444</td>
       <td>1.210417</td>
@@ -308,7 +309,6 @@ df
       <td>3.05</td>
       <td>3.05</td>
       <td>...</td>
-      <td>12.198920</td>
       <td>36.191860</td>
       <td>0.280316</td>
       <td>0.010382</td>
@@ -318,10 +318,11 @@ df
       <td>31.634136</td>
       <td>0.000000</td>
       <td>3831.302757</td>
+      <td>0.00000</td>
     </tr>
   </tbody>
 </table>
-<p>8073 rows × 39 columns</p>
+<p>8073 rows × 40 columns</p>
 </div>
 
 
@@ -339,7 +340,7 @@ plt.plot(binsP2[1:],samples_per_bin2)
 
 
 
-    [<matplotlib.lines.Line2D at 0x7fd1105d53d0>]
+    [<matplotlib.lines.Line2D at 0x7ffc83320790>]
 
 
 
@@ -380,7 +381,7 @@ df["DAM_perc_dmg"].value_counts(bins=binsP2)
 ```python
 #Count numbers in each bin and create a bar plot
 
-check = pd.cut(df['DAM_perc_dmg'], bins=[0, 0.00009, 1, 10, 50, 100], include_lowest=True)
+check = pd.cut(df['y_norm'], bins=[0, 0.00009, 1, 10, 50, 100], include_lowest=True)
 ax = check.value_counts(sort=False).plot.bar(rot=0, color="b", figsize=(6,4))
 
 ax.spines['right'].set_visible(False)
@@ -396,7 +397,8 @@ ax.set_ylabel("Frequency", labelpad=20, size=12)
 
 
 fig = ax.get_figure()
-fig.savefig('figures/bin_of_damage_mun.pdf', bbox_inches='tight')
+fig.savefig('figures/bin_of_damage_mun(y_norm).pdf', bbox_inches='tight')
+#plt.show()
 ```
 
 
@@ -408,7 +410,7 @@ fig.savefig('figures/bin_of_damage_mun.pdf', bbox_inches='tight')
 
 ```python
 from matplotlib.ticker import StrMethodFormatter
-ax = df.hist(column='DAM_perc_dmg', bins=20, grid=False, figsize=(6,4), color='b', zorder=2, rwidth=0.9,
+ax = df.hist(column='y_norm', bins=20, grid=False, figsize=(6,4), color='b', zorder=2, rwidth=0.9,
             log=True
             )
 
@@ -431,7 +433,7 @@ for x in ax:
     x.set_ylabel("Frequency", labelpad=20, size=12)
     
 fig = ax[0].get_figure()
-fig.savefig('figures/hist_of_damage_mun.pdf', bbox_inches='tight')
+fig.savefig('figures/hist_of_damage_mun(y_norm).pdf', bbox_inches='tight')
 ```
 
 
@@ -445,7 +447,7 @@ fig.savefig('figures/hist_of_damage_mun.pdf', bbox_inches='tight')
 plt.rcParams["figure.figsize"] = [5, 4]
 plt.rcParams["figure.autolayout"] = True
 
-samples_per_bin2, binsP2 = np.histogram(df["DAM_perc_dmg"], bins=100)
+samples_per_bin2, binsP2 = np.histogram(df["y_norm"], bins=100)
 pdf = samples_per_bin2 / sum(samples_per_bin2)
 cdf = np.insert(np.cumsum(pdf), 0, 0)
 plt.plot(binsP2, cdf, label="CDF", color='b')
@@ -457,7 +459,7 @@ for pos in ['right', 'top']:
 
 plt.xlabel("Damage values")
 plt.ylabel("Probability of Frequency")
-plt.savefig("figures/cdf_of_damage_mun.pdf", bbox_inches='tight')
+plt.savefig("figures/cdf_of_damage_mun(y_norm).pdf", bbox_inches='tight')
 ```
 
 
