@@ -451,6 +451,340 @@ display(df_data.head())
 
 
 ```python
+# Read municipality dataset which already merged with y_norm converted ground truth
+df_mun_merged = pd.read_csv("data/df_merged_2.csv")
+
+# Remove the duplicated rows
+df_mun_merged.drop_duplicates(keep="first", inplace=True)
+df_mun_merged = df_mun_merged.reset_index(drop=True)
+
+# Make the name of typhoons to uppercase
+df_mun_merged["typhoon"] = df_mun_merged["typhoon"].str.upper()
+
+# Rename y_norm column
+df_mun_merged = df_mun_merged.rename(columns={"y_norm": "y_norm_mun"})
+
+df_mun_merged
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mun_Code</th>
+      <th>typhoon</th>
+      <th>HAZ_rainfall_Total</th>
+      <th>HAZ_rainfall_max_6h</th>
+      <th>HAZ_rainfall_max_24h</th>
+      <th>HAZ_v_max</th>
+      <th>HAZ_dis_track_min</th>
+      <th>GEN_landslide_per</th>
+      <th>GEN_stormsurge_per</th>
+      <th>GEN_Bu_p_inSSA</th>
+      <th>...</th>
+      <th>VUL_LightRoof_LightWall</th>
+      <th>VUL_LightRoof_SalvageWall</th>
+      <th>VUL_SalvagedRoof_StrongWall</th>
+      <th>VUL_SalvagedRoof_LightWall</th>
+      <th>VUL_SalvagedRoof_SalvageWall</th>
+      <th>VUL_vulnerable_groups</th>
+      <th>VUL_pantawid_pamilya_beneficiary</th>
+      <th>DAM_perc_dmg</th>
+      <th>HAZ_v_max_3</th>
+      <th>y_norm_mun</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH175101000</td>
+      <td>DURIAN2006</td>
+      <td>185.828571</td>
+      <td>14.716071</td>
+      <td>7.381696</td>
+      <td>55.032241</td>
+      <td>2.478142</td>
+      <td>2.64</td>
+      <td>6.18</td>
+      <td>6.18</td>
+      <td>...</td>
+      <td>41.892832</td>
+      <td>1.002088</td>
+      <td>0.000000</td>
+      <td>0.027836</td>
+      <td>0.083507</td>
+      <td>2.951511</td>
+      <td>46.931106</td>
+      <td>3.632568</td>
+      <td>166667.757548</td>
+      <td>3.34975</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH083701000</td>
+      <td>DURIAN2006</td>
+      <td>8.818750</td>
+      <td>0.455208</td>
+      <td>0.255319</td>
+      <td>8.728380</td>
+      <td>288.358553</td>
+      <td>0.06</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>13.645253</td>
+      <td>0.549120</td>
+      <td>0.030089</td>
+      <td>0.090266</td>
+      <td>0.112833</td>
+      <td>3.338873</td>
+      <td>25.989168</td>
+      <td>0.000000</td>
+      <td>664.968323</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH015501000</td>
+      <td>DURIAN2006</td>
+      <td>24.175000</td>
+      <td>2.408333</td>
+      <td>0.957639</td>
+      <td>10.945624</td>
+      <td>274.953818</td>
+      <td>1.52</td>
+      <td>1.28</td>
+      <td>1.28</td>
+      <td>...</td>
+      <td>15.592295</td>
+      <td>0.075838</td>
+      <td>0.000000</td>
+      <td>0.015168</td>
+      <td>0.075838</td>
+      <td>2.131755</td>
+      <td>32.185651</td>
+      <td>0.000000</td>
+      <td>1311.358762</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH015502000</td>
+      <td>DURIAN2006</td>
+      <td>14.930000</td>
+      <td>1.650000</td>
+      <td>0.586250</td>
+      <td>12.108701</td>
+      <td>252.828578</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>7.100454</td>
+      <td>0.023280</td>
+      <td>0.011640</td>
+      <td>0.000000</td>
+      <td>0.128041</td>
+      <td>1.589369</td>
+      <td>29.612385</td>
+      <td>0.000000</td>
+      <td>1775.385328</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH175302000</td>
+      <td>DURIAN2006</td>
+      <td>13.550000</td>
+      <td>1.054167</td>
+      <td>0.528125</td>
+      <td>10.660943</td>
+      <td>258.194381</td>
+      <td>5.52</td>
+      <td>0.36</td>
+      <td>0.36</td>
+      <td>...</td>
+      <td>30.354796</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.032852</td>
+      <td>0.000000</td>
+      <td>1.387007</td>
+      <td>35.052562</td>
+      <td>0.000000</td>
+      <td>1211.676901</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7855</th>
+      <td>PH084823000</td>
+      <td>NOUL2015</td>
+      <td>9.700000</td>
+      <td>0.408333</td>
+      <td>0.216146</td>
+      <td>8.136932</td>
+      <td>277.107823</td>
+      <td>1.80</td>
+      <td>6.25</td>
+      <td>6.25</td>
+      <td>...</td>
+      <td>32.492212</td>
+      <td>0.311526</td>
+      <td>0.031153</td>
+      <td>0.155763</td>
+      <td>0.031153</td>
+      <td>2.827833</td>
+      <td>31.308411</td>
+      <td>0.000000</td>
+      <td>538.743551</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>7856</th>
+      <td>PH015547000</td>
+      <td>NOUL2015</td>
+      <td>17.587500</td>
+      <td>1.414583</td>
+      <td>0.386458</td>
+      <td>9.818999</td>
+      <td>305.789817</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>4.703833</td>
+      <td>0.027875</td>
+      <td>0.000000</td>
+      <td>0.034843</td>
+      <td>0.097561</td>
+      <td>1.073268</td>
+      <td>12.766551</td>
+      <td>0.000000</td>
+      <td>946.676507</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>7857</th>
+      <td>PH025014000</td>
+      <td>NOUL2015</td>
+      <td>11.487500</td>
+      <td>0.614583</td>
+      <td>0.230319</td>
+      <td>15.791907</td>
+      <td>210.313249</td>
+      <td>0.06</td>
+      <td>0.09</td>
+      <td>0.09</td>
+      <td>...</td>
+      <td>3.063753</td>
+      <td>0.022528</td>
+      <td>0.000000</td>
+      <td>0.067583</td>
+      <td>0.022528</td>
+      <td>1.140109</td>
+      <td>9.348952</td>
+      <td>0.000000</td>
+      <td>3938.254316</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>7858</th>
+      <td>PH140127000</td>
+      <td>NOUL2015</td>
+      <td>11.600000</td>
+      <td>1.400000</td>
+      <td>0.412766</td>
+      <td>13.867145</td>
+      <td>218.189328</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>3.119093</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>2.837537</td>
+      <td>21.928166</td>
+      <td>0.000000</td>
+      <td>2666.620370</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>7859</th>
+      <td>PH051612000</td>
+      <td>NOUL2015</td>
+      <td>32.305556</td>
+      <td>1.744444</td>
+      <td>1.210417</td>
+      <td>15.647639</td>
+      <td>219.542224</td>
+      <td>4.15</td>
+      <td>3.05</td>
+      <td>3.05</td>
+      <td>...</td>
+      <td>36.191860</td>
+      <td>0.280316</td>
+      <td>0.010382</td>
+      <td>0.031146</td>
+      <td>0.103821</td>
+      <td>2.518110</td>
+      <td>31.634136</td>
+      <td>0.000000</td>
+      <td>3831.302757</td>
+      <td>0.00000</td>
+    </tr>
+  </tbody>
+</table>
+<p>7860 rows × 40 columns</p>
+</div>
+
+
+
+
+```python
 # Function to transform name of typhoons to lowercase and remove begining of years
 def transform_strings(strings):
     transformed_strings = []
@@ -704,6 +1038,15 @@ features = [
     "rainfall_max_6h",
     "rainfall_max_24h",
     "rwi",
+    # "strong_roof_strong_wall",
+    # "strong_roof_light_wall",
+    # "strong_roof_salvage_wall",
+    # "light_roof_strong_wall",
+    # "light_roof_light_wall",
+    # "light_roof_salvage_wall",
+    # "salvaged_roof_strong_wall",
+    # "salvaged_roof_light_wall",
+    # "salvaged_roof_salvage_wall",
     "mean_slope",
     "std_slope",
     "mean_tri",
@@ -731,12 +1074,12 @@ samples_per_bin2, binsP2 = np.histogram(df_data["percent_houses_damaged"], bins=
 # Define range of for loops
 num_exp_main = 20
 
-# Latest typhoons in terms of time (walk-forward)
+# Latest typhoons in terms of time
 num_exp = 12
 typhoons_for_test = typhoons[-num_exp:]
 
 # LOOCV
-# num_exp = len(typhoons)
+#num_exp = len(typhoons)
 
 # Define number of bins
 num_bins = len(bins2)
@@ -768,15 +1111,24 @@ for run_exm in range(num_exp_main):
     RMSE = defaultdict(list)
     AVE = defaultdict(list)
 
+    #for run_ix in range(27, num_exp):
     for run_ix in range(num_exp):
 
         # WITHOUT removing old typhoons from training set
         typhoons_train_lst = typhoons[0 : run_ix + 27]
 
-        # for run_ix in range(27, num_exp):
+        # WITH removing old typhoons from training set
+        # typhoons_train_lst = typhoons[run_ix : run_ix + 27]
 
-        # typhoons_for_test = typhoons[run_ix]
-        # typhoons_train_lst = typhoons[:run_ix] + typhoons[run_ix + 1 :]
+        # In each run Keep one typhoon for the test list while the rest of the typhoons in the training set
+        #typhoons_for_test = typhoons[run_ix]
+        #typhoons_train_lst = typhoons[:run_ix] + typhoons[run_ix + 1 :]
+
+        # Random split
+        # typhoons_for_test = test_list[run_ix]
+        # typhoons_train_lst = train_list
+
+        # print(typhoons_train_lst)
 
         bin_index2 = np.digitize(df_data["percent_houses_damaged"], bins=binsP2)
         y_input_strat = bin_index2
@@ -785,11 +1137,10 @@ for run_exm in range(num_exp_main):
         X = df_data[features]
         y = df_data["percent_houses_damaged"]
 
-        # LOOCV
+        # Split df to train and test (one typhoon for test and the rest of typhoons for train)
         # For when we train over all typhoon this df_test is required
-        # df_test = df_data[df_data["typhoon_name"] == typhoons_for_test]
+        #df_test = df_data[df_data["typhoon_name"] == typhoons_for_test]
 
-        # Walk-forward
         df_test = df[df["typhoon_name"] == typhoons_for_test[run_ix]]
 
         df_train = pd.DataFrame()
@@ -1024,6 +1375,7 @@ for run_exm in range(num_exp_main):
         # Filter damages greater than 10 to estimate RMSE for these values
         # pred_df["y_all"] = y_join[y_join > 10]
         # pred_df["y_pred_all"] = y_pred_join[y_join > 10]
+        
 
         # Join data with y_all and y_all_pred
         df_data_w_pred = pd.merge(pred_df, df_data, left_index=True, right_index=True)
@@ -1070,12 +1422,22 @@ for run_exm in range(num_exp_main):
 
         # Remove rows with NaN after normalization
         final_df = agg_df.dropna()
+        final_df=final_df.reset_index()
+        print(len(final_df))
+        
+        # Intersection of two datasets grid and municipality    
+        # Rename a column
+        final_df = final_df.rename(columns={"ADM3_PCODE": "Mun_Code", "typhoon_name": "typhoon"})
+        
+        # Merge DataFrames based on 'typhoon_name' and 'Mun_Code'
+        merged_df = pd.merge(final_df, df_mun_merged, on=["Mun_Code", "typhoon"], how="inner")
+        print(len(merged_df))
 
         # Calculate RMSE & Average Error in total for converted grid_based model to Mun_based
-        if len(final_df["y_norm"]) > 0:
-            rmse = sqrt(mean_squared_error(final_df["y_norm"], final_df["y_pred_norm"]))
-            ave = (final_df["y_pred_norm"] - final_df["y_norm"]).sum() / len(
-                final_df["y_norm"]
+        if len(merged_df["y_norm"]) > 0:
+            rmse = sqrt(mean_squared_error(merged_df["y_norm"], merged_df["y_pred_norm"]))
+            ave = (merged_df["y_pred_norm"] - merged_df["y_norm"]).sum() / len(
+                merged_df["y_norm"]
             )
 
             print(f"RMSE for grid_based model: {rmse:.2f}")
@@ -1084,21 +1446,21 @@ for run_exm in range(num_exp_main):
             RMSE["all"].append(rmse)
             AVE["all"].append(ave)
 
-        bin_index = np.digitize(final_df["y_norm"], bins=binsP2)
+        bin_index = np.digitize(merged_df["y_norm"], bins=binsP2)
 
         for bin_num in range(1, 6):
-            if len(final_df["y_norm"][bin_index == bin_num]) > 0:
+            if len(merged_df["y_norm"][bin_index == bin_num]) > 0:
 
                 mse_idx = mean_squared_error(
-                    final_df["y_norm"][bin_index == bin_num],
-                    final_df["y_pred_norm"][bin_index == bin_num],
+                    merged_df["y_norm"][bin_index == bin_num],
+                    merged_df["y_pred_norm"][bin_index == bin_num],
                 )
                 rmse = np.sqrt(mse_idx)
 
                 ave = (
-                    final_df["y_pred_norm"][bin_index == bin_num]
-                    - final_df["y_norm"][bin_index == bin_num]
-                ).sum() / len(final_df["y_norm"][bin_index == bin_num])
+                    merged_df["y_pred_norm"][bin_index == bin_num]
+                    - merged_df["y_norm"][bin_index == bin_num]
+                ).sum() / len(merged_df["y_norm"][bin_index == bin_num])
 
                 RMSE[bin_num].append(rmse)
                 AVE[bin_num].append(ave)
@@ -1116,745 +1478,123 @@ for run_exm in range(num_exp_main):
 ```
 
     ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.90
-    Average Error for grid_based model: 1.10
+    801
+    432
+    RMSE for grid_based model: 5.94
+    Average Error for grid_based model: 1.46
     ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
+    830
+    66
+    RMSE for grid_based model: 0.47
+    Average Error for grid_based model: -0.14
     ['MANGKHUT2018']
-    RMSE for grid_based model: 4.25
-    Average Error for grid_based model: 1.13
-    ['YUTU2018']
-    RMSE for grid_based model: 0.54
-    Average Error for grid_based model: 0.01
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.33
-    Average Error for grid_based model: 0.38
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.29
-    Average Error for grid_based model: -0.47
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.09
-    Average Error for grid_based model: -0.15
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.91
-    Average Error for grid_based model: -0.12
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.71
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.89798699120394, 0.3873628753117008, 4.24658115128932, 0.5359081660343328, 3.332726223342172, 0.10032573368610705, 2.287726696867257, 0.20350617391876227, 2.0927506775920652, 0.908721576196806, 1.706438898938881, 0.5883715122664314]
-    ['NOCK-TEN2016']
+    345
+    280
     RMSE for grid_based model: 4.64
-    Average Error for grid_based model: 0.99
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.38
-    Average Error for grid_based model: 1.19
+    Average Error for grid_based model: 1.41
     ['YUTU2018']
-    RMSE for grid_based model: 0.98
-    Average Error for grid_based model: 0.05
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.17
-    Average Error for grid_based model: 0.35
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.32
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.30
-    Average Error for grid_based model: -0.13
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.99
-    Average Error for grid_based model: -0.09
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.12
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.72
-    Average Error for grid_based model: 0.15
-    [4.643926906790069, 0.38724916405381743, 4.375342193921481, 0.9780362158040369, 3.1660162760198967, 0.10032573368610705, 2.3210961956636944, 0.20350617391876227, 2.302544982188544, 0.9904081800157728, 2.1157440448541753, 0.7210847327012103]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 5.14
-    Average Error for grid_based model: 1.16
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.45
-    Average Error for grid_based model: 1.30
-    ['YUTU2018']
-    RMSE for grid_based model: 1.04
-    Average Error for grid_based model: 0.06
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.53
-    Average Error for grid_based model: 0.47
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.32
-    Average Error for grid_based model: -0.44
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.23
-    Average Error for grid_based model: -0.09
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.96
-    Average Error for grid_based model: -0.11
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.02
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [5.143640790452074, 0.38724916405381743, 4.4492676285941295, 1.0421415621052081, 3.533052034458467, 0.10032573368610705, 2.3212648989765485, 0.20350617391876227, 2.230969720264949, 0.9649510437752827, 2.0162429658101426, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.87
-    Average Error for grid_based model: 1.07
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.40
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.19
-    Average Error for grid_based model: 1.13
-    ['YUTU2018']
-    RMSE for grid_based model: 0.89
-    Average Error for grid_based model: 0.03
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.41
-    Average Error for grid_based model: 0.40
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.29
-    Average Error for grid_based model: -0.47
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.11
-    Average Error for grid_based model: -0.10
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.96
-    Average Error for grid_based model: -0.11
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.06
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.868625096746711, 0.39742034091076656, 4.191917265960617, 0.8860574066138054, 3.406700212139519, 0.10032573368610705, 2.287726696867257, 0.20350617391876227, 2.1084027641303598, 0.9593247164031854, 2.059920459103043, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.73
-    Average Error for grid_based model: 1.01
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.53
-    Average Error for grid_based model: 1.24
-    ['YUTU2018']
-    RMSE for grid_based model: 1.22
-    Average Error for grid_based model: 0.09
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.24
-    Average Error for grid_based model: 0.38
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.21
-    Average Error for grid_based model: -0.43
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.22
-    Average Error for grid_based model: -0.09
-    ['VAMCO2020']
-    RMSE for grid_based model: 1.00
-    Average Error for grid_based model: -0.09
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.06
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.732549460441822, 0.38724916405381743, 4.528689816509462, 1.2188166463511148, 3.235300255969021, 0.10032573368610705, 2.2134221830010303, 0.20350617391876227, 2.2243463781936836, 0.9987380331000212, 2.063793356697999, 0.5883826769844145]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 5.01
-    Average Error for grid_based model: 1.06
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 3.81
-    Average Error for grid_based model: 1.07
-    ['YUTU2018']
-    RMSE for grid_based model: 1.00
-    Average Error for grid_based model: 0.04
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.44
-    Average Error for grid_based model: 0.39
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.28
-    Average Error for grid_based model: -0.46
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.23
-    Average Error for grid_based model: -0.09
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.93
-    Average Error for grid_based model: -0.10
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.92
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [5.014177915819655, 0.38724916405381743, 3.812056150324613, 0.9963477899215575, 3.443075667162197, 0.10032573368610705, 2.278475361348838, 0.20350617391876227, 2.2310086276465064, 0.9348916499114593, 1.9173405707026907, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 5.11
-    Average Error for grid_based model: 1.12
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.55
-    Average Error for grid_based model: 1.29
-    ['YUTU2018']
-    RMSE for grid_based model: 0.47
-    Average Error for grid_based model: -0.00
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.55
-    Average Error for grid_based model: 0.47
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.33
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 1.99
-    Average Error for grid_based model: -0.10
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.89
-    Average Error for grid_based model: -0.13
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.44
-    Average Error for grid_based model: 0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [5.106424213369466, 0.3872442971563539, 4.553492549811862, 0.47476210568345534, 3.546425147481553, 0.10032573368610705, 2.326828373688305, 0.20350617391876227, 1.9917318626486527, 0.8857008789152593, 1.442550709757815, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.93
-    Average Error for grid_based model: 1.13
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.15
-    Average Error for grid_based model: 1.15
-    ['YUTU2018']
-    RMSE for grid_based model: 1.24
-    Average Error for grid_based model: 0.11
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.53
-    Average Error for grid_based model: 0.43
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.29
-    Average Error for grid_based model: -0.47
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.12
-    Average Error for grid_based model: -0.10
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.98
-    Average Error for grid_based model: -0.10
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.05
-    Average Error for grid_based model: -0.03
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.929243650942223, 0.38724916405381743, 4.152063085927219, 1.2394550350584275, 3.5322492800363037, 0.10032573368610705, 2.287726696867257, 0.20350617391876227, 2.1200469782112625, 0.9827205347531022, 2.048017968342111, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.97
-    Average Error for grid_based model: 1.12
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.02
-    Average Error for grid_based model: 1.13
-    ['YUTU2018']
-    RMSE for grid_based model: 1.02
-    Average Error for grid_based model: 0.07
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.87
-    Average Error for grid_based model: 0.58
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.29
-    Average Error for grid_based model: -0.47
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.37
-    Average Error for grid_based model: -0.12
-    ['VAMCO2020']
-    RMSE for grid_based model: 1.01
-    Average Error for grid_based model: -0.09
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.96
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.973178819193389, 0.3873138604049723, 4.019583331095755, 1.020361896786988, 3.865395138417035, 0.10032573368610705, 2.287726696867257, 0.20350617391876227, 2.3723694823831356, 1.0121753462276213, 1.96229744314873, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 5.30
-    Average Error for grid_based model: 1.23
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.18
-    Average Error for grid_based model: 1.17
-    ['YUTU2018']
-    RMSE for grid_based model: 0.56
-    Average Error for grid_based model: 0.01
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.47
-    Average Error for grid_based model: 0.41
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.34
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.05
-    Average Error for grid_based model: -0.09
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.99
-    Average Error for grid_based model: -0.09
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.09
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [5.296971308122341, 0.38728715348291715, 4.17701582670148, 0.5596328008957518, 3.465772018283456, 0.10032573368610705, 2.3423737648330367, 0.20350617391876227, 2.0455273293774474, 0.989380556447285, 2.086973897720817, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.98
-    Average Error for grid_based model: 1.11
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.07
-    Average Error for grid_based model: 1.13
-    ['YUTU2018']
-    RMSE for grid_based model: 0.48
-    Average Error for grid_based model: 0.01
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.42
-    Average Error for grid_based model: 0.38
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.31
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.04
-    Average Error for grid_based model: -0.11
-    ['VAMCO2020']
-    RMSE for grid_based model: 1.22
+    562
+    173
+    RMSE for grid_based model: 0.77
     Average Error for grid_based model: -0.05
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.00
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.9777454057137085, 0.3873104181233576, 4.070209581062064, 0.4797905084273595, 3.423304529252159, 0.10032573368610705, 2.3133262891678705, 0.20350617391876227, 2.042360841472641, 1.2192382010087743, 1.9980885808098954, 0.5883797533621494]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.83
-    Average Error for grid_based model: 1.05
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.22
-    Average Error for grid_based model: 1.22
-    ['YUTU2018']
-    RMSE for grid_based model: 1.00
-    Average Error for grid_based model: 0.08
     ['KAMMURI2019']
-    RMSE for grid_based model: 3.15
-    Average Error for grid_based model: 0.29
+    821
+    328
+    RMSE for grid_based model: 4.55
+    Average Error for grid_based model: 0.42
     ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.33
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.04
-    Average Error for grid_based model: -0.06
-    ['VAMCO2020']
-    RMSE for grid_based model: 1.09
-    Average Error for grid_based model: -0.08
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.04
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.83190262606735, 0.38724916405381743, 4.224958742098013, 1.0008666477206758, 3.148863822502166, 0.10032573368610705, 2.3276177236524584, 0.20350617391876227, 2.0388939334134446, 1.0943084445195743, 2.0438574339891256, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.85
-    Average Error for grid_based model: 1.04
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.14
-    Average Error for grid_based model: 1.20
-    ['YUTU2018']
-    RMSE for grid_based model: 1.03
-    Average Error for grid_based model: 0.06
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.07
-    Average Error for grid_based model: 0.25
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.31
-    Average Error for grid_based model: -0.44
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.15
-    Average Error for grid_based model: -0.08
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.98
-    Average Error for grid_based model: -0.11
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.08
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.854433089038929, 0.38998413160696255, 4.138002110690171, 1.0319740837294527, 3.067380395224317, 0.10032573368610705, 2.312264823063394, 0.20350617391876227, 2.148576851549262, 0.9796592522965012, 2.076082053522725, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.82
-    Average Error for grid_based model: 1.02
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 3.57
-    Average Error for grid_based model: 0.98
-    ['YUTU2018']
-    RMSE for grid_based model: 0.44
-    Average Error for grid_based model: -0.01
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.25
-    Average Error for grid_based model: 0.32
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.30
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.07
-    Average Error for grid_based model: -0.10
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.94
-    Average Error for grid_based model: -0.11
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.10
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.816002773684076, 0.38724916405381743, 3.5727813681580765, 0.43697227193048965, 3.2478848731407477, 0.10032573368610705, 2.30160036637117, 0.20350617391876227, 2.067759181582148, 0.9421079238233235, 2.1024933595053477, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 5.05
-    Average Error for grid_based model: 1.11
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.40
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 3.96
-    Average Error for grid_based model: 1.08
-    ['YUTU2018']
-    RMSE for grid_based model: 0.92
-    Average Error for grid_based model: 0.05
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.32
-    Average Error for grid_based model: 0.46
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.30
-    Average Error for grid_based model: -0.46
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.23
-    Average Error for grid_based model: -0.10
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.93
-    Average Error for grid_based model: -0.11
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.02
-    Average Error for grid_based model: -0.02
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [5.05397279186827, 0.39731921472896875, 3.9599996289858823, 0.9215965806802032, 3.315050047925868, 0.10032573368610705, 2.3014329803834155, 0.20350617391876227, 2.2255491785518204, 0.9292147003264294, 2.0167096827978357, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.96
-    Average Error for grid_based model: 1.08
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.40
-    Average Error for grid_based model: 0.06
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.08
-    Average Error for grid_based model: 1.06
-    ['YUTU2018']
-    RMSE for grid_based model: 0.62
-    Average Error for grid_based model: 0.01
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.49
-    Average Error for grid_based model: 0.40
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.24
-    Average Error for grid_based model: -0.46
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.14
-    Average Error for grid_based model: -0.12
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.88
-    Average Error for grid_based model: -0.12
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.96
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.963966890192227, 0.40176488252989934, 4.083711137885532, 0.6166691523372914, 3.4873729884718094, 0.10032573368610705, 2.2375380350065344, 0.20350617391876227, 2.1403793502210684, 0.8847502923986874, 1.9573446226300233, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.86
-    Average Error for grid_based model: 1.03
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.16
-    Average Error for grid_based model: 1.14
-    ['YUTU2018']
-    RMSE for grid_based model: 1.11
-    Average Error for grid_based model: 0.07
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.30
-    Average Error for grid_based model: 0.40
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.30
-    Average Error for grid_based model: -0.44
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.39
-    Average Error for grid_based model: -0.06
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.89
-    Average Error for grid_based model: -0.12
-    ['VONGFONG2020']
-    RMSE for grid_based model: 2.07
-    Average Error for grid_based model: -0.03
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.8570616097936155, 0.38724916405381743, 4.163282812854993, 1.1080752167028771, 3.3017356105000824, 0.10032573368610705, 2.2996489147832366, 0.20350617391876227, 2.3888923438563676, 0.8850307190953508, 2.0689866230102703, 0.5896785488203226]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.95
-    Average Error for grid_based model: 1.12
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.18
-    Average Error for grid_based model: 1.17
-    ['YUTU2018']
-    RMSE for grid_based model: 1.09
-    Average Error for grid_based model: 0.08
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.52
-    Average Error for grid_based model: 0.49
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.32
-    Average Error for grid_based model: -0.45
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.33
-    Average Error for grid_based model: -0.16
-    ['VAMCO2020']
-    RMSE for grid_based model: 1.01
-    Average Error for grid_based model: -0.09
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.99
-    Average Error for grid_based model: -0.01
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.9516809809505995, 0.38724916405381743, 4.175708742439066, 1.0907823169217505, 3.5178609251613238, 0.10032573368610705, 2.324781771107227, 0.20350617391876227, 2.3329881133668446, 1.0122596467277387, 1.9930489123357673, 0.5883715122664314]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 5.19
-    Average Error for grid_based model: 1.12
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.39
-    Average Error for grid_based model: 0.05
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 4.21
-    Average Error for grid_based model: 1.14
-    ['YUTU2018']
-    RMSE for grid_based model: 0.47
-    Average Error for grid_based model: -0.00
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.43
-    Average Error for grid_based model: 0.46
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
-    ['PHANFONE2019']
-    RMSE for grid_based model: 2.24
-    Average Error for grid_based model: -0.46
-    ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
-    ['GONI2020']
-    RMSE for grid_based model: 2.02
-    Average Error for grid_based model: -0.09
-    ['VAMCO2020']
-    RMSE for grid_based model: 0.93
-    Average Error for grid_based model: -0.12
-    ['VONGFONG2020']
-    RMSE for grid_based model: 1.62
-    Average Error for grid_based model: -0.00
-    ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [5.192198172104794, 0.38749284000333517, 4.212860907248365, 0.473931438138058, 3.4254259357477785, 0.10032573368610705, 2.2401689551816557, 0.20350617391876227, 2.0179739596745745, 0.9286890082493965, 1.6205665058952532, 0.5883725951331853]
-    ['NOCK-TEN2016']
-    RMSE for grid_based model: 4.49
-    Average Error for grid_based model: 1.00
-    ['SARIKA2016']
-    RMSE for grid_based model: 0.48
-    Average Error for grid_based model: 0.06
-    ['MANGKHUT2018']
-    RMSE for grid_based model: 3.95
-    Average Error for grid_based model: 1.14
-    ['YUTU2018']
-    RMSE for grid_based model: 0.66
+    6
+    2
+    RMSE for grid_based model: 0.02
     Average Error for grid_based model: 0.02
-    ['KAMMURI2019']
-    RMSE for grid_based model: 3.44
-    Average Error for grid_based model: 0.46
-    ['NAKRI2019']
-    RMSE for grid_based model: 0.10
-    Average Error for grid_based model: 0.06
     ['PHANFONE2019']
-    RMSE for grid_based model: 2.29
-    Average Error for grid_based model: -0.47
+    922
+    218
+    RMSE for grid_based model: 4.51
+    Average Error for grid_based model: -2.02
     ['SAUDEL2020']
-    RMSE for grid_based model: 0.20
-    Average Error for grid_based model: -0.00
+    711
+    2
+    RMSE for grid_based model: 0.17
+    Average Error for grid_based model: 0.17
     ['GONI2020']
-    RMSE for grid_based model: 2.16
-    Average Error for grid_based model: -0.06
+    826
+    229
+    RMSE for grid_based model: 2.86
+    Average Error for grid_based model: -0.61
     ['VAMCO2020']
-    RMSE for grid_based model: 0.91
-    Average Error for grid_based model: -0.12
+    751
+    296
+    RMSE for grid_based model: 1.38
+    Average Error for grid_based model: -0.28
     ['VONGFONG2020']
-    RMSE for grid_based model: 2.03
-    Average Error for grid_based model: -0.01
+    1172
+    313
+    RMSE for grid_based model: 4.00
+    Average Error for grid_based model: -0.40
     ['MOLAVE2020']
-    RMSE for grid_based model: 0.59
-    Average Error for grid_based model: 0.13
-    [4.493230986966791, 0.4793319905326768, 3.9491222795475136, 0.6553166284963444, 3.436030992885679, 0.10032573368610705, 2.290263620614003, 0.20350617391876227, 2.1620125795392844, 0.9132946379642469, 2.03061126246027, 0.5883715122664314]
+    737
+    125
+    RMSE for grid_based model: 1.22
+    Average Error for grid_based model: 0.44
+    [5.9434499223548185, 0.46952847372691847, 4.638136248973591, 0.7730202256359381, 4.548609216541342, 0.023273978195560485, 4.510291416370362, 0.17413787423671478, 2.8644752480357645, 1.3793069634013775, 3.9957745550200165, 1.2213774750867892]
+    ['NOCK-TEN2016']
+
+
+
+    ---------------------------------------------------------------------------
+
+    KeyboardInterrupt                         Traceback (most recent call last)
+
+    /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_83641/3224178597.py in <cell line: 1>()
+         92 
+         93         eval_set = [(X_train, y_train)]
+    ---> 94         xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
+         95 
+         96         # Make prediction on train and test data
+
+
+    ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/core.py in inner_f(*args, **kwargs)
+        504         for k, arg in zip(sig.parameters, args):
+        505             kwargs[k] = arg
+    --> 506         return f(**kwargs)
+        507 
+        508     return inner_f
+
+
+    ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/sklearn.py in fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
+        787 
+        788         model, feval, params = self._configure_fit(xgb_model, eval_metric, params)
+    --> 789         self._Booster = train(
+        790             params,
+        791             train_dmatrix,
+
+
+    ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/training.py in train(params, dtrain, num_boost_round, evals, obj, feval, maximize, early_stopping_rounds, evals_result, verbose_eval, xgb_model, callbacks)
+        186     Booster : a trained booster model
+        187     """
+    --> 188     bst = _train_internal(params, dtrain,
+        189                           num_boost_round=num_boost_round,
+        190                           evals=evals,
+
+
+    ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/training.py in _train_internal(params, dtrain, num_boost_round, evals, obj, feval, xgb_model, callbacks, evals_result, maximize, verbose_eval, early_stopping_rounds)
+         79         if callbacks.before_iteration(bst, i, dtrain, evals):
+         80             break
+    ---> 81         bst.update(dtrain, i, obj)
+         82         if callbacks.after_iteration(bst, i, dtrain, evals):
+         83             break
+
+
+    ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/core.py in update(self, dtrain, iteration, fobj)
+       1678 
+       1679         if fobj is None:
+    -> 1680             _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+       1681                                                     ctypes.c_int(iteration),
+       1682                                                     dtrain.handle))
+
+
+    KeyboardInterrupt: 
 
 
 
@@ -1874,10 +1614,10 @@ sd_ave = statistics.stdev(list(chain.from_iterable(main_AVE_lst)))
 print(f"Stdev of Average Error: {sd_ave:.2f}")
 ```
 
-    RMSE: 1.83
-    stdev: 1.56
-    Average Error: 0.19
-    Stdev of Average Error: 0.46
+    RMSE: 2.55
+    stdev: 1.98
+    Average Error: 0.03
+    Stdev of Average Error: 0.87
 
 
 
@@ -1901,32 +1641,37 @@ for bin_num in range(1, 6):
 
     
     RMSE & STDEV & Average Error per bin 1
-    RMSE: 0.37
-    STDEV: 0.31
-    Average_Error: 0.05
-    Stdev of Average_Error: 0.03
+    RMSE: 0.10
+    STDEV: 0.07
+    Average_Error: 0.02
+    Stdev of Average_Error: 0.05
     
     RMSE & STDEV & Average Error per bin 2
-    RMSE: 1.19
-    STDEV: 1.24
-    Average_Error: 0.35
-    Stdev of Average_Error: 0.61
+    RMSE: 1.32
+    STDEV: 1.84
+    Average_Error: 0.51
+    Stdev of Average_Error: 1.03
     
     RMSE & STDEV & Average Error per bin 3
-    RMSE: 5.36
-    STDEV: 3.96
-    Average_Error: 1.16
-    Stdev of Average_Error: 3.68
+    RMSE: 4.82
+    STDEV: 3.42
+    Average_Error: 0.69
+    Stdev of Average_Error: 3.17
     
     RMSE & STDEV & Average Error per bin 4
-    RMSE: 12.93
-    STDEV: 2.81
-    Average_Error: -2.92
-    Stdev of Average_Error: 9.87
+    RMSE: 12.89
+    STDEV: 3.08
+    Average_Error: -2.89
+    Stdev of Average_Error: 9.83
     
     RMSE & STDEV & Average Error per bin 5
-    RMSE: 31.95
-    STDEV: 22.56
-    Average_Error: -31.95
-    Stdev of Average_Error: 22.56
+    RMSE: 31.05
+    STDEV: 21.92
+    Average_Error: -31.05
+    Stdev of Average_Error: 21.92
 
+
+
+```python
+
+```
