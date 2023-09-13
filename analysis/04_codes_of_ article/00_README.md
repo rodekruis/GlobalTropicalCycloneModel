@@ -6,7 +6,7 @@ All the codes from numbers 01 to 13 are implemented to get the result in differe
 Codes <br />
 [01_Distribution of target variable for both Grid and Municipality datasets](01_Distribution_of_Damage.ipynb)
 
-In this code we analyze the target variable in the municipality and grid-based datasets, to better understand the target variable's distribution. Therefore, we get the frequency of damage data, and as it is obvious we have a low number of samples for high values.
+In this code we compare the target variable in the municipality and grid-based datasets, to better understand the target variable's distribution. Therefore, we get the frequency of damage data, and as it is obvious we have a low number of samples for high values.
 
 Achievements: This bar plot provides insights into class imbalances and target variable characteristics. In addition, this data visualization will support the decision-making throughout the modeling process.
 
