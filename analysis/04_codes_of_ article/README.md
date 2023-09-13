@@ -4,7 +4,7 @@ All the codes from numbers 01 to 13 are implemented to get the result in differe
 
 
 Codes <br />
-[01_Distribution of target variable for both Grid and Municipality datasets](01_Distribution_of_%Damage(Fig2_paper).ipynb) <br />
+[01_Distribution of target variable for both Grid and Municipality datasets](01_Distribution_of_%Damage(Fig2_paper).ipynb)
 
 In this code we analyze the target variable in the municipality and grid-based datasets, to better understand the target variable's distribution. Therefore, we get the frequency of damage data, and as it is obvious we have a low number of samples for high values.
 
