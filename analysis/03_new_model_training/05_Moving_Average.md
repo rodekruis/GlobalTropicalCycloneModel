@@ -1,7 +1,10 @@
 # Simple Moving Average(Running Mean)
 
-It is used to observe how the two variables are related to each other.
+## NOTE: This notebook uses total buildings
 
+## which is no longer in the feature data set
+
+It is used to observe how the two variables are related to each other.
 
 ```python
 import pandas as pd
@@ -51,7 +54,9 @@ features = [
 ]
 ```
 
-## Call the function wrt those features you are interested in their running average's plot
+## Call the function wrt those features you are interested in their
+
+## running average's plot
 
 ```python
 ave(features[2], features[0])
