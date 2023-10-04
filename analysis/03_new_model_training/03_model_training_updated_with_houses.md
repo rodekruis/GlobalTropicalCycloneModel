@@ -1,13 +1,10 @@
 # Model training
 
-The input data is prepared by joining the calculated
-windfield with damaged values.
-Subsampling is done by dropping those rows where the
-windspeed is 0, the the data stratification is done on
-damaged values.
-The XGBoost Reduced Over fitting model, was trained on
-this prepared input data with gridcells.
-The RMSE calculated in total and per each bin.
+The input data for our analysis includes various features related to typhoon characteristics, such as wind speed and rainfall, as well as population data, the number of houses in the area, topography data, and a few more info. 
+
+We train our made model which is XGBoost Reduced Overfitting on this dataset. This model was specifically designed to prevent overfitting and improve the accuracy of our predictions.
+
+To evaluate the performance of our model, we calculated the root mean square error (RMSE) for the entire dataset as well as for each individual bin. This allowed us to assess how well our model was able to predict the impact of typhoons on different grid cells.
 
 ```python
 %load_ext jupyter_black
@@ -36,18 +33,39 @@ from utils import get_training_dataset
 ```python
 # Read csv file and import to df
 df = get_training_dataset()
-# df
+```
+
+```python
+# Check rows including NaN values in the entire df
+df.isnull().sum()
+```
+
+```python
+# Fill NaNs with average estimated value of 'rwi'
+df["rwi"].fillna(df["rwi"].mean(), inplace=True)
+```
+
+```python
+# Number of damaged values greater than 100
+(df["percent_houses_damaged"] > 100).sum()
+```
+
+```python
+# Set any values >100% to 100%,
+for i in range(len(df)):
+    if df.loc[i, "percent_houses_damaged"] > 100:
+        df.at[i, "percent_houses_damaged"] = float(100)
 ```
 
 ```python
 # Show histogram of damage
-df.hist(column="percent_buildings_damaged", figsize=(4, 3))
+df.hist(column="percent_houses_damaged", figsize=(4, 3))
 ```
 
 ```python
 # Hist plot after data stratification
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(df["percent_houses_damaged"], bins=bins2)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -55,9 +73,8 @@ plt.plot(binsP2[1:], samples_per_bin2)
 ```
 
 ```python
-# Check the bins' intervalls (first bin means all zeros,
-# second bin means 0 < values <= 1)
-df["percent_buildings_damaged"].value_counts(bins=binsP2)
+# Check the bins' intervalls (first bin means all zeros, second bin means 0 < values <= 1)
+df["percent_houses_damaged"].value_counts(bins=binsP2)
 ```
 
 ```python
@@ -70,7 +87,7 @@ df.head()
 ```python
 # Hist plot after removing rows where windspeed is 0
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_buildings_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(df["percent_houses_damaged"], bins=bins2)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -84,11 +101,11 @@ print(binsP2)
 
 ```python
 # Check the bins' intervalls
-df["percent_buildings_damaged"].value_counts(bins=binsP2)
+df["percent_houses_damaged"].value_counts(bins=binsP2)
 ```
 
 ```python
-bin_index2 = np.digitize(df["percent_buildings_damaged"], bins=binsP2)
+bin_index2 = np.digitize(df["percent_houses_damaged"], bins=binsP2)
 ```
 
 ```python
@@ -106,15 +123,28 @@ train_RMSE = defaultdict(list)
 features = [
     "wind_speed",
     "track_distance",
-    "total_buildings",
+    "total_houses",
     "rainfall_max_6h",
     "rainfall_max_24h",
+    "rwi",
+    "mean_slope",
+    "std_slope",
+    "mean_tri",
+    "std_tri",
+    "mean_elev",
+    "coast_length",
+    "with_coast",
+    "urban",
+    "rural",
+    "water",
+    "total_pop",
+    "percent_houses_damaged_5years",
 ]
 
 # Split X and y from dataframe features
 X = df[features]
 display(X.columns)
-y = df["percent_buildings_damaged"]
+y = df["percent_houses_damaged"]
 
 scaler = preprocessing.StandardScaler().fit(X)
 X_scaled = scaler.transform(X)
@@ -125,7 +155,7 @@ X_scaled = scaler.transform(X)
 
 for i in range(20):
     X_train, X_test, y_train, y_test = train_test_split(
-        X_scaled, df["percent_buildings_damaged"], stratify=y_input_strat, test_size=0.2
+        X_scaled, df["percent_houses_damaged"], stratify=y_input_strat, test_size=0.2
     )
 
     # XGBoost Reduced Overfitting
@@ -165,7 +195,6 @@ for i in range(20):
         y_train,
         eval_set=eval_set,
         verbose=False,
-        # sample_weight=pow(y_train, 2),
     )
 
     X2 = sm.add_constant(X_train)
@@ -191,11 +220,17 @@ for i in range(20):
     # Calculate RMSE in total
 
     y_pred_train = xgb.predict(X_train)
-    mse_train_idx = mean_squared_error(y_train, y_pred_train)
+
+    # Clip the predicted values to be within the range of zero to 100
+    y_pred_train_clipped = y_pred_train.clip(0, 100)
+    mse_train_idx = mean_squared_error(y_train, y_pred_train_clipped)
     rmse_train = np.sqrt(mse_train_idx)
 
     y_pred = xgb.predict(X_test)
-    mse_idx = mean_squared_error(y_test, y_pred)
+
+    # Clip the predicted values to be within the range of zero to 100
+    y_pred_clipped = y_pred.clip(0, 100)
+    mse_idx = mean_squared_error(y_test, y_pred_clipped)
     rmse = np.sqrt(mse_idx)
 
     print("----- Training ------")
@@ -212,22 +247,17 @@ for i in range(20):
     bin_index_test = np.digitize(y_test, bins=binsP2)
     bin_index_train = np.digitize(y_train, bins=binsP2)
 
-    # Estimation of RMSE for train data
-    y_pred_train = xgb.predict(X_train)
     for bin_num in range(1, 6):
 
         mse_train_idx = mean_squared_error(
             y_train[bin_index_train == bin_num],
-            y_pred_train[bin_index_train == bin_num],
+            y_pred_train_clipped[bin_index_train == bin_num],
         )
         rmse_train = np.sqrt(mse_train_idx)
 
-        # Estimation of RMSE for test data
-        y_pred = xgb.predict(X_test)
-
         mse_idx = mean_squared_error(
             y_test[bin_index_test == bin_num],
-            y_pred[bin_index_test == bin_num],
+            y_pred_clipped[bin_index_test == bin_num],
         )
         rmse = np.sqrt(mse_idx)
 
@@ -285,18 +315,18 @@ def rmse_bin_plot(te_rmse, tr_rmse, min_rg, max_rg, step):
 
 ```python
 print("RMSE in total", "\n")
-rmse_bin_plot(test_RMSE["all"], train_RMSE["all"], 12.0, 13.5, 0.09)
+rmse_bin_plot(test_RMSE["all"], train_RMSE["all"], 2.0, 3.5, 0.09)
 ```
 
 ## Plot RMSE per bin
 
 ```python
 bin_params = {
-    1: (3.5, 4.5, 0.06),
-    2: (8.0, 9.0, 0.06),
-    3: (12.0, 14.0, 0.15),
-    4: (18.0, 21.0, 0.2),
-    5: (59.0, 64.0, 0.35),
+    1: (0.5, 1.5, 0.07),
+    2: (1.5, 2.0, 0.03),
+    3: (3.5, 5.0, 0.09),
+    4: (12.5, 15.0, 0.17),
+    5: (27.0, 39.0, 0.8),
 }
 
 
@@ -304,8 +334,4 @@ for bin_num in range(1, 6):
 
     print(f"RMSE per bin {bin_num}\n")
     rmse_bin_plot(test_RMSE[bin_num], train_RMSE[bin_num], *bin_params[bin_num])
-```
-
-```python
-
 ```
