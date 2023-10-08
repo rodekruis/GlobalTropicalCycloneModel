@@ -1,6 +1,6 @@
 # Model training
 
-The input data for our analysis includes various features related to typhoon characteristics, such as wind speed and rainfall, as well as population data, the number of houses in the area, topography data, and a few more info. 
+The input data for our analysis includes various features related to typhoon characteristics, such as wind speed and rainfall, as well as population data, the number of houses in the area, topography data, and a few more info.
 
 We train our made model which is XGBoost Reduced Overfitting on this dataset. This model was specifically designed to prevent overfitting and improve the accuracy of our predictions.
 

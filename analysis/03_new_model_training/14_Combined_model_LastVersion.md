@@ -558,14 +558,14 @@ xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
     pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
 
 
-    [02:13:33] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [02:13:33] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
+
+
 
 
 
@@ -756,14 +756,14 @@ print(metrics.confusion_matrix(y_test_bin, y_pred_test))
 ```
 
                   precision    recall  f1-score   support
-    
+
                0       0.99      0.99      0.99      9737
                1       0.53      0.71      0.61       214
-    
+
         accuracy                           0.98      9951
        macro avg       0.76      0.85      0.80      9951
     weighted avg       0.98      0.98      0.98      9951
-    
+
     [[9601  136]
      [  61  153]]
 
@@ -797,14 +797,14 @@ print(metrics.confusion_matrix(y_train_bin, y_pred_train))
 ```
 
                   precision    recall  f1-score   support
-    
+
                0       1.00      0.99      0.99     38948
                1       0.66      1.00      0.80       855
-    
+
         accuracy                           0.99     39803
        macro avg       0.83      0.99      0.90     39803
     weighted avg       0.99      0.99      0.99     39803
-    
+
     [[38510   438]
      [    0   855]]
 
@@ -1215,14 +1215,14 @@ eval_set = [(X_r, y_r)]
 xgbR_model = xgbR.fit(X_r, y_r, eval_set=eval_set, verbose=False)
 ```
 
-    [02:13:50] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [02:13:50] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
+
+
 
 
     pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
@@ -1669,10 +1669,10 @@ fliterd_test_df0["predicted_percent_damage"] = y0_pred
 fliterd_test_df0
 ```
 
-    
+
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
-    
+
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 
 
@@ -1998,10 +1998,10 @@ fliterd_test_df1["predicted_percent_damage"] = y1_pred
 fliterd_test_df1
 ```
 
-    
+
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
-    
+
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 
 
@@ -2703,22 +2703,19 @@ for bin_num in range(1, len(bins_eval)):
 
     [31mRMSE_combined_model [0,1): 1.55[39m
     RMSE_M1_model       [0,1): 1.17
-    
-    
+
+
     [31mRMSE_combined_model [1,10): 5.56[39m
     RMSE_M1_model       [1,10): 4.54
-    
-    
+
+
     [31mRMSE_combined_model [10,20): 9.10[39m
     RMSE_M1_model       [10,20): 9.31
-    
-    
+
+
     [31mRMSE_combined_model [20,50): 17.79[39m
     RMSE_M1_model       [20,50): 19.75
-    
-    
+
+
     [31mRMSE_combined_model [50,101): 32.35[39m
     RMSE_M1_model       [50,101): 33.02
-    
-    
-

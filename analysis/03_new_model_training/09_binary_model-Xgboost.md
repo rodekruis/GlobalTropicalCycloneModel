@@ -1,4 +1,4 @@
-# Binary Model - XGBoost 
+# Binary Model - XGBoost
 
 Based on the target values and using the test_trial method, we have set a threshold of 10.0 to convert the continuous target into a binary target. Subsequently, we employ the XGBoost Classification algorithm on the input dataset with the binary target. We evaluate the model performance using the Confusion Matrix and Classification Report, Log loss and Classification error plots.
 
@@ -586,9 +586,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_6_0.png)
-    
+
 
 
 
@@ -778,9 +778,9 @@ df.hist(column="binary_damage", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -803,9 +803,9 @@ plt.title("plot after data stratification")
 
 
 
-    
+
 ![png](output_9_1.png)
-    
+
 
 
 
@@ -1020,14 +1020,14 @@ print(metrics.confusion_matrix(y_test, y_pred))
 ```
 
                   precision    recall  f1-score   support
-    
+
                0       1.00      0.97      0.98      9737
                1       0.39      0.84      0.54       214
-    
+
         accuracy                           0.97      9951
        macro avg       0.70      0.91      0.76      9951
     weighted avg       0.98      0.97      0.97      9951
-    
+
     [[9461  276]
      [  34  180]]
 
@@ -1060,9 +1060,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_26_0.png)
-    
+
 
 
 ### Plot Log Loss and Classification Error
@@ -1101,9 +1101,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_30_0.png)
-    
+
 
 
 
@@ -1121,9 +1121,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_31_0.png)
-    
+
 
 
 ## Feature Importance
@@ -1144,7 +1144,5 @@ plt.show()
 ```
 
 
-    
-![png](output_33_0.png)
-    
 
+![png](output_33_0.png)

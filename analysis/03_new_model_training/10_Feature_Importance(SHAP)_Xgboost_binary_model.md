@@ -574,9 +574,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_6_0.png)
-    
+
 
 
 
@@ -766,9 +766,9 @@ df.hist(column="binary_damage", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -920,9 +920,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_18_0.png)
-    
+
 
 
 
@@ -937,7 +937,7 @@ explainer_xgb = shap.Explainer(xgb_model, X_train4shapely)
 shap_values_xgb = explainer_xgb(X_train4shapely)
 ```
 
-     99%|===================| 39553/39803 [01:18<00:00]        
+     99%|===================| 39553/39803 [01:18<00:00]
 
 
 ```python
@@ -949,9 +949,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_21_0.png)
-    
+
 
 
 
@@ -967,7 +967,5 @@ shap.plots.beeswarm(
 ```
 
 
-    
-![png](output_22_0.png)
-    
 
+![png](output_22_0.png)

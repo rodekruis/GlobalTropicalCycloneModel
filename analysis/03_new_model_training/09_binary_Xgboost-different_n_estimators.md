@@ -581,9 +581,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_6_0.png)
-    
+
 
 
 
@@ -773,9 +773,9 @@ df.hist(column="binary_damage", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -1007,7 +1007,5 @@ plt.show()
 ```
 
 
-    
-![png](output_22_0.png)
-    
 
+![png](output_22_0.png)

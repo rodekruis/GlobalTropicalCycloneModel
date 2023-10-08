@@ -55,7 +55,7 @@ dfs = np.split(df, [1], axis=1)
 dfa = np.split(dfs[1], [36], axis=1)
 #print(dfs[0], dfs[1], dfa[0], dfa[1])
 
-#Standardaize data 
+#Standardaize data
 scaler = preprocessing.StandardScaler().fit(dfa[0])
 X1 = scaler.transform(dfa[0])
 Xnew = pd.DataFrame(X1)
@@ -78,7 +78,7 @@ i=0
 for feature in features:
     Xnew = Xnew.rename(columns={i: feature})
     i+=1
-    
+
 Xnew = pd.concat([dfs[0].reset_index(drop=True),Xnew.reset_index(drop=True)], axis=1)
 #Xnew
 ```
@@ -122,35 +122,35 @@ df_test=pd.DataFrame(Xnew, columns = ['typhoon','HAZ_rainfall_Total',
                                     'HAZ_dis_track_min',
                                     'GEN_landslide_per',
                                     'GEN_stormsurge_per',
-                                    'GEN_Bu_p_inSSA', 
-                                    'GEN_Bu_p_LS', 
+                                    'GEN_Bu_p_inSSA',
+                                    'GEN_Bu_p_LS',
                                     'GEN_Red_per_LSbldg',
-                                    'GEN_Or_per_LSblg', 
-                                    'GEN_Yel_per_LSSAb', 
+                                    'GEN_Or_per_LSblg',
+                                    'GEN_Yel_per_LSSAb',
                                     'GEN_RED_per_SSAbldg',
                                     'GEN_OR_per_SSAbldg',
                                     'GEN_Yellow_per_LSbl',
                                     'TOP_mean_slope',
-                                    'TOP_mean_elevation_m', 
-                                    'TOP_ruggedness_stdev', 
+                                    'TOP_mean_elevation_m',
+                                    'TOP_ruggedness_stdev',
                                     'TOP_mean_ruggedness',
-                                    'TOP_slope_stdev', 
+                                    'TOP_slope_stdev',
                                     'VUL_poverty_perc',
                                     'GEN_with_coast',
-                                    'GEN_coast_length', 
+                                    'GEN_coast_length',
                                     'VUL_Housing_Units',
-                                    'VUL_StrongRoof_StrongWall', 
+                                    'VUL_StrongRoof_StrongWall',
                                     'VUL_StrongRoof_LightWall',
-                                    'VUL_StrongRoof_SalvageWall', 
+                                    'VUL_StrongRoof_SalvageWall',
                                     'VUL_LightRoof_StrongWall',
-                                    'VUL_LightRoof_LightWall', 
+                                    'VUL_LightRoof_LightWall',
                                     'VUL_LightRoof_SalvageWall',
                                     'VUL_SalvagedRoof_StrongWall',
                                     'VUL_SalvagedRoof_LightWall',
-                                    'VUL_SalvagedRoof_SalvageWall', 
+                                    'VUL_SalvagedRoof_SalvageWall',
                                     'VUL_vulnerable_groups',
-                                    'VUL_pantawid_pamilya_beneficiary', 
-                                    'DAM_perc_dmg']) 
+                                    'VUL_pantawid_pamilya_beneficiary',
+                                    'DAM_perc_dmg'])
 
 df_test = Xnew[Xnew['typhoon'] == lst[0]]
 df_test=df_test.append(Xnew[Xnew['typhoon'] == lst[1]])
@@ -197,7 +197,7 @@ bin_index_train=np.digitize(y_train, bins=binsP2)
 
 #xgb = XGBRegressor(n_estimators=100, max_depth=4, learning_rate=0.1, gamma=1, reg_lambda=0.1, colsample_bytree=0.8)
 #xgb_model=xgb.fit(X_train, y_train)
-    
+
 xgb = XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=0.8,
                    colsample_bynode=0.8, colsample_bytree=0.8, gamma=3, eta=0.01,
                    importance_type='gain', learning_rate=0.1, max_delta_step=0,
@@ -206,18 +206,18 @@ xgb = XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=0.8,
                    reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
                    silent=None, subsample=0.8, verbosity=1, eval_metric=["rmse", "logloss"])
 
-    
+
 eval_set = [(X_test, y_test)]
 xgb_model=xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 ```
 
 ```python
 #Random Forest
-    
+
 rf = RandomForestRegressor(max_depth=None, n_estimators=100, min_samples_split=8,min_samples_leaf=5)
 #rf = RandomForestRegressor(max_depth=None, n_estimators=100, min_samples_split=8,min_samples_leaf=5, max_samples=0.7)
 
-rf_model=rf.fit(X_train, y_train)   
+rf_model=rf.fit(X_train, y_train)
 ```
 
 ```python
@@ -241,7 +241,7 @@ print(est2.summary())
 ```python
 #RMSE Estimation for each bins
 
-#If you run random forest then put rf as the model's name 
+#If you run random forest then put rf as the model's name
 #If you run xgboost then put xgb as the model's name
 
 y_pred_train = xgb.predict(X_train)
@@ -267,7 +267,7 @@ print(f'Root mean squared error of bins_5: {rmse_train_5:.2f}')
 
 
 y_pred = xgb.predict(X_test)
-    
+
 mse_idx1 = mean_squared_error(y_test[bin_index_test==1], y_pred[bin_index_test==1])
 rmse_1 = np.sqrt(mse_idx1)
 mse_idx2 = mean_squared_error(y_test[bin_index_test==2], y_pred[bin_index_test==2])
@@ -292,7 +292,7 @@ print(f'Root mean squared error of bins_5: {rmse_5:.2f}')
 
 ```python
 #Different Error Estimation
-    
+
 y_pred_train = xgb.predict(X_train)
 mae_train = mean_absolute_error(y_train, y_pred_train)
 mse_train = mean_squared_error(y_train, y_pred_train)
@@ -320,9 +320,9 @@ print(f'Mean squared error: {mse_train:.2f}')
 print(f'Root mean squared error: {rmse_train:.2f}')
 print(f'Max error: {mx_train:.2f}')
 print(f"Average Error: {me_train:.2f}")
-   
-    
-score = xgb.score(X_train, y_train)  
+
+
+score = xgb.score(X_train, y_train)
 print("Training score coefficient of determination for the model R^2: %.3f " % (score))
 ```
 

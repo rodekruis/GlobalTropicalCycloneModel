@@ -27,7 +27,7 @@ def get_clean_dataset():
         elif v_max > x_max or rainfall_max > y_max:
             value = damage
         elif v_max < np.sqrt(
-            (1 - (rainfall_max ** 2 / y_max ** 2)) * x_max ** 2
+            (1 - (rainfall_max**2 / y_max**2)) * x_max**2
         ):
             value = 0
         # elif ((v_max < x_max)  and  (rainfall_max_6h < y_max) ):
