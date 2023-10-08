@@ -1375,7 +1375,7 @@ for run_exm in range(num_exp_main):
         # Filter damages greater than 10 to estimate RMSE for these values
         # pred_df["y_all"] = y_join[y_join > 10]
         # pred_df["y_pred_all"] = y_pred_join[y_join > 10]
-        
+
 
         # Join data with y_all and y_all_pred
         df_data_w_pred = pd.merge(pred_df, df_data, left_index=True, right_index=True)
@@ -1424,11 +1424,11 @@ for run_exm in range(num_exp_main):
         final_df = agg_df.dropna()
         final_df=final_df.reset_index()
         print(len(final_df))
-        
-        # Intersection of two datasets grid and municipality    
+
+        # Intersection of two datasets grid and municipality
         # Rename a column
         final_df = final_df.rename(columns={"ADM3_PCODE": "Mun_Code", "typhoon_name": "typhoon"})
-        
+
         # Merge DataFrames based on 'typhoon_name' and 'Mun_Code'
         merged_df = pd.merge(final_df, df_mun_merged, on=["Mun_Code", "typhoon"], how="inner")
         print(len(merged_df))
@@ -1547,10 +1547,10 @@ for run_exm in range(num_exp_main):
     KeyboardInterrupt                         Traceback (most recent call last)
 
     /var/folders/sx/c10hm4fj3glf7mw1_mzwcl700000gn/T/ipykernel_83641/3224178597.py in <cell line: 1>()
-         92 
+         92
          93         eval_set = [(X_train, y_train)]
     ---> 94         xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
-         95 
+         95
          96         # Make prediction on train and test data
 
 
@@ -1558,12 +1558,12 @@ for run_exm in range(num_exp_main):
         504         for k, arg in zip(sig.parameters, args):
         505             kwargs[k] = arg
     --> 506         return f(**kwargs)
-        507 
+        507
         508     return inner_f
 
 
     ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/sklearn.py in fit(self, X, y, sample_weight, base_margin, eval_set, eval_metric, early_stopping_rounds, verbose, xgb_model, sample_weight_eval_set, base_margin_eval_set, feature_weights, callbacks)
-        787 
+        787
         788         model, feval, params = self._configure_fit(xgb_model, eval_metric, params)
     --> 789         self._Booster = train(
         790             params,
@@ -1587,14 +1587,14 @@ for run_exm in range(num_exp_main):
 
 
     ~/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/xgboost/core.py in update(self, dtrain, iteration, fobj)
-       1678 
+       1678
        1679         if fobj is None:
     -> 1680             _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
        1681                                                     ctypes.c_int(iteration),
        1682                                                     dtrain.handle))
 
 
-    KeyboardInterrupt: 
+    KeyboardInterrupt:
 
 
 
@@ -1639,31 +1639,31 @@ for bin_num in range(1, 6):
     print(f"Stdev of Average_Error: {sd_ave_bin:.2f}")
 ```
 
-    
+
     RMSE & STDEV & Average Error per bin 1
     RMSE: 0.10
     STDEV: 0.07
     Average_Error: 0.02
     Stdev of Average_Error: 0.05
-    
+
     RMSE & STDEV & Average Error per bin 2
     RMSE: 1.32
     STDEV: 1.84
     Average_Error: 0.51
     Stdev of Average_Error: 1.03
-    
+
     RMSE & STDEV & Average Error per bin 3
     RMSE: 4.82
     STDEV: 3.42
     Average_Error: 0.69
     Stdev of Average_Error: 3.17
-    
+
     RMSE & STDEV & Average Error per bin 4
     RMSE: 12.89
     STDEV: 3.08
     Average_Error: -2.89
     Stdev of Average_Error: 9.83
-    
+
     RMSE & STDEV & Average Error per bin 5
     RMSE: 31.05
     STDEV: 21.92

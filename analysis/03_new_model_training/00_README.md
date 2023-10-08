@@ -16,12 +16,12 @@ Code 02 <br />
 In this code, we implemented a Naive baseline model as a simple algorithm to provide predictions without complex computations. The Baseline returns the average of the target from training data.
 It should be mentioned that the Naive baseline assumes independence among features.
 
-Achievements: Since this algorithm is easy to implement and understand and even efficient for large datasets, it was a good option to give us fast basic results. 
+Achievements: Since this algorithm is easy to implement and understand and even efficient for large datasets, it was a good option to give us fast basic results.
 
 Code 03 <br />
 [XGBoost regression model (on building counts)](03_model_training.ipynb)
 
-In this code, we trained the XGBoost regression model obtained from the baseline model analysis, on the collected dataset (data in grid format). 
+In this code, we trained the XGBoost regression model obtained from the baseline model analysis, on the collected dataset (data in grid format).
 
 Achievements: Since the model is the same regression model we implemented for the municipality dataset, so there is a possibility to compare the performance of the model on grid data with municipality data for the same set of features to check how well the model performs wrt provided dataset.
 
@@ -94,7 +94,7 @@ Code 10 <br />
 [XGBoost Classification Model - Feature Importance](10_Feature_Importance(SHAP)_Xgboost_binary_model.ipynb)
 
 Feature Importance based on XGBoost classification model.
-The classification model can help in selecting important features by identifying the most informative and relevant features for the classification task. In this code, we applied feature importance to input data using SHAP values and a built-in XGBoost feature importance plot. 
+The classification model can help in selecting important features by identifying the most informative and relevant features for the classification task. In this code, we applied feature importance to input data using SHAP values and a built-in XGBoost feature importance plot.
 
 Achievements: The result represents that the most effective features for prediction in the binary model are very similar to the regression model e.g. wind_speed.
 
@@ -110,7 +110,7 @@ Code 12 <br />
 
 In this code, we utilized the SMOTE technique to reduce the class imbalance in the continuous target data by oversampling the minority class, and to achieve this goal we create a binary target variable to serve as an auxiliary variable for resampling the training data.
 
-Achievements: Estimating the accuracy of a resampled regression model and comparing it with the performance of the regression model before resampling. 
+Achievements: Estimating the accuracy of a resampled regression model and comparing it with the performance of the regression model before resampling.
 
 Code 13 <br />
 [RMSE estimation for region(adm1)](13_RMSE_for_region_lastVersion.ipynb)
@@ -134,7 +134,7 @@ Code 14 <br />
 In this code, we define a loop of m iteration.
 Since we faced some variation in the result of the hybrid model in multiple runs, we inserted the whole code of the hybrid model in a loop to have an m average of RMSE estimation.
 
-Achievements: Since the result of the combined model is not stable, a loop can give us the average result which is more trustable. 
+Achievements: Since the result of the combined model is not stable, a loop can give us the average result which is more trustable.
 
 Code 15 <br />
 [Combined Model typhoon split (leave-one-out cross-validation)](14_Combined_model_train_test_split_typhoon.ipynb)

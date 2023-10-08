@@ -1,5 +1,5 @@
 # Naive baseline
-#### Converting from grid-based to municipality-based 
+#### Converting from grid-based to municipality-based
 
 
 ```python
@@ -1541,8 +1541,8 @@ print("RMSE and Average Error in total", "\n")
 rmse_ave_mean(RMSE["all"], AVE["all"])
 ```
 
-    RMSE and Average Error in total 
-    
+    RMSE and Average Error in total
+
     mean_RMSE: 8.25
     stdev_RMSE: 0.24
     mean_average_error: -1.43
@@ -1557,37 +1557,37 @@ for bin_num in range(1, 6):
     rmse_ave_mean(RMSE[bin_num], AVE[bin_num])
 ```
 
-    
+
      RMSE and Average Error per bin 1
-    
+
     mean_RMSE: 0.83
     stdev_RMSE: 0.00
     mean_average_error: 0.83
     stdev_average_error: 0.00
-    
+
      RMSE and Average Error per bin 2
-    
+
     mean_RMSE: 0.68
     stdev_RMSE: 0.01
     mean_average_error: 0.64
     stdev_average_error: 0.01
-    
+
      RMSE and Average Error per bin 3
-    
+
     mean_RMSE: 3.69
     stdev_RMSE: 0.12
     mean_average_error: -2.80
     stdev_average_error: 0.12
-    
+
      RMSE and Average Error per bin 4
-    
+
     mean_RMSE: 25.34
     stdev_RMSE: 0.92
     mean_average_error: -22.57
     stdev_average_error: 0.81
-    
+
      RMSE and Average Error per bin 5
-    
+
     mean_RMSE: 63.97
     stdev_RMSE: 2.35
     mean_average_error: -62.72

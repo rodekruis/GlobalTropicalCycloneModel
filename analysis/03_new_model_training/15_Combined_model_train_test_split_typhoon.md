@@ -1,6 +1,6 @@
 # Combined  Model (XGBoost Undersampling + XGBoost Regression)
 
-We developed a hybrid model using both xgboost regression and xgboost classification(while undersampling technique was implemented to enhance its performance). Subsequently, we evaluated the performance of this combined model on the test dataset while train_test_split is done based on different typhoons and compared it with the result of the simple xgboost regression model. 
+We developed a hybrid model using both xgboost regression and xgboost classification(while undersampling technique was implemented to enhance its performance). Subsequently, we evaluated the performance of this combined model on the test dataset while train_test_split is done based on different typhoons and compared it with the result of the simple xgboost regression model.
 
 ###The whole code is in a loop with the length of number of typhoons to estimate the average of RMSE in total.
 
@@ -909,23 +909,23 @@ for bin_num in range(1, 6):
     RMSE per bin 1
     mean_RMSE_test_Combined_model: 1.25
     mean_RMSE_test_M1_model: 0.97
-    
+
     RMSE per bin 2
     mean_RMSE_test_Combined_model: 6.07
     mean_RMSE_test_M1_model: 4.89
-    
+
     RMSE per bin 3
     mean_RMSE_test_Combined_model: 11.02
     mean_RMSE_test_M1_model: 10.92
-    
+
     RMSE per bin 4
     mean_RMSE_test_Combined_model: 20.39
     mean_RMSE_test_M1_model: 21.37
-    
+
     RMSE per bin 5
     mean_RMSE_test_Combined_model: 51.50
     mean_RMSE_test_M1_model: 53.83
-    
+
 
 
 
@@ -983,9 +983,9 @@ rmse_bin_plot(test_RMSE_lst_M1, test_RMSE_lst, 2.0, 3.5, 0.09)
 
 
 
-    
+
 ![png](output_17_1.png)
-    
+
 
 
 
@@ -1013,9 +1013,9 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_1.png)
-    
+
 
 
     RMSE and Stdev per bin 2
@@ -1024,9 +1024,9 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_3.png)
-    
+
 
 
     RMSE and Stdev per bin 3
@@ -1035,9 +1035,9 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_5.png)
-    
+
 
 
     RMSE and Stdev per bin 4
@@ -1046,9 +1046,9 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_7.png)
-    
+
 
 
     RMSE and Stdev per bin 5
@@ -1057,9 +1057,9 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_9.png)
-    
+
 
 
 

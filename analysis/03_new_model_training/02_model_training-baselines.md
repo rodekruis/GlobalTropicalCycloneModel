@@ -1,5 +1,11 @@
 # Model training
 
+## NOTE: This notebook uses a previous version of the dataset
+
+## that included total buildings and will not run with current
+
+## data set that uses total houses
+
 Baseline is the simplest algorithm that provides predictions
 without complex computations. For regression tasks, the Baseline
 returns the average of the target from training data.

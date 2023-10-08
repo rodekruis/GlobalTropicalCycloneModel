@@ -1,6 +1,6 @@
 # Regression Model (Data Resampling)
 
-We utilized the SMOTE technique to address the class imbalance in the data by oversampling the minority class. 
+We utilized the SMOTE technique to address the class imbalance in the data by oversampling the minority class.
 In order to estimate the accuracy of a resampled regression model, we created a binary target variable to serve as an auxiliary variable for resampling the training data. The binary target variable was used solely for the purpose of resampling the data and was ignored during the estimation of the root mean squared error (RMSE) for the new resampled dataset.
 
 
@@ -823,8 +823,8 @@ y_input_strat = bin_index2
 
 
 ```python
-""" We keep the continuous target in the dataset, since we only want to use binary target to resample dataset and 
-after that we will remove it and use continuous target as the main target 
+""" We keep the continuous target in the dataset, since we only want to use binary target to resample dataset and
+after that we will remove it and use continuous target as the main target
 """
 features = [
     "wind_speed",
@@ -1513,15 +1513,15 @@ plt.title("percent_houses_damaged for test_data")
 
 
 
-    
+
 ![png](output_21_1.png)
-    
 
 
 
-    
+
+
 ![png](output_21_2.png)
-    
+
 
 
 
@@ -1629,7 +1629,7 @@ xgb = XGBRegressor(
     random_state=0,
 )
 
-eval_set = [(X_train, y_train)]
+eval_set = [(X_test, y_test)]
 xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 
 X2 = sm.add_constant(X_train)
@@ -1698,15 +1698,15 @@ for bin_num in range(1, 6):
     print(f"RMSE_test: {rmse:.2f}")
 ```
 
-    [21:51:17] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [21:51:17] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                  OLS Regression Results                              
+
+
+                                  OLS Regression Results
     ==================================================================================
     Dep. Variable:     percent_houses_damaged   R-squared:                       0.616
     Model:                                OLS   Adj. R-squared:                  0.616
@@ -1715,8 +1715,8 @@ for bin_num in range(1, 6):
     Time:                            21:51:22   Log-Likelihood:            -2.9724e+05
     No. Observations:                   77896   AIC:                         5.945e+05
     Df Residuals:                       77878   BIC:                         5.947e+05
-    Df Model:                              17                                         
-    Covariance Type:                nonrobust                                         
+    Df Model:                              17
+    Covariance Type:                nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1745,7 +1745,7 @@ for bin_num in range(1, 6):
     Skew:                           1.219   Prob(JB):                         0.00
     Kurtosis:                       7.422   Cond. No.                     7.79e+14
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The smallest eigenvalue is 7.41e-25. This might indicate that there are
@@ -1764,4 +1764,3 @@ for bin_num in range(1, 6):
     RMSE_test: 10.78
     RMSE_train: 21.62
     RMSE_test: 35.09
-

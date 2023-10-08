@@ -386,9 +386,9 @@ df.hist(column="y_norm", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_4_1.png)
-    
+
 
 
 
@@ -410,9 +410,9 @@ plt.plot(binsP2[1:], samples_per_bin2)
 
 
 
-    
+
 ![png](output_5_1.png)
-    
+
 
 
 
@@ -732,15 +732,15 @@ for i in range(20):
         test_AVE[bin_num].append(ave)
 ```
 
-    [12:59:00] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:00] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.551
     Model:                            OLS   Adj. R-squared:                  0.549
@@ -749,8 +749,8 @@ for i in range(20):
     Time:                        12:59:01   Log-Likelihood:                -19512.
     No. Observations:                6288   AIC:                         3.909e+04
     Df Residuals:                    6256   BIC:                         3.930e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -792,7 +792,7 @@ for i in range(20):
     Skew:                           3.982   Prob(JB):                         0.00
     Kurtosis:                      40.909   Cond. No.                     2.32e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.32e+03. This might indicate that there are
@@ -807,15 +807,15 @@ for i in range(20):
     Root mean squared error: 4.55
     ----- Test ------
     Average Error: 0.07
-    [12:59:01] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:01] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.566
     Model:                            OLS   Adj. R-squared:                  0.564
@@ -824,8 +824,8 @@ for i in range(20):
     Time:                        12:59:02   Log-Likelihood:                -19451.
     No. Observations:                6288   AIC:                         3.897e+04
     Df Residuals:                    6256   BIC:                         3.918e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -867,7 +867,7 @@ for i in range(20):
     Skew:                           3.966   Prob(JB):                         0.00
     Kurtosis:                      41.309   Cond. No.                     2.26e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.26e+03. This might indicate that there are
@@ -882,15 +882,15 @@ for i in range(20):
     Root mean squared error: 4.52
     ----- Test ------
     Average Error: 0.06
-    [12:59:02] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:02] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.560
     Model:                            OLS   Adj. R-squared:                  0.558
@@ -899,8 +899,8 @@ for i in range(20):
     Time:                        12:59:02   Log-Likelihood:                -19447.
     No. Observations:                6288   AIC:                         3.896e+04
     Df Residuals:                    6256   BIC:                         3.917e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -942,7 +942,7 @@ for i in range(20):
     Skew:                           3.666   Prob(JB):                         0.00
     Kurtosis:                      36.901   Cond. No.                     2.32e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.32e+03. This might indicate that there are
@@ -957,15 +957,15 @@ for i in range(20):
     Root mean squared error: 4.74
     ----- Test ------
     Average Error: -0.03
-    [12:59:03] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:03] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.557
     Model:                            OLS   Adj. R-squared:                  0.554
@@ -974,8 +974,8 @@ for i in range(20):
     Time:                        12:59:03   Log-Likelihood:                -19527.
     No. Observations:                6288   AIC:                         3.912e+04
     Df Residuals:                    6256   BIC:                         3.933e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1017,7 +1017,7 @@ for i in range(20):
     Skew:                           4.082   Prob(JB):                         0.00
     Kurtosis:                      42.745   Cond. No.                     2.26e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.26e+03. This might indicate that there are
@@ -1032,15 +1032,15 @@ for i in range(20):
     Root mean squared error: 4.20
     ----- Test ------
     Average Error: 0.12
-    [12:59:03] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:03] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.545
     Model:                            OLS   Adj. R-squared:                  0.542
@@ -1049,8 +1049,8 @@ for i in range(20):
     Time:                        12:59:04   Log-Likelihood:                -19624.
     No. Observations:                6288   AIC:                         3.931e+04
     Df Residuals:                    6256   BIC:                         3.953e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1092,7 +1092,7 @@ for i in range(20):
     Skew:                           4.127   Prob(JB):                         0.00
     Kurtosis:                      42.708   Cond. No.                     2.26e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.26e+03. This might indicate that there are
@@ -1107,15 +1107,15 @@ for i in range(20):
     Root mean squared error: 4.22
     ----- Test ------
     Average Error: 0.02
-    [12:59:04] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:04] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.564
     Model:                            OLS   Adj. R-squared:                  0.562
@@ -1124,8 +1124,8 @@ for i in range(20):
     Time:                        12:59:05   Log-Likelihood:                -19447.
     No. Observations:                6288   AIC:                         3.896e+04
     Df Residuals:                    6256   BIC:                         3.917e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1167,7 +1167,7 @@ for i in range(20):
     Skew:                           3.898   Prob(JB):                         0.00
     Kurtosis:                      40.976   Cond. No.                     2.32e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.32e+03. This might indicate that there are
@@ -1182,15 +1182,15 @@ for i in range(20):
     Root mean squared error: 4.49
     ----- Test ------
     Average Error: 0.12
-    [12:59:05] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:05] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.543
     Model:                            OLS   Adj. R-squared:                  0.541
@@ -1199,8 +1199,8 @@ for i in range(20):
     Time:                        12:59:05   Log-Likelihood:                -19582.
     No. Observations:                6288   AIC:                         3.923e+04
     Df Residuals:                    6256   BIC:                         3.944e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1242,7 +1242,7 @@ for i in range(20):
     Skew:                           4.061   Prob(JB):                         0.00
     Kurtosis:                      42.363   Cond. No.                     2.28e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.28e+03. This might indicate that there are
@@ -1257,15 +1257,15 @@ for i in range(20):
     Root mean squared error: 4.26
     ----- Test ------
     Average Error: 0.13
-    [12:59:05] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:05] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.562
     Model:                            OLS   Adj. R-squared:                  0.560
@@ -1274,8 +1274,8 @@ for i in range(20):
     Time:                        12:59:06   Log-Likelihood:                -19511.
     No. Observations:                6288   AIC:                         3.909e+04
     Df Residuals:                    6256   BIC:                         3.930e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1317,7 +1317,7 @@ for i in range(20):
     Skew:                           4.047   Prob(JB):                         0.00
     Kurtosis:                      43.453   Cond. No.                     2.29e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.29e+03. This might indicate that there are
@@ -1332,15 +1332,15 @@ for i in range(20):
     Root mean squared error: 4.59
     ----- Test ------
     Average Error: -0.06
-    [12:59:06] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:06] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.564
     Model:                            OLS   Adj. R-squared:                  0.562
@@ -1349,8 +1349,8 @@ for i in range(20):
     Time:                        12:59:07   Log-Likelihood:                -19366.
     No. Observations:                6288   AIC:                         3.880e+04
     Df Residuals:                    6256   BIC:                         3.901e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1392,7 +1392,7 @@ for i in range(20):
     Skew:                           3.472   Prob(JB):                         0.00
     Kurtosis:                      33.960   Cond. No.                     2.27e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.27e+03. This might indicate that there are
@@ -1407,15 +1407,15 @@ for i in range(20):
     Root mean squared error: 5.03
     ----- Test ------
     Average Error: 0.01
-    [12:59:07] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:07] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.554
     Model:                            OLS   Adj. R-squared:                  0.551
@@ -1424,8 +1424,8 @@ for i in range(20):
     Time:                        12:59:07   Log-Likelihood:                -19360.
     No. Observations:                6288   AIC:                         3.878e+04
     Df Residuals:                    6256   BIC:                         3.900e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1467,7 +1467,7 @@ for i in range(20):
     Skew:                           3.967   Prob(JB):                         0.00
     Kurtosis:                      40.261   Cond. No.                     2.29e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.29e+03. This might indicate that there are
@@ -1482,15 +1482,15 @@ for i in range(20):
     Root mean squared error: 4.69
     ----- Test ------
     Average Error: -0.15
-    [12:59:07] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:07] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.564
     Model:                            OLS   Adj. R-squared:                  0.561
@@ -1499,8 +1499,8 @@ for i in range(20):
     Time:                        12:59:08   Log-Likelihood:                -19505.
     No. Observations:                6288   AIC:                         3.907e+04
     Df Residuals:                    6256   BIC:                         3.929e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1542,7 +1542,7 @@ for i in range(20):
     Skew:                           3.820   Prob(JB):                         0.00
     Kurtosis:                      39.990   Cond. No.                     2.28e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.28e+03. This might indicate that there are
@@ -1557,15 +1557,15 @@ for i in range(20):
     Root mean squared error: 4.54
     ----- Test ------
     Average Error: -0.19
-    [12:59:08] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:08] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.545
     Model:                            OLS   Adj. R-squared:                  0.542
@@ -1574,8 +1574,8 @@ for i in range(20):
     Time:                        12:59:09   Log-Likelihood:                -19626.
     No. Observations:                6288   AIC:                         3.932e+04
     Df Residuals:                    6256   BIC:                         3.953e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1617,7 +1617,7 @@ for i in range(20):
     Skew:                           3.947   Prob(JB):                         0.00
     Kurtosis:                      40.892   Cond. No.                     2.29e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.29e+03. This might indicate that there are
@@ -1632,15 +1632,15 @@ for i in range(20):
     Root mean squared error: 4.11
     ----- Test ------
     Average Error: 0.09
-    [12:59:09] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:09] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.547
     Model:                            OLS   Adj. R-squared:                  0.545
@@ -1649,8 +1649,8 @@ for i in range(20):
     Time:                        12:59:09   Log-Likelihood:                -19522.
     No. Observations:                6288   AIC:                         3.911e+04
     Df Residuals:                    6256   BIC:                         3.932e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1692,7 +1692,7 @@ for i in range(20):
     Skew:                           4.076   Prob(JB):                         0.00
     Kurtosis:                      42.728   Cond. No.                     2.32e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.32e+03. This might indicate that there are
@@ -1707,15 +1707,15 @@ for i in range(20):
     Root mean squared error: 4.50
     ----- Test ------
     Average Error: 0.14
-    [12:59:09] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:09] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.555
     Model:                            OLS   Adj. R-squared:                  0.553
@@ -1724,8 +1724,8 @@ for i in range(20):
     Time:                        12:59:10   Log-Likelihood:                -19520.
     No. Observations:                6288   AIC:                         3.910e+04
     Df Residuals:                    6256   BIC:                         3.932e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1767,7 +1767,7 @@ for i in range(20):
     Skew:                           4.054   Prob(JB):                         0.00
     Kurtosis:                      43.085   Cond. No.                     2.27e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.27e+03. This might indicate that there are
@@ -1782,15 +1782,15 @@ for i in range(20):
     Root mean squared error: 4.50
     ----- Test ------
     Average Error: 0.03
-    [12:59:10] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:10] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.539
     Model:                            OLS   Adj. R-squared:                  0.537
@@ -1799,8 +1799,8 @@ for i in range(20):
     Time:                        12:59:11   Log-Likelihood:                -19642.
     No. Observations:                6288   AIC:                         3.935e+04
     Df Residuals:                    6256   BIC:                         3.956e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1842,7 +1842,7 @@ for i in range(20):
     Skew:                           4.015   Prob(JB):                         0.00
     Kurtosis:                      40.190   Cond. No.                     2.31e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.31e+03. This might indicate that there are
@@ -1857,15 +1857,15 @@ for i in range(20):
     Root mean squared error: 4.19
     ----- Test ------
     Average Error: 0.02
-    [12:59:11] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:11] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.547
     Model:                            OLS   Adj. R-squared:                  0.545
@@ -1874,8 +1874,8 @@ for i in range(20):
     Time:                        12:59:11   Log-Likelihood:                -19573.
     No. Observations:                6288   AIC:                         3.921e+04
     Df Residuals:                    6256   BIC:                         3.943e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1917,7 +1917,7 @@ for i in range(20):
     Skew:                           3.961   Prob(JB):                         0.00
     Kurtosis:                      41.149   Cond. No.                     2.30e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.3e+03. This might indicate that there are
@@ -1932,15 +1932,15 @@ for i in range(20):
     Root mean squared error: 4.00
     ----- Test ------
     Average Error: 0.23
-    [12:59:11] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:11] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.548
     Model:                            OLS   Adj. R-squared:                  0.546
@@ -1949,8 +1949,8 @@ for i in range(20):
     Time:                        12:59:12   Log-Likelihood:                -19536.
     No. Observations:                6288   AIC:                         3.914e+04
     Df Residuals:                    6256   BIC:                         3.935e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -1992,7 +1992,7 @@ for i in range(20):
     Skew:                           3.791   Prob(JB):                         0.00
     Kurtosis:                      38.304   Cond. No.                     2.27e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.27e+03. This might indicate that there are
@@ -2007,15 +2007,15 @@ for i in range(20):
     Root mean squared error: 4.34
     ----- Test ------
     Average Error: 0.09
-    [12:59:12] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:12] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.564
     Model:                            OLS   Adj. R-squared:                  0.561
@@ -2024,8 +2024,8 @@ for i in range(20):
     Time:                        12:59:13   Log-Likelihood:                -19414.
     No. Observations:                6288   AIC:                         3.889e+04
     Df Residuals:                    6256   BIC:                         3.911e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -2067,7 +2067,7 @@ for i in range(20):
     Skew:                           3.583   Prob(JB):                         0.00
     Kurtosis:                      35.738   Cond. No.                     2.26e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.26e+03. This might indicate that there are
@@ -2082,15 +2082,15 @@ for i in range(20):
     Root mean squared error: 4.59
     ----- Test ------
     Average Error: 0.08
-    [12:59:13] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:13] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.561
     Model:                            OLS   Adj. R-squared:                  0.559
@@ -2099,8 +2099,8 @@ for i in range(20):
     Time:                        12:59:13   Log-Likelihood:                -19404.
     No. Observations:                6288   AIC:                         3.887e+04
     Df Residuals:                    6256   BIC:                         3.909e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -2142,7 +2142,7 @@ for i in range(20):
     Skew:                           3.884   Prob(JB):                         0.00
     Kurtosis:                      40.592   Cond. No.                     2.31e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.31e+03. This might indicate that there are
@@ -2157,15 +2157,15 @@ for i in range(20):
     Root mean squared error: 4.81
     ----- Test ------
     Average Error: 0.07
-    [12:59:13] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [12:59:13] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                OLS Regression Results                            
+
+
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                 y_norm   R-squared:                       0.551
     Model:                            OLS   Adj. R-squared:                  0.549
@@ -2174,8 +2174,8 @@ for i in range(20):
     Time:                        12:59:14   Log-Likelihood:                -19527.
     No. Observations:                6288   AIC:                         3.912e+04
     Df Residuals:                    6256   BIC:                         3.933e+04
-    Df Model:                          31                                         
-    Covariance Type:            nonrobust                                         
+    Df Model:                          31
+    Covariance Type:            nonrobust
     ==============================================================================
                      coef    std err          t      P>|t|      [0.025      0.975]
     ------------------------------------------------------------------------------
@@ -2217,7 +2217,7 @@ for i in range(20):
     Skew:                           4.156   Prob(JB):                         0.00
     Kurtosis:                      43.677   Cond. No.                     2.29e+03
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The condition number is large, 2.29e+03. This might indicate that there are
@@ -2296,8 +2296,8 @@ print("RMSE in total", "\n")
 rmse_bin_plot(test_RMSE["all"], train_RMSE["all"], test_AVE["all"], 0.5, 7.0, 0.45)
 ```
 
-    RMSE in total 
-    
+    RMSE in total
+
     mean_RMSE_test: 4.47
     stdev_RMSE_test: 0.26
     mean_AVE_test: 0.03
@@ -2305,9 +2305,9 @@ rmse_bin_plot(test_RMSE["all"], train_RMSE["all"], test_AVE["all"], 0.5, 7.0, 0.
 
 
 
-    
+
 ![png](output_17_1.png)
-    
+
 
 
 
@@ -2330,7 +2330,7 @@ for bin_num in range(1, 6):
 ```
 
     RMSE per bin 1
-    
+
     mean_RMSE_test: 0.26
     stdev_RMSE_test: 0.06
     mean_AVE_test: 0.07
@@ -2338,13 +2338,13 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_1.png)
-    
+
 
 
     RMSE per bin 2
-    
+
     mean_RMSE_test: 2.19
     stdev_RMSE_test: 0.25
     mean_AVE_test: 0.93
@@ -2352,13 +2352,13 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_3.png)
-    
+
 
 
     RMSE per bin 3
-    
+
     mean_RMSE_test: 4.71
     stdev_RMSE_test: 0.55
     mean_AVE_test: 1.04
@@ -2366,13 +2366,13 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_5.png)
-    
+
 
 
     RMSE per bin 4
-    
+
     mean_RMSE_test: 13.24
     stdev_RMSE_test: 1.11
     mean_AVE_test: -6.09
@@ -2380,13 +2380,13 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_7.png)
-    
+
 
 
     RMSE per bin 5
-    
+
     mean_RMSE_test: 27.99
     stdev_RMSE_test: 4.07
     mean_AVE_test: -20.24
@@ -2394,9 +2394,9 @@ for bin_num in range(1, 6):
 
 
 
-    
+
 ![png](output_18_9.png)
-    
+
 
 
 

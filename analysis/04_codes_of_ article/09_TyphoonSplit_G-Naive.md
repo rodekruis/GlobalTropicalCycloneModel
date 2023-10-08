@@ -2477,31 +2477,31 @@ for bin_num in range(1, 6):
     print(f"Stdev of Average_Error: {sd_ave_bin:.2f}")
 ```
 
-    
+
     RMSE & STDEV & Average Error per bin 1
     RMSE: 0.91
     STDEV: 0.03
     Average_Error: 0.91
     Stdev of Average_Error: 0.03
-    
+
     RMSE & STDEV & Average Error per bin 2
     RMSE: 0.76
     STDEV: 0.08
     Average_Error: 0.71
     Stdev of Average_Error: 0.11
-    
+
     RMSE & STDEV & Average Error per bin 3
     RMSE: 3.41
     STDEV: 1.10
     Average_Error: -2.68
     Stdev of Average_Error: 0.97
-    
+
     RMSE & STDEV & Average Error per bin 4
     RMSE: 16.33
     STDEV: 3.94
     Average_Error: -15.27
     Stdev of Average_Error: 3.18
-    
+
     RMSE & STDEV & Average Error per bin 5
     RMSE: 56.95
     STDEV: 6.24

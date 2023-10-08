@@ -395,7 +395,5 @@ plt.savefig("corr_matrix3.pdf", bbox_inches="tight")
 ```
 
 
-    
-![png](output_4_0.png)
-    
 
+![png](output_4_0.png)

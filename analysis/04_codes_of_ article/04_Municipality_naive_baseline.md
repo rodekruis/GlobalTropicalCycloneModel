@@ -527,8 +527,8 @@ print("RMSE and Average Error in total", "\n")
 rmse_ave_mean(RMSE["all"], AVE["all"])
 ```
 
-    RMSE and Average Error in total 
-    
+    RMSE and Average Error in total
+
     mean_RMSE: 8.03
     stdev_RMSE: 0.24
     mean_average_error: -0.03
@@ -543,37 +543,37 @@ for bin_num in range(1, 6):
     rmse_ave_mean(RMSE[bin_num], AVE[bin_num])
 ```
 
-    
+
      RMSE and Average Error per bin 1
-    
+
     mean_RMSE: 2.22
     stdev_RMSE: 0.01
     mean_average_error: 2.22
     stdev_average_error: 0.01
-    
+
      RMSE and Average Error per bin 2
-    
+
     mean_RMSE: 2.03
     stdev_RMSE: 0.02
     mean_average_error: 2.01
     stdev_average_error: 0.02
-    
+
      RMSE and Average Error per bin 3
-    
+
     mean_RMSE: 2.82
     stdev_RMSE: 0.16
     mean_average_error: -1.42
     stdev_average_error: 0.16
-    
+
      RMSE and Average Error per bin 4
-    
+
     mean_RMSE: 24.81
     stdev_RMSE: 1.15
     mean_average_error: -21.77
     stdev_average_error: 1.18
-    
+
      RMSE and Average Error per bin 5
-    
+
     mean_RMSE: 60.88
     stdev_RMSE: 3.39
     mean_average_error: -59.97

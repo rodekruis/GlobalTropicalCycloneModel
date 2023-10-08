@@ -1,9 +1,9 @@
-# ROC CURVE for Binary Models 
+# ROC CURVE for Binary Models
 
 ### (Binary Logistic Regression, Random Forest, and XGBoost)
 
 We used the ROC curve to have a graphical representation of the performance of the three binary classification models.
-The curve can be interpreted as the tradeoff between sensitivity and specificity. 
+The curve can be interpreted as the tradeoff between sensitivity and specificity.
 
 
 ```python
@@ -588,9 +588,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_6_0.png)
-    
+
 
 
 
@@ -780,9 +780,9 @@ df.hist(column="binary_damage", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -943,7 +943,7 @@ probs_xg = model_xg.predict_proba(X_test)[:, 1]
 
     /Users/mersedehkooshki/opt/anaconda3/envs/global-storm/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
     STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
-    
+
     Increase the number of iterations (max_iter) or scale the data as shown in:
         https://scikit-learn.org/stable/modules/preprocessing.html
     Please also refer to the documentation for alternative solver options:
@@ -987,9 +987,9 @@ plt.legend();
 ```
 
 
-    
+
 ![png](output_22_0.png)
-    
+
 
 
 
@@ -1012,7 +1012,5 @@ plt.legend();
 ```
 
 
-    
-![png](output_24_0.png)
-    
 
+![png](output_24_0.png)

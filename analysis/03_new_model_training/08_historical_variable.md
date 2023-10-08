@@ -1,6 +1,6 @@
 # Create a historical variable
 
-In Historical Risk Model, the dataset is being updated with the addition of a new variable called "percent_buildings_damaged_5years". 
+In Historical Risk Model, the dataset is being updated with the addition of a new variable called "percent_buildings_damaged_5years".
 
 This variable will be incorporated into the existing dataset. For every data point or location, an average of damages caused by typhoons over the past 5 years will be calculated and recorded as the value for this new variable.
 

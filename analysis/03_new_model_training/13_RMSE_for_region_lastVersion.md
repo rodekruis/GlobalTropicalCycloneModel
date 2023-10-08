@@ -2611,15 +2611,15 @@ print(est2.summary())
       elif isinstance(data.columns, (pd.Int64Index, pd.RangeIndex)):
 
 
-    [15:36:29] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [15:36:29] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
-                                  OLS Regression Results                              
+
+
+                                  OLS Regression Results
     ==================================================================================
     Dep. Variable:     percent_houses_damaged   R-squared:                       0.229
     Model:                                OLS   Adj. R-squared:                  0.228
@@ -2628,8 +2628,8 @@ print(est2.summary())
     Time:                            15:36:34   Log-Likelihood:            -1.2583e+05
     No. Observations:                   43643   AIC:                         2.517e+05
     Df Residuals:                       43615   BIC:                         2.520e+05
-    Df Model:                              27                                         
-    Covariance Type:                nonrobust                                         
+    Df Model:                              27
+    Covariance Type:                nonrobust
     =================================================================================================
                                         coef    std err          t      P>|t|      [0.025      0.975]
     -------------------------------------------------------------------------------------------------
@@ -2667,7 +2667,7 @@ print(est2.summary())
     Skew:                           8.299   Prob(JB):                         0.00
     Kurtosis:                     108.397   Cond. No.                     6.66e+13
     ==============================================================================
-    
+
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
     [2] The smallest eigenvalue is 2.97e-23. This might indicate that there are

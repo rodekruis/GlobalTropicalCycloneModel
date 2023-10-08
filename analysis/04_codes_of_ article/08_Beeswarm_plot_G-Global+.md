@@ -390,9 +390,9 @@ plt.plot(binsP2[1:], samples_per_bin2)
 
 
 
-    
+
 ![png](output_5_1.png)
-    
+
 
 
 
@@ -519,14 +519,14 @@ eval_set = [(X_train, y_train)]
 xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 ```
 
-    [17:09:30] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [17:09:30] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
+
+
 
 
 
@@ -540,7 +540,7 @@ explainer_xgb = shap.Explainer(xgb_model, X_train4shapely)
 shap_values_xgb = explainer_xgb(X_train4shapely)
 ```
 
-     98%|===================| 38831/39803 [00:33<00:00]        
+     98%|===================| 38831/39803 [00:33<00:00]
 
 
 ```python
@@ -556,9 +556,9 @@ plt.savefig("SHAP_updated1.pdf", bbox_inches="tight")
 ```
 
 
-    
+
 ![png](output_15_0.png)
-    
+
 
 
 
@@ -577,9 +577,9 @@ plt.savefig("SHAP_updated2.pdf", bbox_inches="tight")
 ```
 
 
-    
+
 ![png](output_16_0.png)
-    
+
 
 
 

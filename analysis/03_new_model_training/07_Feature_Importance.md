@@ -1,13 +1,29 @@
 # Feature Importance
 
-SHAP values and XGBoost built-in feature importance are two popular techniques for determining feature importance.
+## NOTE: There is an error raised within this notebook
 
-SHAP values are computed by analyzing the impact of each feature on the model's output when that feature is included or excluded.
+## when splitting training and test sets
 
-XGBoost is a gradient-boosting library that includes a built-in feature importance function that ranks features based on how often they are used to split the data in the boosting process. The XGBoost feature importance function takes into account the contribution of each feature to the model's accuracy.
+ValueError: The least populated class in y has only 1 member,
+which is too few.
 
-Both SHAP values and XGBoost built-in feature importance provide valuable insights into the importance of different features in a dataset. These techniques may produce different rankings of feature importance so it is useful to compare their results to get a more comprehensive understanding of the importance of different features.
+SHAP values and XGBoost built-in feature importance are two
+popular techniques for determining feature importance.
 
+SHAP values are computed by analyzing the impact of each feature
+on the model's output when that feature is included or excluded.
+
+XGBoost is a gradient-boosting library that includes a built-in
+feature importance function that ranks features based on how often
+they are used to split the data in the boosting process.
+The XGBoost feature importance function takes into account the
+contribution of each feature to the model's accuracy.
+
+Both SHAP values and XGBoost built-in feature importance provide
+valuable insights into the importance of different features in a dataset.
+These techniques may produce different rankings of feature importance so
+it is useful to compare their results to get a more comprehensive understanding
+ of the importance of different features.
 
 ```python
 %load_ext jupyter_black
@@ -241,9 +257,9 @@ df.hist(column="percent_houses_damaged", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_4_1.png)
-    
+
 
 
 
@@ -265,9 +281,9 @@ plt.plot(binsP2[1:], samples_per_bin2)
 
 
 
-    
+
 ![png](output_5_1.png)
-    
+
 
 
 
@@ -295,11 +311,12 @@ df = df[(df[["wind_speed"]] != 0).any(axis=1)]
 df = df.drop(columns=["grid_point_id", "typhoon_year"])
 ```
 
-
 ```python
 # Hist plot after removing rows where windspeed is 0
 bins2 = [0, 0.00009, 1, 10, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_houses_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(
+    df["percent_houses_damaged"], bins=bins2
+)
 plt.figure(figsize=(4, 3))
 plt.xlabel("Damage Values")
 plt.ylabel("Frequency")
@@ -314,9 +331,9 @@ plt.plot(binsP2[1:], samples_per_bin2)
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -352,11 +369,9 @@ df["percent_houses_damaged"].value_counts(bins=binsP2)
 bin_index2 = np.digitize(df["percent_houses_damaged"], bins=binsP2)
 ```
 
-
 ```python
 y_input_strat = bin_index2
 ```
-
 
 ```python
 features = [
@@ -389,23 +404,16 @@ scaler = preprocessing.StandardScaler().fit(X)
 X_scaled = scaler.transform(X)
 ```
 
-
-    Index(['wind_speed', 'track_distance', 'total_houses', 'rainfall_max_6h',
-           'rainfall_max_24h', 'rwi', 'mean_slope', 'std_slope', 'mean_tri',
-           'std_tri', 'mean_elev', 'coast_length', 'with_coast', 'urban', 'rural',
-           'water', 'total_pop', 'percent_houses_damaged_5years'],
-          dtype='object')
-
-
-
 ```python
 # Split dataset into training set and test set
-
+## NOTE: This causes an error.
 X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, df["percent_houses_damaged"], stratify=y_input_strat, test_size=0.2
+    X_scaled,
+    df["percent_houses_damaged"],
+    stratify=y_input_strat,
+    test_size=0.2,
 )
 ```
-
 
 ```python
 # XGBoost Reduced Overfitting
@@ -443,14 +451,14 @@ eval_set = [(X_test, y_test)]
 xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 ```
 
-    [14:35:10] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576: 
+    [14:35:10] WARNING: /Users/runner/miniforge3/conda-bld/xgboost-split_1637426408905/work/src/learner.cc:576:
     Parameters: { "early_stopping_rounds" } might not be used.
-    
+
       This could be a false alarm, with some parameters getting used by language bindings but
       then being mistakenly passed down to XGBoost core, or some parameter actually being used
       but getting flagged wrongly here. Please open an issue if you find any such cases.
-    
-    
+
+
 
 
 
@@ -458,13 +466,12 @@ xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 X_train4shapely = pd.DataFrame(data=X_train, columns=features)
 ```
 
-
 ```python
 explainer_xgb = shap.Explainer(xgb_model, X_train4shapely)
 shap_values_xgb = explainer_xgb(X_train4shapely)
 ```
 
-     97%|=================== | 38536/39803 [00:30<00:00]       
+     97%|=================== | 38536/39803 [00:30<00:00]
 
 
 ```python
@@ -476,9 +483,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_18_0.png)
-    
+
 
 
 
@@ -494,9 +501,9 @@ shap.plots.beeswarm(
 ```
 
 
-    
+
 ![png](output_19_0.png)
-    
+
 
 
 
@@ -520,7 +527,5 @@ plt.xlabel("Feature Importance values")
 
 
 
-    
-![png](output_20_1.png)
-    
 
+![png](output_20_1.png)

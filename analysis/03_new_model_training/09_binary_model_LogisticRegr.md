@@ -587,9 +587,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_6_0.png)
-    
+
 
 
 
@@ -773,9 +773,9 @@ df.hist(column="binary_damage", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -1008,14 +1008,14 @@ print(classification_report(y_test, y_pred))
 ```
 
                   precision    recall  f1-score   support
-    
+
                0       1.00      0.92      0.96      9737
                1       0.20      0.94      0.33       214
-    
+
         accuracy                           0.92      9951
        macro avg       0.60      0.93      0.64      9951
     weighted avg       0.98      0.92      0.94      9951
-    
+
 
 
 
@@ -1036,12 +1036,12 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_26_0.png)
-    
 
 
-## Feature Importance 
+
+## Feature Importance
 
 
 ```python
@@ -1242,7 +1242,5 @@ plt.show()
 ```
 
 
-    
-![png](output_30_0.png)
-    
 
+![png](output_30_0.png)

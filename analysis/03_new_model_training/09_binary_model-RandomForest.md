@@ -752,9 +752,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_7_0.png)
-    
+
 
 
 
@@ -771,9 +771,9 @@ df.hist(column="binary_damage", figsize=(4, 3))
 
 
 
-    
+
 ![png](output_8_1.png)
-    
+
 
 
 
@@ -795,9 +795,9 @@ plt.plot(binsP2[1:], samples_per_bin2)
 
 
 
-    
+
 ![png](output_9_1.png)
-    
+
 
 
 
@@ -963,14 +963,14 @@ print(classification_report(y_test, y_pred))
 ```
 
                   precision    recall  f1-score   support
-    
+
                0       0.99      1.00      0.99      9737
                1       0.73      0.59      0.66       214
-    
+
         accuracy                           0.99      9951
        macro avg       0.86      0.79      0.82      9951
     weighted avg       0.99      0.99      0.99      9951
-    
+
 
 
 
@@ -992,9 +992,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](output_23_0.png)
-    
+
 
 
 ## Feature Importance
@@ -1022,9 +1022,9 @@ plt.title("Random Forest")
 
 
 
-    
+
 ![png](output_25_1.png)
-    
+
 
 
 

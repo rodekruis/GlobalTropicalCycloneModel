@@ -1,4 +1,4 @@
-## Report of article codes 
+## Report of article codes
 
 All the codes from numbers 01 to 13 are implemented to get the result in different sections of the paper.
 
@@ -84,7 +84,7 @@ Code <br />
 [11_The hybrid model based on Typhoon split (2SG-Global+)](11_TyphoonSplit_2SG-Global+.ipynb)
 
 In this code, we perform train/test splits with stratification by typhoon in two ways: iterative walk-forward evaluation and leave-one-out cross-validation (LOOCV) and we estimate the RMSE, Average Error, and Standard Deviation in an average of 20 runs of Combined model for the Grid dataset.
-The walk forward evaluation uses a chronologically ordered set of typhoons, starting with an initial training set of 27 typhoons (70% of the data). In each iteration, a new typhoon is added to the training set, and the model is tested on the next one (making for 12 iterations). In the LOOCV scenario, we exclude one typhoon for testing, and train the model on the rest, making available more data than the walk-forward evaluation. 
+The walk forward evaluation uses a chronologically ordered set of typhoons, starting with an initial training set of 27 typhoons (70% of the data). In each iteration, a new typhoon is added to the training set, and the model is tested on the next one (making for 12 iterations). In the LOOCV scenario, we exclude one typhoon for testing, and train the model on the rest, making available more data than the walk-forward evaluation.
 The point is that, in order to have a fair comparison we transformed the data from grid format to municipality and get the results.
 
 Achievements: We add the results to Tables 5 and 6 in the Result section of our paper. The total RMSE displays that the model outperforms in typhoon's split compared to the XGBoost Regression on Municipality dataset.
@@ -94,7 +94,7 @@ Code <br />
 
 In this code, we estimate the predicted damage using the 2SG-Global+ model for a certain typhoon named MELOR and plot three different figures to visualize the model's performance.
 
-Achievements: In our paper, three figures 16, 17, and 18 respectively indicate the predicted damage, the ground truth, and the prediction error of the model for typhoon MELOR. Mostly our model underestimates the damage. 
+Achievements: In our paper, three figures 16, 17, and 18 respectively indicate the predicted damage, the ground truth, and the prediction error of the model for typhoon MELOR. Mostly our model underestimates the damage.
 
 Code <br />
 [13_The three models based on Typhoon split (LOOCV evaluation) for damage>10](13_RMSE&Ave_damage>10_LOOCV.ipynb)
@@ -102,4 +102,3 @@ Code <br />
 In this code, we apply the two models (Naive baseline and 2SG-Global+) for those typhoons that include only grid cells with damage > 10 that were evaluated using LOOCV.
 
 Achievements: Figures 11 and 12 on the paper show the performance and it seems that for most typhoons, the error is reduced.
-

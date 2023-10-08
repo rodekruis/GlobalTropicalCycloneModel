@@ -3,11 +3,11 @@
 
 Code 02: [Naive baseline model](02_model_training-baselines.ipynb)
 
-Goal: This code is utilized to train a simple baseline model on the input data and estimate the performance of this model. 
+Goal: This code is utilized to train a simple baseline model on the input data and estimate the performance of this model.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.  
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-The percentage of damage as our target in the dataset, known as "percent_buildings_damaged", we make a hist plot to check its distribution. Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets. 
+The percentage of damage as our target in the dataset, known as "percent_buildings_damaged", we make a hist plot to check its distribution. Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets.
 
 `bins2=[0, 0.00009, 1, 10, 50, 101]`
 
@@ -15,7 +15,7 @@ There are some rows in the dataset in which windspeed equals zero, we decide to 
 
 The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.
 
-We split features into X and y sets and standardize only X data since different features have various ranges. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
+We split features into X and y sets and standardize only X data since different features have various ranges. The method of standard scalar standardize features by removing the mean and scaling to unit variance.
 
 We define the `train_test_split()` function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins.
 
@@ -27,11 +27,11 @@ Finally, we predict both train and test data totally and per bin.
 
 Code 03:  [XGBoost regression model (building counts)](03_model_training.ipynb)
 
-Goal: This code is utilized to train the built model on the input data and estimate the model performance. 
+Goal: This code is utilized to train the built model on the input data and estimate the model performance.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.  
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-The percentage of damage as our target in the dataset, known as "percent_buildings_damaged", we make a hist plot to check its distribution. Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets. 
+The percentage of damage as our target in the dataset, known as "percent_buildings_damaged", we make a hist plot to check its distribution. Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets.
 
 `bins2=[0, 0.00009, 1, 10, 50, 101]`
 
@@ -43,13 +43,13 @@ The `NumPy.Digitize()` function is used to get the indices of bins to which each
 
 We define two empty lists to save the total and per bin RMSE, later.
 
-We split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
+We split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance.
 
 We define the `train_test_split()` function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins.
 
 We specify the XGBoost model (with all the specified hyperparameters) and then fit the model to train data.
 
-Subsequently, we perform ordinary least squares (OLS) regression analysis. 
+Subsequently, we perform ordinary least squares (OLS) regression analysis.
 
 `X2 = sm.add_constant(X_train)`<br />
     `est = sm.OLS(y_train, X2)`<br />
@@ -68,13 +68,13 @@ At the very end to get a plot of RMSEs we define a function named rmse_bin_plot(
 
 Code 03:  [XGBoost regression model (houses counts)](03_model_training_updated_with_houses.ipynb)
 
-Goal: This code is utilized to train the built model on the input data and estimate the model performance. 
+Goal: This code is utilized to train the built model on the input data and estimate the model performance.
 
-Generally, code 03 was updated to train the model on input data using the ‘total_houses' instead of ‘total_building’ since there are distinct concepts for buildings and houses. Consequently, the target variable ‘percent_damage_building’ was replaced with 'percent_damage_houses’ to accurately represents the percentage of damaged houses. 
+Generally, code 03 was updated to train the model on input data using the ‘total_houses' instead of ‘total_building’ since there are distinct concepts for buildings and houses. Consequently, the target variable ‘percent_damage_building’ was replaced with 'percent_damage_houses’ to accurately represents the percentage of damaged houses.
 
-Besides the fact that all this code’s steps are the same as code03, we have more features. 
+Besides the fact that all this code’s steps are the same as code03, we have more features.
 
-Relative Wealth Index ("rwi") as one of the new features includes some NaN values for some grid cells. Therefore, after importing the input data into a data frame we decide to fill those rows with the mean value of "rwi". 
+Relative Wealth Index ("rwi") as one of the new features includes some NaN values for some grid cells. Therefore, after importing the input data into a data frame we decide to fill those rows with the mean value of "rwi".
 
 Due to the replacement of the building with houses, some values in the target dataset have exceeded 100. To ensure that all values fall within the range of 0 to 100, we have set those numbers to the maximum number which is 100.
 
@@ -84,11 +84,11 @@ Code 04:  [Correlation Matrix](04_Correlation_Matrix.ipynb)
 
 Goal: This code is utilized to compute the correlation among various features present in the input dataset.
 
-In this code, after importing the required libraries, we also read a CSV file (obtained from previous code (code 03) after cleaning data related to 'rwi' and target values) and import it into a data frame.  
+In this code, after importing the required libraries, we also read a CSV file (obtained from previous code (code 03) after cleaning data related to 'rwi' and target values) and import it into a data frame.
 
-Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" column before we train the model on the input data. 
+Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" column before we train the model on the input data.
 
-We estimate the Pearson correlation coefficients of features and plot the correlation matrix. We also ignore the sign to provide a measure of their overall importance or contribution to the model which could be useful for feature selection, so we take the absolute value of the coefficients. 
+We estimate the Pearson correlation coefficients of features and plot the correlation matrix. We also ignore the sign to provide a measure of their overall importance or contribution to the model which could be useful for feature selection, so we take the absolute value of the coefficients.
 
 `corrMatrix_abs = df.corr().abs()`
 
@@ -102,7 +102,7 @@ Code 05:  [Simple Moving Average(SMA)](05_Moving_Average.ipynb)
 
 Goal: To better understand the relationship between some of the variables together or with the target.
 
-In this code, we import the required libraries and read the CSV file as our input data to insert it in a data frame, then we remove windspeed == 0. 
+In this code, we import the required libraries and read the CSV file as our input data to insert it in a data frame, then we remove windspeed == 0.
 
 We define a function named ave(ftr_1, ftr_2) to estimate and plot the relationship between two selected features from the list of features. So the inputs for the functions are two features and the output is a plot to show their correlation. To find the relationship we use the simple moving average that helps to identify trends or patterns by reducing noise and random variations in the data.
 
@@ -122,9 +122,9 @@ Code 07:  [Feature Importance (XGBoost regression model)](07_Feature_Importance.
 
 Goal: This code is utilized to find which features are most important in predicting the target variable.
 
-In this code, after importing the required libraries, we also read a CSV file (obtained from previous code (code 03) after cleaning data related to 'rwi' and target values) and import it into a data frame. 
+In this code, after importing the required libraries, we also read a CSV file (obtained from previous code (code 03) after cleaning data related to 'rwi' and target values) and import it into a data frame.
 
-The percentage of damage as our target in the dataset, known as "percent_buildings_damaged", we make a hist plot to check its distribution. Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets. 
+The percentage of damage as our target in the dataset, known as "percent_buildings_damaged", we make a hist plot to check its distribution. Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets.
 
 `bins2=[0, 0.00009, 1, 10, 50, 101]`
 
@@ -132,9 +132,9 @@ There are some rows in the dataset in which windspeed equals zero, we decided to
 
 The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.
 
-We split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance. 
+We split features into X and y sets (all features were considered for X and the target variable for y). Since different features have various ranges we standardize X data. The method of standard scalar standardize features by removing the mean and scaling to unit variance.
 
-We define the `train_test_split()` function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the XGBoost model to train data. 
+We define the `train_test_split()` function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. We apply the XGBoost model to train data.
 
 The following line of code creates a DataFrame called X_train4shapely using the training data X_train and assigns column names from the features list.
 
@@ -156,11 +156,11 @@ Code 08:  [Creating a historical variable](08_historical_variable.ipynb)
 
 Goal: This code is utilized to generate a historical variable and incorporate it into the data to improve the performance of the built model when training on the input data.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset_primary() which is the one we need to call.  
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset_primary() which is the one we need to call.
 
 Basically, we `groupby()` the data frame based on "typhoon_year", "grid_point_id", and "percent_houses_damaged".  The obtained df has known as df_avgDmgCell_and_Year.
 
-Then, we calculate an average of damages over the past 5 years for every data point and recorded it as the value for the new variable (new column) ("percent_houses_damaged_5years"). 
+Then, we calculate an average of damages over the past 5 years for every data point and recorded it as the value for the new variable (new column) ("percent_houses_damaged_5years").
 
 `df_res2 = (df_avgDmgCell_and_Year.groupby("grid_point_id").rolling(5, min_periods=1)
     .agg({"percent_houses_damaged": "mean", "typhoon_year": "max"}))`
@@ -181,15 +181,15 @@ Code 09:  [Binary Model (Random Forest)](09_binary_model-RandomForest.ipynb)
 
 Goal: This code is implemented a classification algorithm (Random Forest) to construct a model and train it on binary input data.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame. 
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
 In the next step, to generate a two-class binary, we define a threshold to separate the continuous values of the target into damaged (1) and not-damaged (0) classes. 10% is considered a reasonable house damage threshold to convert the continuous target into a binary one. Therefore, all values lower than this threshold will belong to class 0, and the ones greater than the threshold will consider class 1.
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 We used `sns.countplot()` which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -197,9 +197,9 @@ Then, we defined a new set of bins `bins2 = [0, 0.1, 1]` that is proper for the 
 
 We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
 
-The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
-We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods. 
+We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods.
 
 After resampling, we define the Random Forest classification model and fit it to train data, then make predictions on test data. There are different ways to check the performance of binary models, like Confusion Matrix (TP, FP, TN, FN) and classification report (precision, recall, f1-score).
 
@@ -211,15 +211,15 @@ Code 09:  [Binary Model (XGBoost)](09_binary_model-Xgboost.ipynb)
 
 Goal: This code is implemented a classification algorithm (XGBoost) to construct a model and train it on binary input data.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame. 
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
 In the next step, to generate a two-class binary, we define a threshold to separate the continuous values of the target into damaged (1) and not-damaged (0) classes. 10% is considered a reasonable house damage threshold to convert the continuous target into a binary one. Therefore, all values lower than this threshold will belong to class 0, and the ones greater than the threshold will consider class 1.
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 We used seaborn.countplot() which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -227,9 +227,9 @@ Then, we defined a new set of bin `bins2 = [0, 0.1, 1]` that is proper for the b
 
 We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
 
-The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
-We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods. 
+We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods.
 
 After resampling, we define the XGBoost classification model and fit it to train data, then make predictions on test data. There are different ways to check the performance of binary models, like the Confusion Matrix (TP, FP, TN, FN) and classification report (precision, recall, f1-score), while in this model, we also plot the Log Loss and Classification Error.
 
@@ -241,7 +241,7 @@ Code 09:  [Binary Logistic Regression Model](09_binary_model_LogisticRegr.ipynb)
 
 Goal: This code is implemented a classification algorithm (Logistic Regression) to construct a model and train it on binary input data.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame. 
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
 Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
@@ -249,7 +249,7 @@ In the next step, to generate a two-class binary, we define a threshold to separ
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 We used seaborn.countplot() which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -257,9 +257,9 @@ Then, we defined a new set of bin `bins2 = [0, 0.1, 1]` that is proper for the b
 
 We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features (we remove highly correlated features for this model) and split the data into X and y.
 
-The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
-We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods. 
+We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods.
 
 After resampling, we define the Binary Logistic Regression model and fit it to train data, then make predictions on test data. There are different ways to check the performance of binary models, like the Confusion Matrix (TP, FP, TN, FN) and classification report (precision, recall, f1-score), while in this model, we also plot the Log Loss and Classification Error.
 
@@ -271,15 +271,15 @@ Code 09:  [XGBoost (different n_estimators)](09_binary_Xgboost-different_n_estim
 
 Goal: This code is implemented to compare the performance of the XGBoost classification model with respect to different n-estimators.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame. 
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
 In the next step, to generate a two-class binary, we define a threshold to separate the continuous values of the target into damaged (1) and not-damaged (0) classes. 10% is considered a reasonable house damage threshold to convert the continuous target into a binary one. Therefore, all values lower than this threshold will belong to class 0, and the ones greater than the threshold will consider class 1.
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 We used `seaborn.countplot()` which is a function to plot the count of observations in each category and also we provide a hist plot.
 
@@ -287,9 +287,9 @@ At this step, we defined a new set of bin `bins2 = [0, 0.1, 1]` that is proper f
 
 We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
 
-The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
-We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods. 
+We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods.
 
 We define an empty list to keep the f1_score of each n_estimator f1_lst = [], and a list of 10 different n_estimator from 10 to 100 `n_estimator_lst = [12, 22, 32, 42, 52, 62, 72, 82, 92, 102]`. Afterward, we define a for loop with the range of len(n_estimator_lst)and use the XGBClassifier to fit the data. So in each iteration, we have a new n_estimator to estimate F1_score and save it in its list. Finally,  we create a plot to compare n_estimator vs F1_score.
 
@@ -299,21 +299,21 @@ Code 10:  [Feature Importance (XGBoost classification model)](10_Feature_Importa
 
 Goal: This code is implemented to find which features are most important in predicting the binary target variable.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame. 
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
 In the next step, to generate a two-class binary, we define a threshold to separate the continuous values of the target into damaged (1) and not-damaged (0) classes. 10% is considered a reasonable house damage threshold to convert the continuous target into a binary one. Therefore, all values lower than this threshold will belong to class 0, and the ones greater than the threshold will consider class 1.
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model. We used `seaborn.countplot()` which is a function to plot the count of observations in each category.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
  We provide a hist plot and define a new set of bin `bins2 = [0, 0.1, 1]` that is proper for the binary model and counted the number of samples per bin. `df["binary_damage"].value_counts(bins=binsP2)`.
 
 We use NumPy Digitize() function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
 
-The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
 We use XGBClassifier as a Machine Learning model to fit the data and make predictions on test data then by using the `feature_importances_` attribute check the most important features in the data set.
 
@@ -329,7 +329,7 @@ The last line generates the SHAP values for the training data using the explaine
 
 `shap_values_xgb = explainer_xgb(X_train4shapely)`
 
-To have a visualization of the results we show the bar and beeswarm plot based on the estimated SHAP values. 
+To have a visualization of the results we show the bar and beeswarm plot based on the estimated SHAP values.
 
 
 
@@ -337,29 +337,29 @@ Code 11:  [ROC Curve for binary models](11_ROC_CURVE_xgb_rf_lregr.ipynb)
 
 Goal: This code is utilized to have a graphical representation of the performance of the three binary models and compare their performance using the ROC curve.
 
-In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame. 
+In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as the CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
 In the next step, to generate a two-class binary, we define a threshold to separate the continuous values of the target into damaged (1) and not-damaged (0) classes. 10% is considered a reasonable house damage threshold to convert the continuous target into a binary one. Therefore, all values lower than this threshold will belong to class 0, and the ones greater than the threshold will consider class 1.
 
 Now, we have a data frame with a new column named "binary_damage" which is the target variable for the binary model. We used `seaborn.countplot()` which is a function to plot the count of observations in each category.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
  We provide a hist plot and define a new set of bin `bins2 = [0, 0.1, 1]` that is proper for the binary model and counted the number of samples per bin. `df["binary_damage"].value_counts(bins=binsP2)`.
 
 We use NumPy Digitize() function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
 
-The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function `train_test_split()` allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
-We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods. 
+We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we can perform over or under-sampling or even a combination of both to provide a more balanced training dataset. The most proper sampling strategy is defined for each resampling strategy based on test and trial methods.
 
 We define the three binary models and for each model fits training data, and use `predict_proba(X_test)[:, 1]` that predicts probabilities of the positive class for the test data using that trained model.
 
 Finally, we perform an evaluation of all three binary classification models by calculating the AUC-ROC scores and generating the ROC curves based on the true labels and predicted probabilities, and plotting them.
 
-For example in the two following lines of code related to Logistic Regression, first, the code computes the AUC-ROC score (area under the ROC Curve), which is a measure of the model's ability to distinguish between the positive and negative classes and then calculates the ROC curve.  
+For example in the two following lines of code related to Logistic Regression, first, the code computes the AUC-ROC score (area under the ROC Curve), which is a measure of the model's ability to distinguish between the positive and negative classes and then calculates the ROC curve.
 
 `auc_lr = roc_auc_score(y_test_int, probs_lr)`<br />
 `fpr_lr, tpr_lr, thresholds_lr = roc_curve(y_test_int, probs_lr)`
@@ -374,19 +374,19 @@ Goals: This code is implemented the SMOTE technique to reduce the class imbalanc
 
 In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as the CSV file and insert it in a data frame. For simplicity of our work we move the target to be the last column of the data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range.
 
 In the next step, we define a threshold == 10% to separate the continuous values of the target into damaged (1) and not-damaged (0) classes. Therefore, all values lower than this threshold will belong to class 0, and the ones greater than the threshold will consider class 1.
 
-At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+At this point, we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 Now, the last two columns of our data frame are "percent_houses_damaged"and "binary_damage", so we define the set of bin that we basically used for continous target: `bins2 = [0, 0.00009, 1, 10, 50, 101]`, and we check the bin’s intervals for both continous and binary targets.
 
-We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y. 
+We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. Before building the binary model we describe the features and split the data into X and y.
 
 Note: Generally, we only want to use binary target to resample dataset so after that we can remove it and use continuous target. Hence, we keep continous target in features list and we define binary target as y.  `y = df["binary_damage"]`
 
-The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20). 
+The function train_test_split() allows us to split our dataset into two subsets for training and testing the built machine-learning model (with a ratio of 80:20).
 
 We use the `Counter()` function to check the number of samples in each class for training data. Since we have an imbalanced dataset, we apply SMOTE technique to oversample the minority class (class 1) of training data. The result after this method indicates that the number of sample data in both class are the same (the number of data points in minority class increased to be equal number of samples in majority class).
 
@@ -406,9 +406,9 @@ Goal: This code is utilized to check how the model can perform for a wide area. 
 
 In this code, after importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame. For simplicity of our work we move the target to be the last column of the data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data.  
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "typhoon_year" column before we train the model on the input data.
 
-We define a new set of bin `bins2 = [0, 0.00009, 1, 10, 50, 101]` and count the number of samples per bin. We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array. 
+We define a new set of bin `bins2 = [0, 0.00009, 1, 10, 50, 101]` and count the number of samples per bin. We use `NumPy.Digitize()` function to get the indices of bins to which each of these values belongs in the input array.
 
 We use MinMaxScaler() function for data standardization that normalize data in range of [0,1], but prior to that we separate the first two columns which are “typhoon_name“ and “grid_point_id“ and the last column which is target. After applying standardization we again join target column to standardaized data frame and then we rewrite columns header since during normalization process they were changed to numbers.
 
@@ -416,9 +416,9 @@ At this point we randomly choose a few typhoons and assign them to a new list to
 
 When we split test and train data we run the model and make prediction for both test and train data. We joined prediction column to the data frame. We read a new CSV file (ggl_grid_to_mun_weights.csv) and import it to a data frame named as df_weight and merge it with df_test to generate a new data frame known as join_final. We drop unrequired columns from join_final and for each row we multiply %damage and also %predicted_damage with total_houses and weight.
 
-Now, it is time to read a new CSV file named "adm3_area.csv" and import to a data frame region_df, this file includes region name and region code.  We join region name and region code of region_df to join_final based on municipality code in both data frames and create a new joint df known as join_region_df. 
+Now, it is time to read a new CSV file named "adm3_area.csv" and import to a data frame region_df, this file includes region name and region code.  We join region name and region code of region_df to join_final based on municipality code in both data frames and create a new joint df known as join_region_df.
 
-We groupby join_region_df by municipality with sum as the aggregation function so the aggregated df is agg_df. Then we normalaize this agg_df by sum of the weights and again groupby by region and sum as aggregation function. 
+We groupby join_region_df by municipality with sum as the aggregation function so the aggregated df is agg_df. Then we normalaize this agg_df by sum of the weights and again groupby by region and sum as aggregation function.
 
 We estimate the difference between real and predicted values in two different ways and add the results as new column to the final data frame df_sorted.
 
@@ -426,17 +426,17 @@ We estimate the difference between real and predicted values in two different wa
 
 Code 14:  [Combined Model](14_Combined_model_LastVersion.ipynb)
 
-Goal: This code is implemented to build a hybrid model leading to reduce the RMSE estimation of high bins (high damaged values). 
+Goal: This code is implemented to build a hybrid model leading to reduce the RMSE estimation of high bins (high damaged values).
 
-After importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+After importing the required libraries, we also import a module named utils that includes some functions, particularly `get_training_dataset()` which is the one we need to read input data stored as a CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 Since we have an imbalance of dataset we stratify data to make sure we will have the lower samples for both training and test sets. `bins2=[0, 0.00009, 1, 10, 50, 101]`
 
 The `value_counts()` function checks the bins' intervals, so we can figure out how many data points we have in each bin. The `NumPy.Digitize()` function is used to get the indices of bins to which each of these values belongs in the input array.
 
-We split features into X and y sets (all features were considered for X and the target variable for y). We define the train_test_split() function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins. 
+We split features into X and y sets (all features were considered for X and the target variable for y). We define the train_test_split() function to randomly separate training and test data with the ratio of 80:20, while for the option stratify we consider the defined bins.
 
 We specify the XGBoost model (with all the specified hyperparameters) and then fit the model to train data. Finally, we make predictions on both test and train data wrt the XGBoost model and calculate the total RMSE per bin using a for loop in range(1, 6).
 
@@ -480,17 +480,17 @@ Code 14:  [Combined Model in a loop](14_Combined_model_in_Loop.ipynb)
 
 Goal: This code is utilized to define a loop of m iteration to have an average of m RMSE estimations leading to more secure result.
 
-Since we faced some variation in the result of hybrid model for multiple runs, we inserted the whole code of hybrid model in a loop to get an average of RMSE. Therefore, the only difference with the description of the combined model is a for loop. 
+Since we faced some variation in the result of hybrid model for multiple runs, we inserted the whole code of hybrid model in a loop to get an average of RMSE. Therefore, the only difference with the description of the combined model is a for loop.
 
 
 
 Code 15:  [Combined Model typhoon split (leave-one-out cross-validation)](15_Combined_model_train_test_split_typhoon.ipynb)
 
-Goal: This code is implemented to evaluate the performance of the combined model while train and test split is typhoon based (leave-one-out cross-validation). 
+Goal: This code is implemented to evaluate the performance of the combined model while train and test split is typhoon based (leave-one-out cross-validation).
 
-After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 Then we define features and name of typhoons in two different lists, features, typhoons.
 
@@ -502,7 +502,7 @@ Since we have an imbalance of dataset we stratify data to make sure we will have
 #### Define number of bins
 `num_bins = len(bins_eval)`
 
-and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
+and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves.
 
 The first step in the loop is to define the NumPy Digitize() function that is used to get the indices of bins to which each of these values belongs in the input array, afterward, we split features into X and y sets (all features were considered for X and the target variable for y).
 
@@ -527,9 +527,9 @@ Code 15:  [Combined Model(oversampling) typhoonTime split (walk forward evaluati
 
 Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
 
-After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 Then we define the features and names of typhoons in two different lists, features, typhoons.
 
@@ -542,7 +542,7 @@ Since we have an imbalance of dataset we stratify data to make sure we will have
 #### Define number of bins
 `num_bins = len(bins_eval)`
 
-and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
+and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves.
 
 The first step in the loop is to define the NumPy Digitize() function that is used to get the indices of bins to which each of these values belongs in the input array, afterward, we split features into X and y sets (all features were considered for X and the target variable for y).
 
@@ -563,7 +563,7 @@ After the loop ends the RMSE in total and per bin for both M1 (simple XGBoost re
 
 The inputs of the function are M1 and combined RMSE lists, min and max range, and the steps (the last three inputs are used for plots). In this function, we estimate the mean and standard deviation of each list.
 
-The outputs of the function are the average of RMSE and Stdev for both models and their plots. 
+The outputs of the function are the average of RMSE and Stdev for both models and their plots.
 
 
 
@@ -571,9 +571,9 @@ Code 15:  [Combined Model typhoonTime split(undersampling) (walk forward evaluat
 
 Goal: This code is implemented to evaluate the performance of the combined model while the train and test split is typhoon based (walk forward evaluation).
 
-After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.  
+After importing the required libraries, we also import a module named utils that includes some functions, particularly get_training_dataset() which is the one we need to read input data stored as a CSV file and insert it in a data frame.
 
-Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data. 
+Relative Wealth Index ("rwi") as one of the features includes some NaN values for some grid cells, so we decide to fill those rows with the mean value of "rwi". In the next step of data cleaning, we find some values in the target dataset that exceed 100 while the target range is from 0 to 100 so we set those numbers to the maximum value (100) to ensure that all values fall within the desired range. Then we face some rows in the dataset in which windspeed equals zero and as the final step of this part we remove those rows and we also drop the "grid_point_id" and "typhoon_year" columns before we train the model on the input data.
 
 Then we define the features and names of typhoons in two different lists, features, typhoons.
 
@@ -586,7 +586,7 @@ Since we have an imbalance of dataset we stratify data to make sure we will have
 #### Define number of bins
 `num_bins = len(bins_eval)`
 
-and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves. 
+and we determine some empty lists to save the results later. Now, it is time to define a for loop with the range of typhoons list num_exp, and since this evaluation is typhoon based so we need to specify the test and training set by ourselves.
 
 The first step in the loop is to define the NumPy Digitize() function that is used to get the indices of bins to which each of these values belongs in the input array, afterward, we split features into X and y sets (all features were considered for X and the target variable for y).
 
@@ -607,6 +607,4 @@ After the loop ends the RMSE in total and per bin for both M1 (simple XGBoost re
 
 The inputs of the function are M1 and combined RMSE lists, min and max range, and the steps (the last three inputs are used for plots). In this function, we estimate the mean and standard deviation of each list.
 
-The outputs of the function are the average of RMSE and Stdev for both models and their plots. 
-
-
+The outputs of the function are the average of RMSE and Stdev for both models and their plots.

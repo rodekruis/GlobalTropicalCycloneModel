@@ -1,4 +1,4 @@
-# Converting from grid-based to municipality-based 
+# Converting from grid-based to municipality-based
 #### GridGlobal++
 
 
@@ -1828,8 +1828,8 @@ print("RMSE and Average Error in total", "\n")
 rmse_ave_mean(RMSE["all"], AVE["all"])
 ```
 
-    RMSE and Average Error in total 
-    
+    RMSE and Average Error in total
+
     mean_RMSE: 4.73
     stdev_RMSE: 0.28
     mean_average_error: -0.06
@@ -1844,37 +1844,37 @@ for bin_num in range(1, 6):
     rmse_ave_mean(RMSE[bin_num], AVE[bin_num])
 ```
 
-    
+
      RMSE and Average Error per bin 1
-    
+
     mean_RMSE: 0.39
     stdev_RMSE: 0.20
     mean_average_error: 0.04
     stdev_average_error: 0.01
-    
+
      RMSE and Average Error per bin 2
-    
+
     mean_RMSE: 1.94
     stdev_RMSE: 0.17
     mean_average_error: 0.67
     stdev_average_error: 0.05
-    
+
      RMSE and Average Error per bin 3
-    
+
     mean_RMSE: 5.64
     stdev_RMSE: 0.59
     mean_average_error: 1.00
     stdev_average_error: 0.35
-    
+
      RMSE and Average Error per bin 4
-    
+
     mean_RMSE: 12.48
     stdev_RMSE: 0.90
     mean_average_error: -4.53
     stdev_average_error: 0.97
-    
+
      RMSE and Average Error per bin 5
-    
+
     mean_RMSE: 31.67
     stdev_RMSE: 3.97
     mean_average_error: -25.39
