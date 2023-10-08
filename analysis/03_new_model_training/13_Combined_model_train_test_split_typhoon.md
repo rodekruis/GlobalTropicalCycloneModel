@@ -2,14 +2,14 @@
 
 We developed a hybrid model using both xgboost regression and
 xgboost classification(while undersampling technique was implemented
-to enhance its performance). Subsequently, we evaluated the performance of
-this combined model on the test dataset while train_test_split is done
-based on different typhoons and compared it with the
-result of the simple xgboost regression model.
+to enhance its performance). Subsequently, we evaluated the performance
+ of this combined model on the test dataset while train_test_split is
+ done based on different typhoons and compared it with the result of the
+ simple xgboost regression model.
 
-## The whole code is in a loop with the length of number of typhoons
+## The whole code is in a loop with the length of number of typhoons to
 
-## to estimate the average of RMSE in total
+## estimate the average of RMSE in total
 
 ```python
 %load_ext jupyter_black
@@ -144,7 +144,8 @@ typhoons = [
 # Define bins
 bins2 = [0, 0.00009, 1, 10, 50, 101]
 bins_eval = [0, 1, 10, 20, 50, 101]
-samples_per_bin2, binsP2 = np.histogram(df["percent_houses_damaged"], bins=bins2)
+samples_per_bin2, binsP2 = np.histogram(df["percent_houses_damaged"],
+    bins=bins2)
 ```
 
 ```python
@@ -177,8 +178,8 @@ for run_ix in range(len(typhoons)):
     X = df[features]
     y = df["percent_houses_damaged"]
 
-    # Split df to train and test (one typhoon for test and
-    # the rest of typhoons for train)
+    # Split df to train and test (one typhoon for test and the rest of
+    # typhoons for train)
     df_test = df[df["typhoon_name"] == typhoons[run_ix]]
     df_train = df[df["typhoon_name"] != typhoons[run_ix]]
 
@@ -222,7 +223,7 @@ for run_ix in range(len(typhoons)):
         random_state=0,
     )
 
-    eval_set = [(X_train, y_train)]
+    eval_set = [(X_test, y_test)]
     xgb_model = xgb.fit(X_train, y_train, eval_set=eval_set, verbose=False)
 
     # Make prediction on train and test data
@@ -253,7 +254,8 @@ for run_ix in range(len(typhoons)):
             and len(y_pred[bin_index_test == bin_num]) != 0
         ):
             mse_idx = mean_squared_error(
-                y_test[bin_index_test == bin_num], y_pred[bin_index_test == bin_num]
+                y_test[bin_index_test == bin_num],
+                y_pred[bin_index_test == bin_num]
             )
             RSME_test_model1[bin_num - 1] = np.sqrt(mse_idx)
 
@@ -849,7 +851,8 @@ bin[1]: 0.652054652504046
 bin[2]: 1.863067732886607
 
 ```python
-# test_RMSE_bin[5] = [value for value in test_RMSE_bin[5] if isinstance(value, int)]
+# test_RMSE_bin[5] = [value for value in test_RMSE_bin[5]
+# if isinstance(value, int)]
 ```
 
 ```python
@@ -926,7 +929,8 @@ def rmse_bin_plot(M1_rmse, combined_rmse, min_rg, max_rg, step):
     combined_sd_test_rmse = statistics.stdev(combined_rmse)
 
     print(f"mean_RMSE_M1: {m1_test_rmse:.2f}(±{m1_sd_test_rmse:.2f})")
-    print(f"mean_RMSE_Combined: {combined_test_rmse:.2f}(±{combined_sd_test_rmse:.2f})")
+    print(f"mean_RMSE_Combined: {combined_test_rmse:.2f}
+        (±{combined_sd_test_rmse:.2f})")
 
     # create legend
     labels = ["Mean_M1", "Mean_combined", "M1", "Combined"]
